@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "supercell-7ea25": {
+      "hosting": {
+        "client": [
+          "supercell-7ea25"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "supercell-7ea25"
+  }
+}
