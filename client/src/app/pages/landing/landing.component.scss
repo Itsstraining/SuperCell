@@ -1,0 +1,76 @@
+#container{
+  height: 100vh;
+  width: 100vw;
+}
+
+
+.toolbar{
+  background-color: white;
+  height: 8vh;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1%;
+}
+#logo{
+  width: 10%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-left: 3%;
+}
+
+.overview{
+  margin-top: 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#name{
+  font-size: 100vh;
+  margin-left: 3%;
+
+}
+
+
+#describe{
+  width: 50%;
+  height: 50%;
+}
+
+.content{
+  width: 100vw;
+  height: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+#btn{
+ border-color: #D30C4D;
+ background-color: white;
+ height: 60%;
+ width: 10%;
+}
+
+#signin{
+  width: 50%;
+  background-color: #D30C4D;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+#btn_features{
+  border-color: #D30C4D;
+  display: flex;
+
+}
+
+
+
