@@ -9,6 +9,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShareModule } from './share/share/share.module';
 import { RouterModule } from '@angular/router';
+import { ExcelsisModule } from 'projects/excelsis/src/public-api';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { RouterModule } from '@angular/router';
     BrowserAnimationsModule,
     ShareModule,
     RouterModule,
+    ExcelsisModule
   ],
   providers: [],
   bootstrap: [AppComponent]
