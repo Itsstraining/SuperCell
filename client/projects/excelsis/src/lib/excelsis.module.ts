@@ -5,6 +5,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ToolsComponent } from './components/tools/tools.component';
 import { SheetlistComponent } from './components/sheetlist/sheetlist.component';
 import { ShareModule } from 'src/app/share/share/share.module';
+import { OperationComponent } from './components/operation/operation.component';
 
 
 
@@ -15,6 +16,7 @@ import { ShareModule } from 'src/app/share/share/share.module';
     NavbarComponent,
     ToolsComponent,
     SheetlistComponent,
+    OperationComponent,
     
   ],
   imports: [
@@ -26,6 +28,7 @@ import { ShareModule } from 'src/app/share/share/share.module';
     NavbarComponent,
     ToolsComponent,
     SheetlistComponent,
+    OperationComponent,
   ]
 })
 export class ExcelsisModule { }

@@ -1,0 +1,22 @@
+.container-list
+{
+    height: 5.6vh;
+    width: 100vw;
+    background-color: rgb(218, 30, 30);
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+}
+
+.add
+{
+    margin: 0px 0px 0px 10px;
+    width: 2.8%;
+    height: fit-content;
+    border: none;
+}
+
+.add:hover
+{
+    background-color: rgb(228, 228, 228);
+}
