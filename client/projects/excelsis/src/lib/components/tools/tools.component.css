@@ -1,0 +1,33 @@
+.tool
+{
+    margin-top: -0.5%;
+    height: 5.6vh;
+    width: 100vw;
+    background-color: rgb(219, 161, 161);
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+}
+
+.icon
+{
+    display: flex;
+    align-items:center;
+}
+
+.icon > .example-icon
+{
+    margin: 1%;
+
+}
+.example-icon
+{
+    font-size: 2.5rem;
+    background-color: rgb(255, 255, 255);
+    border:none
+}
+
+.font
+{
+    
+}
