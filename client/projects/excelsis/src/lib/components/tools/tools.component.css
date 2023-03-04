@@ -1,13 +1,68 @@
 .tool
 {
+    border:1px  solid rgb(228, 228, 228);
     margin-top: -0.5%;
     height: 5.6vh;
     width: 100vw;
-    background-color: rgb(219, 161, 161);
+    background-color: rgb(255, 255, 255);
     display: flex;
     justify-content: space-between;
     align-items:center;
 }
+
+.front-w
+{
+    border:1px solid rgb(228, 228, 228);
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+}
+
+.front-s
+{
+    margin: 0px 0px 0px 10px;
+    border:1px solid rgb(228, 228, 228);    
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+}
+
+.icon-front-w
+{
+    background-color: rgb(249, 251, 251);
+    border:none;
+}
+
+.icon-front-s
+{
+    
+    margin: 0px 0px 0px -145px;
+    background-color: rgb(249, 251, 251);
+    border:none;
+}
+
+#word
+{
+    background-color: rgb(249, 251, 251);
+    width: 65%;
+    margin: 0px;
+    font-size: 16.5px;
+    padding: 5px 15px 5px 10px;
+    border: none;
+    outline: none;
+}
+
+#size
+{
+    
+    background-color: rgb(249, 251, 251);
+    width: 23%;
+    font-size: 16.5px;
+    padding: 5px 20px 5px 10px;
+    border: none;
+    outline: none;
+}
+
 
 .icon
 {
@@ -20,14 +75,20 @@
     margin: 1%;
 
 }
+
+.tool > .icon
+{
+    margin: 0px 0px 0px 5px;    
+}
 .example-icon
 {
-    font-size: 2.5rem;
-    background-color: rgb(255, 255, 255);
-    border:none
+    background-color: rgb(249, 251, 251);
+    /* border:1px solid rgb(228, 228, 228); */
+    border: none;
 }
 
-.font
+.example-icon:hover
 {
-    
+    background-color: rgb(228, 228, 228);
 }
+

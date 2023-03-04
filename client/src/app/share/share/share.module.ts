@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
+import {MatSelectModule} from '@angular/material/select';
 
 
 
@@ -16,7 +17,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatToolbarModule,
     MatIconModule,
     RouterModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSelectModule
   ],
   exports: [
     MatToolbarModule,
@@ -24,6 +26,7 @@ import {MatButtonModule} from '@angular/material/button';
     RouterModule,
     MatInputModule,
     MatCardModule,
+    MatSelectModule,
   ]
 })
 export class ShareModule { }
