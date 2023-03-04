@@ -1,21 +1,68 @@
-.example-spacer {
-  width: 2%;
+.navbar {
+  width: 100%;
   display: flex;
   justify-content: space-between;
-
 }
-
 
 #logo{
-  width: 7%;
-  height: 80%;
+  width: 10%;
+  height: 100%;
 }
 
+.icon{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+
+#tbn-icon{
+  background-color: #D30C4D;
+  color: white;
+  border-radius: 100%;
+  border-color:white ;
+  width: 100%;
+}
+
+
+#tbn-one{
+  border-color: #D9D9D9;
+  background-color: #D30C4D;
+  color: white;
+  width: 50%;
+  border-radius: 10px;
+  font-size: 20px;
+  cursor: pointer;
+
+}
+
+}
+
+.box{
+  width: 15%;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 40%;
+input{
+  border-radius: 100px;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: #D9D9D9;
+  font-size: 20px;
+
+}
+#search{
+  margin-left: -50%;
+  color: #D30C4D;
+}
+}
+
+
 #avatar{
-  border-radius: 70%;
-  width: 3%;
-  height: 50%;
-  padding-left: 55%;
+  width: 50px;
+  border-radius: 100%;
 }
 
 //Div 2
@@ -26,8 +73,23 @@
 #context{
   display: flex;
   justify-content: space-between;
-  margin: 70px;
-  font-size: 40px;
+  margin-top: 2%;
+  margin-bottom: -1.5%;
+  font-size: xx-large;
+  margin-left: 3%;
+  margin-right: 3%;
+}
+#add{
+  background-color: white;
+  border-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(0, 0, 0);
+  padding: 10px 10px;
+  width: 20%;
+  border-radius: 10px;
+  cursor: pointer;
 }
 #contact{
   display: flex;
@@ -35,16 +97,18 @@
   justify-content: space-between;
 }
 #tbn-contact{
+  border-color: #D9D9D9;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #D30C4D;
-  color: white;
+  background-color: white;
+  color: rgb(0, 0, 0);
   margin:0 auto;
   padding: 10px 10px;
   text-decoration: none;
   width: 50%;
-  margin: 1% 5%;
+  margin: 3%;
+  border-radius: 10px;
   cursor: pointer;
 }
 
@@ -66,13 +130,17 @@
 #tbn-list{
   margin-left: 25%;
   font-size: 0.5cm;
-  background-color: #FCC100;
+  background-color: #D30C4D;
+  border-radius: 10px;
+  color: #D9D9D9;
+  border-color: #D30C4D;
 }
 
 #tbn-list1{
+  color: #D9D9D9;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.5cm;
-  padding-top: 10%;
+  padding-top: 5%;
 }
