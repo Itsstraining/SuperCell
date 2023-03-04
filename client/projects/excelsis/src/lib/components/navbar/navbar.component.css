@@ -2,7 +2,7 @@
 {
     width: 100vw;
     height: 8vh;
-    background-color: rgb(31, 59, 136);
+    background-color: rgb(249, 251, 251);
 
 }
 
@@ -39,13 +39,20 @@
 
 .btn
 {
-    background-color: rgb(245, 245, 245);
+    background-color: rgb(249, 251, 251);
     border: none;
     font-size: 20px;
 }
 
+.tools > .share
+{
+    margin: 1%;
+}
 .share
 {
-
+    font-size: 20px;
+    background-color: rgb(241, 14, 82);
+    border: none;   
+    border-radius: 5px;
 }
 
