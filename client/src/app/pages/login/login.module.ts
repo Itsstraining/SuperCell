@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { ShareModule } from 'src/app/share/share/share.module';
-// import "~mdb-angular-ui-kit/assets/scss/mdb.scss";
+
 
 
 

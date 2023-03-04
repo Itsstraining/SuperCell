@@ -1,60 +1,94 @@
-.container{
+.html {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(#d30c4d, #d30c4e25);
+}
+
+.container {
   width: 27%;
-  height: 70vh;
-  margin: 0 auto;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 3px solid #d30c4d;
   justify-content: space-between;
   border-radius: 10px;
+  background-color: whitesmoke;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  h1 {
+    margin-top: 10%;
+    font-size: xx-large;
+  }
 }
 
-.body{
+.body {
   width: 70%;
-  input{
+  input {
     width: 96%;
-
+    background-color: transparent;
   }
 }
 
 .input{
-  display: flex;
-  flex-direction: center;
-  justify-content: center;
-  input{
-    border: none;
-  }
+display: flex;
+justify-content: center;
+align-items: center;
 }
 
-.btn{
+
+#login {
   width: 100%;
+  height: 12%;
+  border-radius: 10px;
+  border: none;
+  background-color: #d30c4ea0;
+  color: black;
+  margin-bottom: 8%;
+}
+#login:hover {
+  background-color: #ff0055;
+  cursor: pointer;
+
+}
+
+.btn {
+  width: 60%;
+  height: 17%;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  button{
+
+  button {
     width: 100%;
-    border-radius: 10px;
+    height: 100%;
     border: none;
-    background-color: #d30c4d;
-    color: white;
+    background-color: transparent;
+    img {
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+    }
+    img:hover {
+      cursor: pointer;
+    }
   }
-  mat-card{
-    width:100%;
-  }
-
 }
 
-.bottom{
+.bottom {
   width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
-  button{
+  button {
     border: none;
     background-color: transparent;
     font-size: medium;
     margin-bottom: 5%;
+  }
+  button:hover {
+    cursor: pointer;
   }
 }
