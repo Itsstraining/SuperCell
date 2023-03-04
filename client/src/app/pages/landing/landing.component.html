@@ -2,22 +2,41 @@
   <div class="toolbar">
     <img id="logo" src="../../../assets/logo.png" />
     <!-- <button id="btn_contact" style="border: none; background-color: white; display:flex; align-content: center;">Overview<mat-icon>arrow_drop_down</mat-icon></button> -->
-    <div id="btn_toolbar" style="display: flex; align-content: center; font-size: medium;">
+    <div
+      id="btn_toolbar"
+      style="display: flex; align-content: center; font-size: medium"
+    >
       Overview<mat-icon>keyboard_arrow_down</mat-icon>
     </div>
-    <button id="btn_toolbar" style="border: none; background-color: transparent; font-size: medium;">
+    <button
+      id="btn_toolbar"
+      style="border: none; background-color: transparent; font-size: medium"
+    >
       Features
     </button>
-    <button id="btn_toolbar" style="border: none; background-color: transparent; font-size: medium;">
+    <button
+      id="btn_toolbar"
+      style="border: none; background-color: transparent; font-size: medium"
+    >
       A SuperCeller
     </button>
-    <button mat-raised-button id="btn" style="margin-right: 5%; font-size: medium; ">Contact us</button>
+    <button
+      mat-raised-button
+      id="btn"
+      style="margin-right: 5%; font-size: medium"
+    >
+      Contact us
+    </button>
   </div>
 
   <div class="overview">
     <div id="name">
-      <h1>Super Cell</h1>
-      <h2>Fast - Consise - Convenient</h2>
+      <div id="h1">
+        <h1>Super Cell</h1>
+      </div>
+      <div id="h2">
+        <h2>Fast - Consise - Convenient</h2>
+      </div>
     </div>
     <div id="describe">
       <h3>
@@ -45,7 +64,7 @@
         </p>
       </div>
       <div class="but">
-        <button mat-raised-button>SIGN IN</button>
+        <button mat-raised-button [routerLink]="['/login']">SIGN IN</button>
       </div>
     </div>
 

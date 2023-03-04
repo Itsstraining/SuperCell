@@ -1,22 +1,29 @@
 import { Component } from '@angular/core';
-// import { AngularFireAuth } from '@angular/fire/auth';
-// import * as firebase from 'firebase/app';
+import {
+  Auth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  User,
+} from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+  constructor(private auth: Auth) {}
 
-  // constructor(private auth: AngularFireAuth) { }
+  user: User | undefined;
 
-  // loginWithGoogle() {
-  //   this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-  // }
+  async loginWithGoogle() {
+    let provider = new GoogleAuthProvider();
+    return await signInWithPopup(this.auth, provider);
+  }
 
-  // logout() {
-  //   this.auth.signOut();
-  // }
+  logout() {
+    this.auth.signOut();
+  }
+
 
 }
