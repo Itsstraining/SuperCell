@@ -12,11 +12,43 @@
 }
 
 #avatar{
+  border-radius: 70%;
   width: 3%;
-  height: 70%;
-  border-radius: 1cm;
+  height: 50%;
+  padding-left: 55%;
 }
 
+//Div 2
+.home{
+  width: 100%;
+}
+
+#context{
+  display: flex;
+  justify-content: space-between;
+  margin: 70px;
+  font-size: 40px;
+}
+#contact{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#tbn-contact{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #D30C4D;
+  color: white;
+  margin:0 auto;
+  padding: 10px 10px;
+  text-decoration: none;
+  width: 50%;
+  margin: 1% 5%;
+  cursor: pointer;
+}
+
+// div 3
 .content{
   display: flex;
   align-items: center;
@@ -42,16 +74,5 @@
   align-items: center;
   justify-content: center;
   font-size: 0.5cm;
-}
-
-.home{
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-#home-1{
-  display: flex;
-  justify-content: space-between;
-
+  padding-top: 10%;
 }
