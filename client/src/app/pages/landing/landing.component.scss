@@ -15,6 +15,11 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 1%;
+  button{
+    border-radius: 10px;
+    background-color: #d30c4d;
+    border: none;
+  }
 }
 #logo {
   width: 10%;
@@ -31,36 +36,22 @@
   border-color: black;
 }
 
-#btn_toolbar {
-}
-#btn_toolbar::before {
-  transform: scaleX(0);
-  transform-origin: bottom right;
-}
-
-#btn_toolbar:hover::before {
-  transform: scaleX(1);
-  transform-origin: bottom left;
-}
-
-#btn_toolbar::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  inset: 0 0 0 0;
-  background: hsl(200 100% 80%);
-  z-index: -1;
-  transition: transform 0.3s ease;
-}
-
 .overview {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: unset;
+  h1{
+    color: #d30c4d;
+    font-size: 5%;
+  }
+  h2{
+    background-color: #d30c4e49;
+  }
+  h3{
+    width: 70%;
+    font-size: 150%;
+  }
 }
 
 #name {
@@ -90,8 +81,10 @@
   margin: 10px auto;
   button{
     border-color: #d30c4d;
-    background-color: rgba(255, 255, 255, 0.1);
-
+    background-color: transparent;
+  }
+  button:hover{
+    transform: scale(1.5);
   }
 }
 
@@ -134,8 +127,8 @@
   // margin-right: 7%;
 }
 
-#btn_features:hover {
-  background-color: #d30c4d;
-  color: white;
-  border-color: black;
-}
+// #btn_features:hover {
+//   background-color: #d30c4d;
+//   color: white;
+//   border-color: black;
+// }

@@ -1,0 +1,60 @@
+.container{
+  width: 27%;
+  height: 70vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 3px solid #d30c4d;
+  justify-content: space-between;
+  border-radius: 10px;
+}
+
+.body{
+  width: 70%;
+  input{
+    width: 96%;
+
+  }
+}
+
+.input{
+  display: flex;
+  flex-direction: center;
+  justify-content: center;
+  input{
+    border: none;
+  }
+}
+
+.btn{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  button{
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    background-color: #d30c4d;
+    color: white;
+  }
+  mat-card{
+    width:100%;
+  }
+
+}
+
+.bottom{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  button{
+    border: none;
+    background-color: transparent;
+    font-size: medium;
+    margin-bottom: 5%;
+  }
+}
