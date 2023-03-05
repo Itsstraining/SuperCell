@@ -1,58 +1,64 @@
-<div class="html">
-  <div class="container">
-    <h1>Login</h1>
-    <div class="body">
-      <div>
-        <label for="username">Username</label><br />
-        <div class="input">
+<div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
+      <form class="login100-form validate-form flex-sb flex-w">
+        <span class="login100-form-title p-b-53">
+          Sign In With
+        </span>
 
-            <mat-icon style="color: rgba(0, 0, 0, 0.208)">person</mat-icon>
-            <input class="login-input" height="180px" matInput placeholder="Type your username" />
+        <a class="btn-face m-b-20" (click)="authService.loginWithFacebook()">
+          <i class="fa fa-facebook-official"></i>
+          Facebook
+        </a>
 
+        <a class="btn-google m-b-20" (click)="authService.loginWithGoogle()">
+          <img src="../../../assets/icons/icon-google.png" alt="GOOGLE">
+          Google
+        </a>
+
+        <div class="p-t-31 p-b-9">
+          <span class="txt1">
+            Username
+          </span>
         </div>
-      </div>
-
-      <div >
-        <label for="password">Password</label><br />
-        <div class="input">
-
-            <mat-icon style="color: rgba(0, 0, 0, 0.208)">lock</mat-icon>
-            <input matInput type="password" placeholder="Type your username" />
-
+        <div class="wrap-input100 validate-input" data-validate="Username is required">
+          <input class="input100" type="text" name="username" title="username" autocomplete="username">
+          <span class="focus-input100"></span>
         </div>
 
-        <p style="text-align: right; font-size: smaller">Forgot password?</p>
-      </div>
+        <div class="p-t-13 p-b-9">
+          <span class="txt1">
+            Password
+          </span>
 
-      <button id="login">Login</button>
-      <br />
-      <p
-        style="
-          margin-bottom: -0.1%;
-          font-size: smaller;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        "
-      >
-        Or Sign Up Using
-      </p>
-      <br />
-      <div class="btn">
-        <button mat-raised-button (click)="loginWithGoogle()">
-          <img src="../../../assets/search.png" />
-        </button>
-        <button mat-raised-button>
-          <img src="../../../assets/facebook.png" />
-        </button>
-        <button mat-raised-button>
-          <img src="../../../assets/twitter.png" />
-        </button>
-      </div>
-    </div>
-    <div class="bottom">
-      <p style="font-size: smaller">Or Sign Up Using</p>
-      <button>Sign Up</button>
+          <a href="#" class="txt2 bo1 m-l-5">
+            Forgot?
+          </a>
+        </div>
+        <div class="wrap-input100 validate-input" data-validate="Password is required">
+          <input class="input100" type="password" name="pass" title="pass" autocomplete="current-password">
+          <span class="focus-input100"></span>
+        </div>
+
+        <div class="container-login100-form-btn m-t-17">
+          <button class="login100-form-btn" type="submit">
+            Sign In
+          </button>
+        </div>
+
+        <div class="w-full text-center p-t-55">
+          <span class="txt2">
+            Not a member?
+          </span>
+
+          <a href="#" class="txt2 bo1">
+            Sign up now
+          </a>
+        </div>
+      </form>
     </div>
   </div>
 </div>
+
+
+<div id="dropDownSelect1"></div>
