@@ -3,24 +3,66 @@
 <!-- div 2 -->
 <div class="home">
   <div id="context">
-    <h1>HOME</h1>
-    <button id="add"><mat-icon>group_add</mat-icon>Invite team members</button>
+    <div id="page-name">HOME</div>
+    <button mat-button id="add-mem-but">
+      <mat-icon>group_add</mat-icon>
+      Invite team members
+    </button>
   </div>
-  <div id="contact">
-    <button id="tbn-contact"><mat-icon style="color: #D30C4D;">add_circle </mat-icon>Create spreadsheet</button>
-    <button id="tbn-contact"><mat-icon>download</mat-icon>Import files</button>
-    <button id="tbn-contact"><mat-icon>space_dashboard</mat-icon>Browse templates</button>
+  <div id="option-but">
+    <section>
+      <div class="example-button-row">
+        <button mat-stroked-button>
+          <mat-icon>add_circle </mat-icon>Create spreadsheet
+        </button>
+        <button mat-stroked-button>
+          <mat-icon>download</mat-icon>Import files
+        </button>
+        <button mat-stroked-button>
+          <mat-icon>space_dashboard</mat-icon>Browse templates
+        </button>
+      </div>
+    </section>
   </div>
 </div>
 
 <!-- div 3 -->
 <div class="content">
-  <div>
-    <img id="rows" src="https://rows.com/f0ff810314d33d5e89ce178df62668c5.svg" title="rows"><br>
-    <button id="tbn-list">Create a new spreadsheet!</button> <br>
-    <span id="tbn-list1">Create a blank speardsheet, import a file or browse our
-      template gallery.</span>
+  <div id="blank-space" *ngIf="sheetFiles == []">
+    <img
+      id="rows"
+      src="https://rows.com/f0ff810314d33d5e89ce178df62668c5.svg"
+      title="rows"
+    />
+    <br />
+    <span id="blank-title">Create a new spreadsheet!</span>
+    <span id="blank-detail"
+      >Create a blank speardsheet, import a file or browse our template
+      gallery.</span
+    >
+  </div>
+  <div id="unblank-space" *ngIf="sheetFiles != []">
+    <mat-list>
+      <mat-list-item *ngFor="let file of sheetFiles">
+
+        <div matListItemTitle>
+          <mat-icon matListIcon>insert_drive_file</mat-icon>
+          {{ file.title }}
+          {{ file.updated_At | date }}
+          {{ file.owner.name }}
+        </div>
+        <div matListItemLine>
+
+        </div>
+        <div matListItemMeta>
+          <mat-action-list>
+            <button mat-list-item>
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </mat-action-list>
+
+        </div>
+      </mat-list-item>
+    </mat-list>
   </div>
 </div>
-
-
