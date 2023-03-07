@@ -7,8 +7,20 @@ const initialState = {
 };
 
 export const authReducer = createReducer(initialState,
-  on(AuthActions.login, (state) => ({ ...state, error: "" })),
-  on(AuthActions.loginSuccess, (state, { idToken }) => ({ ...state, idToken, error: "" })),
-  on(AuthActions.loginFailure, (state, { error }) => ({ ...state, error })),
-  on(AuthActions.logout, (state) => ({ ...state, idToken: "", error: "" }))
+  on(AuthActions.login, (state, action) => {
+    console.log(action.type);
+    return { ...state, error: "" }
+  }),
+  on(AuthActions.loginSuccess, (state, { idToken, type }) => {
+    console.log(type);
+    return { ...state, idToken, error: "" }
+  }),
+  on(AuthActions.loginFailure, (state, { error }) => {
+    console.log(error);
+    return { ...state, error }
+  }),
+  on(AuthActions.logout, (state, { type }) => {
+    console.log(type);
+    return { ...state, idToken: "", error: "" }
+  })
 );

@@ -1,19 +1,11 @@
 <mat-toolbar id="navbar">
   <div id="logo-box">
-    <img src="../../../assets/logo.png" [routerLink]="'./home'"/>
+    <img src="../../../assets/logo.png" [routerLink]="'./home'" title="logo" />
   </div>
-  <button
-    mat-icon-button
-    class="example-icon favorite-icon"
-    aria-label="Example icon-button with heart icon"
-  >
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
     <mat-icon>sms</mat-icon>
   </button>
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with share icon"
-  >
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
     <mat-icon>help</mat-icon>
   </button>
   <section>
@@ -26,13 +18,13 @@
 
   <span class="example-spacer"></span>
   <div class="search-container">
-    <form >
+    <form>
       <input type="text" placeholder="Search.." name="search">
-      <button type="submit"><i class="fa fa-search"></i></button>
+      <button type="submit" title="search-but"><i class="fa fa-search"></i></button>
     </form>
   </div>
   <div id="avatar">
-    <img  src="../../../assets/ava.jpg"  [matMenuTriggerFor]="menu"/>
+    <img src="{{(this.user$ | async)?.picture}}" [matMenuTriggerFor]="menu" title="ava" />
   </div>
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="openDialog('0ms', '0ms')">
