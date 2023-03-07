@@ -346,9 +346,12 @@ iframe {
   opacity: 1;
 }
 
-.btn-face:hover,
-.btn-google:hover {
+.btn-face:hover{
   color: #fff;
+}
+
+.btn-google:hover{
+  color:black;
   border: 1px solid #D30C4D;
 }
 

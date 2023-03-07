@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import { Routes, RouterModule } from '@angular/router';
-import {MatInputModule} from '@angular/material/input';
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSelectModule} from '@angular/material/select';
-
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -18,7 +18,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatIconModule,
     RouterModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
   exports: [
     MatToolbarModule,
@@ -27,6 +28,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatInputModule,
     MatCardModule,
     MatSelectModule,
+    MatDialogModule,
+    MatButtonModule
   ]
 })
 export class ShareModule { }
