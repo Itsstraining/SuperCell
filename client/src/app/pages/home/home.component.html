@@ -42,27 +42,45 @@
     >
   </div>
   <div id="unblank-space" *ngIf="sheetFiles != []">
-    <mat-list>
-      <mat-list-item *ngFor="let file of sheetFiles" [routerLink]="'../spreadsheet'">
+    <mat-action-list>
+      <mat-list-item
+        *ngFor="let file of sheetFiles"
 
+      >
         <div matListItemTitle>
           <mat-icon matListIcon>insert_drive_file</mat-icon>
           {{ file.title }}
-          {{ file.updated_At | date }}
           {{ file.owner.name }}
+
         </div>
         <div matListItemLine>
 
+          {{ file.updated_At | date }}
         </div>
         <div matListItemMeta>
-          <mat-action-list>
-            <button mat-list-item>
-              <mat-icon>more_vert</mat-icon>
-            </button>
-          </mat-action-list>
-
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
         </div>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item  [routerLink]="'../spreadsheet'">
+            <mat-icon>bookmark_manager</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item disabled>
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+          <button mat-menu-item disabled>
+            <mat-icon>drive_file_rename_outline</mat-icon>
+            <span>Rename</span>
+          </button>
+          <button mat-menu-item disabled>
+            <mat-icon>folder_share</mat-icon>
+            <span>Share</span>
+          </button>
+        </mat-menu>
       </mat-list-item>
-    </mat-list>
+    </mat-action-list>
   </div>
 </div>
