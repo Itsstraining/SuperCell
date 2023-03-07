@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, CanDeactivate, CanDeactivateFn, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { onAuthStateChanged } from '@firebase/auth';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate{
   constructor(private auth:Auth){}
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -22,5 +22,8 @@ export class AuthGuard implements CanActivate {
       });
     });
   }
+
+
+
 
 }
