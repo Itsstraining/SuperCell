@@ -17,6 +17,7 @@
 .tools
 {
     display: flex;
+    /* align-items:center; */
 }
 
 .tools > .logo
@@ -60,7 +61,7 @@
 
 .btn-share
 {
-    background-color: #d30c4d !important;
+    background-color: #ff4081 !important;
     color: white !important;
     margin-right: 15px;
 }

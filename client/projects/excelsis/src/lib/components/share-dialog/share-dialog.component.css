@@ -1,3 +1,55 @@
-button {
+button 
+{
     margin-right: 8px;
-  }
+}
+
+.example-form 
+{
+  min-width: 150px;
+  max-width: 400px;
+  width: 100%;
+  height: 50%;
+  margin: auto 30px 0 25px;
+}
+  
+.example-full-width
+{
+  width: 100%;
+  height: 80px;
+}
+
+.add
+{
+  margin: 10px 0 0 380px;
+  color: white;
+  background-color:#ff4081 ;
+}
+
+.example-header-image 
+{
+  background-image: url('../../../../../../src/assets/avt.jpg');
+  background-size: cover;
+}
+
+.example-card 
+{
+  width: 88%;
+  height: 85px;
+  margin: 10px 10px 0 25px;
+}
+
+.btn-dialog
+{
+  display: flex;
+  margin: 130px 0 30px 285px;
+}
+
+
+::ng-deep .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label
+{
+  color: #ff4081 !important;
+}
+
+::ng-deep .mdc-text-field--filled .mdc-line-ripple::after{
+  border-bottom-color: #ff4081 !important;
+}

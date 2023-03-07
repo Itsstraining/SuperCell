@@ -9,8 +9,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatMenuModule} from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
-import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [],
@@ -22,6 +23,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatButtonModule,
     MatSelectModule,
     MatDialogModule,
+    MatButtonToggleModule,
+    MatMenuModule,
     MatListModule,
     HttpClientModule,
     MatMenuModule,
