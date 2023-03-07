@@ -2,14 +2,14 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IsEmail, IsNotEmpty } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
 
-export type CatDocument = HydratedDocument<User>;
+export type UserDocument = HydratedDocument<User>;
 
 @Schema({ timestamps: true })
 export class User {
 
     @IsNotEmpty()
     @Prop()
-    displayName: string;
+    name: string;
 
     @IsEmail()
     @Prop()
@@ -17,7 +17,11 @@ export class User {
 
     @IsNotEmpty()
     @Prop()
-    photoUrl: string;
+    picture: string;
+
+    @IsNotEmpty()
+    @Prop()
+    uid: string;
 
 
 }

@@ -1,17 +1,43 @@
-
-<mat-toolbar class="navbar" color="white">
+<mat-toolbar id="navbar">
   <div id="logo-box">
-    <img src="../../../assets/logo.png">
+    <img src="../../../assets/logo.png" [routerLink]="'./home'"/>
   </div>
-  <div class="icon-box">
-    <mat-icon >sms</mat-icon>
+  <button
+    mat-icon-button
+    class="example-icon favorite-icon"
+    aria-label="Example icon-button with heart icon"
+  >
+    <mat-icon>sms</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    class="example-icon"
+    aria-label="Example icon-button with share icon"
+  >
     <mat-icon>help</mat-icon>
-    <button id="tbn-one">Intergration</button>
-    <button id="tbn-one">Templates</button>
-    <button id="tbn-one">Community</button>
+  </button>
+  <section>
+    <div class="example-button-row">
+      <button mat-flat-button>Intergration</button>
+      <button mat-flat-button>Templates</button>
+      <button mat-flat-button>Community</button>
+    </div>
+  </section>
+
+  <span class="example-spacer"></span>
+  <div class="search-container">
+    <form >
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
   </div>
-  <div class="box">
-    <input type="text" placeholder="search"><mat-icon id="search">search</mat-icon>
+  <div id="avatar">
+    <img  src="../../../assets/ava.jpg"  [matMenuTriggerFor]="menu"/>
   </div>
-  <img id="avatar" src="../../../assets/326719154_486366847023537_4553438451798961655_n.jpg">
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="openDialog('0ms', '0ms')">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
 </mat-toolbar>
