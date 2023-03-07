@@ -14,6 +14,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { ExcelsisModule } from 'projects/excelsis/src/public-api';
 import { authReducer } from 'src/reducers/auth.reducer';
 import { AuthEffects } from 'src/effects/auth.effect';
+import { userReducer } from 'src/reducers/user.reducer';
+import { UserEffects } from 'src/effects/user.effect';
 
 @NgModule({
   declarations: [
@@ -28,10 +30,12 @@ import { AuthEffects } from 'src/effects/auth.effect';
     ShareModule,
     RouterModule,
     StoreModule.forRoot({
-      auth: authReducer
+      auth: authReducer,
+      user: userReducer
     }, {}),
     EffectsModule.forRoot([
-      AuthEffects
+      AuthEffects,
+      UserEffects
     ]),
     ExcelsisModule
   ],

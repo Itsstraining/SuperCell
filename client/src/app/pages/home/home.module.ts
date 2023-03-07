@@ -5,6 +5,8 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ShareModule } from 'src/app/share/share/share.module';
+import { CreateComponent } from './create/create.component';
+import { LogoutConfirmDialogComponent } from './components/logout-confirm-dialog/logout-confirm-dialog.component';
 
 
 
@@ -12,7 +14,9 @@ import { ShareModule } from 'src/app/share/share/share.module';
 @NgModule({
   declarations: [
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    CreateComponent,
+    LogoutConfirmDialogComponent
   ],
   imports: [
     CommonModule,

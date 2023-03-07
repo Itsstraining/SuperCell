@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import { Routes, RouterModule } from '@angular/router';
-import {MatInputModule} from '@angular/material/input';
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSelectModule} from '@angular/material/select';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
-
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [],
@@ -20,7 +21,10 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule,
     MatButtonModule,
     MatSelectModule,
-    HttpClientModule
+    MatDialogModule,
+    MatListModule,
+    HttpClientModule,
+    MatMenuModule,
   ],
   exports: [
     MatToolbarModule,
@@ -29,7 +33,11 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     MatCardModule,
     MatSelectModule,
-    HttpClientModule
-  ]
+    MatDialogModule,
+    MatButtonModule,
+    MatListModule,
+    HttpClientModule,
+    MatMenuModule,
+  ],
 })
-export class ShareModule { }
+export class ShareModule {}

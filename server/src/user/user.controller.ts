@@ -15,6 +15,15 @@ export class UserController {
     return data;
   }
 
+  @Get('info')
+  async getUserInfo(@Headers() headers: any) {
+    let authHeader = headers.authorization;
+    authHeader = authHeader.replace('Bearer ', '');
+    let data = await this.userService.verifyIdToken(authHeader);
+    let user = await this.userService.findOne(data.uid);
+    return user;
+  }
+
   @Post()
   async create(@Headers() headers: any) {
     let authHeader = headers.authorization;
