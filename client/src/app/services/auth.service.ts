@@ -44,4 +44,10 @@ export class AuthService {
   logout() {
     this.auth.signOut();
   }
+
+  async login(){
+    let cred = await signInWithPopup(this.auth, new GoogleAuthProvider());
+    return cred.user.getIdToken();
+  }
+
 }

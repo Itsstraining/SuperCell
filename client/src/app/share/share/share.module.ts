@@ -7,8 +7,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [],
@@ -20,7 +22,9 @@ import { MatListModule } from '@angular/material/list';
     MatButtonModule,
     MatSelectModule,
     MatDialogModule,
-    MatListModule
+    MatListModule,
+    HttpClientModule,
+    MatMenuModule,
   ],
   exports: [
     MatToolbarModule,
@@ -31,7 +35,9 @@ import { MatListModule } from '@angular/material/list';
     MatSelectModule,
     MatDialogModule,
     MatButtonModule,
-    MatListModule
+    MatListModule,
+    HttpClientModule,
+    MatMenuModule,
   ],
 })
 export class ShareModule {}

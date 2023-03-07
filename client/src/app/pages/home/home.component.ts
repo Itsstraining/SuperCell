@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { SheetFile } from 'src/app/models/sheetFile.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserState } from 'src/states/user.state';
 
 @Component({
   selector: 'app-home',
@@ -57,9 +59,16 @@ export class HomeComponent implements OnInit {
     },
   ];
 
-  constructor() { }
+  user$ = this.store.select('user', 'user');
+  constructor(private store:Store<{user:UserState}>) { }
 
   ngOnInit(): void {
+    this.user$.subscribe(user => {
+      if(user){
+        console.log(user);
+
+      }
+    });
   }
 
 }

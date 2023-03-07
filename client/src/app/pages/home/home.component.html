@@ -43,7 +43,7 @@
   </div>
   <div id="unblank-space" *ngIf="sheetFiles != []">
     <mat-list>
-      <mat-list-item *ngFor="let file of sheetFiles">
+      <mat-list-item *ngFor="let file of sheetFiles" [routerLink]="'../spreadsheet'">
 
         <div matListItemTitle>
           <mat-icon matListIcon>insert_drive_file</mat-icon>

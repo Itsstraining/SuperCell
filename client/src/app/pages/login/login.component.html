@@ -6,12 +6,13 @@
           Sign In With
         </span>
 
-        <a class="btn-face m-b-20" (click)="authService.loginWithFacebook()">
+        <a class="btn-face m-b-20" (click)="this.login()">
           <i class="fa fa-facebook-official"></i>
           Facebook
         </a>
 
-        <a class="btn-google m-b-20" (click)="authService.loginWithGoogle()">
+        <a class="btn-google m-b-20" (click)="login()">
+
           <img src="../../../assets/icons/icon-google.png" alt="GOOGLE">
           Google
         </a>

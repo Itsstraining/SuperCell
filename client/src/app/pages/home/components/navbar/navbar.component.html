@@ -45,6 +45,12 @@
     </form>
   </div>
   <div id="avatar">
-    <img  src="../../../assets/ava.jpg" />
+    <img  src="../../../assets/ava.jpg"  [matMenuTriggerFor]="menu"/>
   </div>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="openDialog('0ms', '0ms')">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
 </mat-toolbar>
