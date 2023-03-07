@@ -7,6 +7,7 @@ import { SheetlistComponent } from './components/sheetlist/sheetlist.component';
 import { ShareModule } from 'src/app/share/share/share.module';
 import { OperationComponent } from './components/operation/operation.component';
 import { ShareDialogComponent } from './components/share-dialog/share-dialog.component';
+import { FileDialogComponent } from './components/file-dialog/file-dialog.component';
 
 
 
@@ -19,6 +20,7 @@ import { ShareDialogComponent } from './components/share-dialog/share-dialog.com
     SheetlistComponent,
     OperationComponent,
     ShareDialogComponent,
+    FileDialogComponent,
     
   ],
   imports: [
@@ -32,6 +34,7 @@ import { ShareDialogComponent } from './components/share-dialog/share-dialog.com
     SheetlistComponent,
     OperationComponent,
     ShareDialogComponent,
+    FileDialogComponent,
   ]
 })
 export class ExcelsisModule { }

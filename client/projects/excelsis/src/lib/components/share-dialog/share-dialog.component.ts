@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./share-dialog.component.css']
 })
 export class ShareDialogComponent {
-  constructor() { }
 }
