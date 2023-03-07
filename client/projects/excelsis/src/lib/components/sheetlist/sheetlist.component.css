@@ -1,19 +1,27 @@
 .container-list
 {
+    border:1px  solid rgb(209, 209, 209);
     height: 5.6vh;
     width: 100vw;
-    background-color: rgb(218, 30, 30);
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    
+}
+
+.tool-list
+{
+    height: 5vh;
+    width: 100vw;
+    background-color: rgb(255, 255, 255);
     display: flex;
     justify-content: space-between;
     align-items:center;
 }
-
 .add
 {
     margin: 0px 0px 0px 10px;
-    width: 2.8%;
-    height: fit-content;
-    border: none;
 }
 
 .add:hover
