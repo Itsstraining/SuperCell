@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [],
@@ -19,7 +19,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     RouterModule,
     MatButtonModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    MatListModule
   ],
   exports: [
     MatToolbarModule,
@@ -29,7 +30,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatCardModule,
     MatSelectModule,
     MatDialogModule,
-    MatButtonModule
-  ]
+    MatButtonModule,
+    MatListModule
+  ],
 })
-export class ShareModule { }
+export class ShareModule {}
