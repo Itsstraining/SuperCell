@@ -4,14 +4,21 @@
             <div class="logo">
                 <img src="../../../assets/logo.png">
             </div>
-            <button class="btn">File</button>
-            <button class="btn">Edit</button>
-            <button class="btn">View</button>
-            <button class="btn">Data</button>
+            <div class="btn-list">
+                <button mat-button class="btn"  color="accent">File</button>
+                <button mat-button class="btn"  color="accent">Edit</button>
+                <button mat-button class="btn"  color="accent">View</button>
+                <button mat-button class="btn"  color="accent">Data</button>
+            </div>
         </div>
 
-     
-        <button class="share">Share</button>
-    
+        <div class="share">
+            <button mat-flat-button (click)="openDialog()" class="btn-share">Share</button>
+
+            <!-- <div class="avata">
+                <img src="../../../assets/ava.jpg">
+            </div> -->
+        </div>
+        
     </div>
 </div>

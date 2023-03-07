@@ -3,7 +3,6 @@
     width: 100vw;
     height: 8vh;
     background-color: rgb(249, 251, 251);
-
 }
 
 .toolbar
@@ -18,41 +17,60 @@
 .tools
 {
     display: flex;
-    align-items:center;
-}
-
-.tools > .btn {
-    margin: 1%;
 }
 
 .tools > .logo
 {
-    width: 25%;
-    margin-left: 15px;
+    height: 60px;
+    margin: auto 0 auto 15px;
 
 }
 
-.tools > .logo > img{
-    width: 100%;
-    margin: auto 0;
-}
-
-.btn
+.tools > .logo > img
 {
-    background-color: rgb(249, 251, 251);
+    height: 100%;
+    width: 100%;
+    
+}
+
+.btn-list
+{
     border: none;
     font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+
+.btn-list > .btn{
+    font-size: large;
+    font-weight: 800;
+}
+
+.tools > .btn-list
+{
+    margin: 1%;
 }
 
 .tools > .share
 {
-    margin: 1%;
+    margin-right: 15px;
 }
-.share
+
+.btn-share
 {
-    font-size: 20px;
-    background-color: rgb(241, 14, 82);
-    border: none;   
-    border-radius: 5px;
+    background-color: #d30c4d !important;
+    color: white !important;
+    margin-right: 15px;
 }
+
+.avata
+{
+    width: 25%;
+    height: 20%; 
+}
+
+
+
 

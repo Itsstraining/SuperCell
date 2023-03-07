@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, FacebookAuthProvider, signInWithPopup } from '@angular/fire/auth';
+import { Auth, FacebookAuthProvider, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +33,15 @@ export class AuthService {
 
         // ...
       });
+  }
+
+
+  async loginWithGoogle() {
+    let provider = new GoogleAuthProvider();
+    return await signInWithPopup(this.auth, provider);
+  }
+
+  logout() {
+    this.auth.signOut();
   }
 }
