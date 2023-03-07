@@ -7,6 +7,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -18,7 +19,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatIconModule,
     RouterModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    HttpClientModule
   ],
   exports: [
     MatToolbarModule,
@@ -27,6 +29,7 @@ import {MatSelectModule} from '@angular/material/select';
     MatInputModule,
     MatCardModule,
     MatSelectModule,
+    HttpClientModule
   ]
 })
 export class ShareModule { }

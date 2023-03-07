@@ -12,6 +12,8 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ExcelsisModule } from 'projects/excelsis/src/public-api';
+import { authReducer } from 'src/reducers/auth.reducer';
+import { AuthEffects } from 'src/effects/auth.effect';
 
 @NgModule({
   declarations: [
@@ -25,8 +27,12 @@ import { ExcelsisModule } from 'projects/excelsis/src/public-api';
     BrowserAnimationsModule,
     ShareModule,
     RouterModule,
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot({
+      auth: authReducer
+    }, {}),
+    EffectsModule.forRoot([
+      AuthEffects
+    ]),
     ExcelsisModule
   ],
   providers: [],
