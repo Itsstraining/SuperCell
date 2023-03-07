@@ -1,69 +1,4 @@
-.navbar {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
 
-#logo{
-  width: 10%;
-  height: 100%;
-}
-
-.icon{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-
-#tbn-icon{
-  background-color: #D30C4D;
-  color: white;
-  border-radius: 100%;
-  border-color:white ;
-  width: 100%;
-}
-
-
-#tbn-one{
-  border-color: #D9D9D9;
-  background-color: #D30C4D;
-  color: white;
-  width: 50%;
-  border-radius: 10px;
-  font-size: 20px;
-  cursor: pointer;
-
-}
-
-}
-
-.box{
-  width: 15%;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex: 1 1 auto;
-input{
-  border-radius: 100px;
-  width: 100%;
-  border: none;
-  outline: none;
-  background: #D9D9D9;
-  font-size: 20px;
-
-}
-#search{
-  margin-left: -50%;
-  color: #D30C4D;
-}
-}
-
-
-#avatar{
-  width: 50px;
-  border-radius: 100%;
-}
 
 //Div 2
 .home{
@@ -144,3 +79,5 @@ input{
   font-size: 0.5cm;
   padding-top: 5%;
 }
+
+
