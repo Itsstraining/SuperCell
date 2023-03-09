@@ -41,6 +41,7 @@ import { MatListModule } from '@angular/material/list';
     MatListModule,
     HttpClientModule,
     MatMenuModule,
+    MatButtonToggleModule,
   ],
 })
 export class ShareModule {}
