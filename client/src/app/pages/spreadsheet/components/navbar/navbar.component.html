@@ -1,28 +1,37 @@
-<div class="container">
+<!-- <div class="container">
     <div class="toolbar">
         <div class="tools">
-            <div class="logo">
-                <img src="../../../assets/logo.png" title="logo" [routerLink]="'/home'">
-            </div>
+       
             
-            <div class="btn-list">
-                <button mat-button class="btn"  color="accent" [routerLink]="'/home'">Exit</button>
-                <button mat-button class="btn"  color="accent" [matMenuTriggerFor]="menu" #menuTrigger>File</button>
-                <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="openFileDialog()">File</button>
-                </mat-menu>
-                <button mat-button class="btn"  color="accent">Edit</button>
-                <button mat-button class="btn"  color="accent">View</button>
-                <button mat-button class="btn"  color="accent">Data</button>
-            </div>
+       
         </div>
 
-        <div class="share">
-            <button mat-flat-button (click)="openDialog()" class="btn-share">Share</button>
-        </div>
-        <div id="avatar">
-            <img src="{{(this.user$ | async)?.picture}}" [matMenuTriggerFor]="menu" title="ava" />
-        </div>
+       
     </div>
 </div>
-    
+     -->
+<mat-toolbar>
+    <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button> -->
+    <div class="logo">
+        <img src="../../../assets/logo.png" title="logo" [routerLink]="'/home'">
+    </div>
+    <div class="btn-list">
+        <button mat-button class="btn"  color="accent" [routerLink]="'/home'">Exit</button>
+        <button mat-button class="btn"  color="accent" [matMenuTriggerFor]="menu" #menuTrigger>File</button>
+        <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="openFileDialog()">File</button>
+        </mat-menu>
+        <button mat-button class="btn"  color="accent">Edit</button>
+        <button mat-button class="btn"  color="accent">View</button>
+        <button mat-button class="btn"  color="accent">Data</button>
+    </div>
+    <span class="example-spacer"></span>
+    <div class="share">
+        <button mat-flat-button (click)="openDialog()" class="btn-share">Share</button>
+    </div>
+    <div id="avatar">
+        <img src="{{(this.user$ | async)?.picture}}" [matMenuTriggerFor]="menu" title="ava" />
+    </div>
+  </mat-toolbar>
