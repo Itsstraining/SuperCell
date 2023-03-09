@@ -15,6 +15,10 @@ import { authReducer } from 'src/reducers/auth.reducer';
 import { AuthEffects } from 'src/effects/auth.effect';
 import { userReducer } from 'src/reducers/user.reducer';
 import { UserEffects } from 'src/effects/user.effect';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { FormsModule } from '@angular/forms';
+
+const config: SocketIoConfig = { url: 'http://localhost:6969', options: {} };
 
 @NgModule({
   declarations: [
@@ -36,6 +40,8 @@ import { UserEffects } from 'src/effects/user.effect';
       AuthEffects,
       UserEffects
     ]),
+    SocketIoModule.forRoot(config),
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
