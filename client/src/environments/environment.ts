@@ -7,4 +7,6 @@ export const environment = {
     authDomain: 'supercell-7ea25.firebaseapp.com',
     messagingSenderId: '972037911851',
     measurementId: 'G-NN7EC52CX3',
-  },};
+  },
+  apiUrl: 'http://localhost:6969',
+};
