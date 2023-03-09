@@ -1,25 +1,28 @@
-
-
 //Div 2
-.home{
+.home {
   width: 100%;
 }
 
-#context{
+#context {
   min-height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
 
-  #add-mem-but{
+  #add-mem-but {
     margin-right: 55px;
+    // color: rgb(212, 12, 79) !important;
+    mat-icon{
+      color:  rgb(212, 12, 79) !important;
+    }
   }
 
-  #page-name{
+  #page-name {
     font-weight: 600;
     font-size: x-large;
     margin-left: 50px;
+    // color: rgb(212, 12, 79) !important;
   }
   .mat-mdc-button {
     --mat-mdc-button-persistent-ripple-color: rgb(211, 12, 77) !important;
@@ -27,7 +30,7 @@
   }
 }
 
-#option-but{
+#option-but {
   width: 100%;
 
   section {
@@ -48,35 +51,37 @@
     margin: 8px 8px 8px 0;
     height: 60px;
     width: 440px;
+    mat-icon{
+      color:  rgb(212, 12, 79) !important;
+    }
   }
 
   .mat-mdc-outlined-button {
-    --mat-mdc-button-persistent-ripple-color: rgb(211, 12, 77) !important;
+    --mat-mdc-button-persistent-ripple-color: rgb(212, 12, 79) !important;
     --mat-mdc-button-ripple-color: rgba(211, 12, 77, 0.1);
   }
-
 }
 
-.content{
+.content {
   width: 100%;
 
-  #blank-space{
+  #blank-space {
     width: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    img{
+    img {
       width: 40%;
     }
-    #blank-title{
+    #blank-title {
       font-size: 2rem;
       font-weight: bold;
       line-height: 1.2;
       letter-spacing: 0;
-      color: #4C4C4C;
+      color: #4c4c4c;
     }
-    #blank-detail{
+    #blank-detail {
       text-align: center;
       font-size: 1.6rem;
       font-weight: normal;
@@ -85,6 +90,15 @@
       color: #989898;
     }
   }
-
-
 }
+
+
+.mdc-list button mat-icon{
+  color:  rgb(212, 12, 79) !important;
+}
+
+#menu-icon{
+  color:  rgb(212, 12, 79) !important;
+}
+
+
