@@ -1,73 +1,66 @@
 <mat-toolbar>
     <mat-toolbar-row class="tools">
         <div class="icon">
-            <button mat-icon-button class="example-icon" aria-label="Example icon-button with save icon">
+            <button mat-icon-button class="example-icon">
                 <mat-icon>save</mat-icon>
             </button>
             
             <div class="front-w">
-                <input id="word" type="text" placeholder="ROBOTO">
-                <button mat-icon-button class="icon-front-w" aria-label="Example icon-button with expand_more icon">
+                <input id="word" type="text"  placeholder="ROBOTO">
+                <button mat-icon-button class="example-icon">
                     <mat-icon>expand_more</mat-icon>
-                </button>
+                </button>   
+               
             </div>
     
             <div class="front-s">
                 <input id="size" type="text" placeholder="13">
-                <button mat-icon-button class="icon-front-s" aria-label="Example icon-button with expand_more icon">
+                <button mat-icon-button class="example-icon">
                     <mat-icon>expand_more</mat-icon>
-                </button>
+                </button>  
             </div>
             
-            <button mat-icon-button class="example-icon" aria-label="Example icon-button with keyboard_double_arrow_left icon">
+            <button mat-icon-button class="example-icon">
                 <mat-icon>keyboard_double_arrow_left</mat-icon>
             </button>
 
-            <button mat-icon-button class="example-icon" aria-label="Example icon-button with keyboard_double_arrow_right icon">
+            <button mat-icon-button class="example-icon">
                 <mat-icon>keyboard_double_arrow_right</mat-icon>
             </button>
 
             <mat-button-toggle-group #group="matButtonToggleGroup">
 
                 <mat-button-toggle value="left" aria-label="Text align left">
-                <mat-icon>format_bold</mat-icon>
+                <mat-icon color="accent">format_bold</mat-icon>
                 </mat-button-toggle>
 
                 <mat-button-toggle value="center" aria-label="Text align center">
-                <mat-icon>format_italic</mat-icon>
+                <mat-icon color="accent">format_italic</mat-icon>
                 </mat-button-toggle>
 
-                <mat-button-toggle value="right" aria-label="Text align right">
-                <mat-icon>format_underline</mat-icon>
+                <mat-button-toggle color="accent" value="right" aria-label="Text align right">
+                <mat-icon color="accent">format_underline</mat-icon>
                 </mat-button-toggle>
-            </mat-button-toggle-group>
-
-            <span class="example-spacer"></span>
+            </mat-button-toggle-group> 
 
             <mat-button-toggle-group #group="matButtonToggleGroup">
 
                 <mat-button-toggle value="left" aria-label="Text align left">
-                <mat-icon>format_align_left</mat-icon>
+                <mat-icon color="accent">format_align_left</mat-icon>
                 </mat-button-toggle>
 
                 <mat-button-toggle value="center" aria-label="Text align center">
-                <mat-icon>format_align_center</mat-icon>
+                <mat-icon color="accent">format_align_center</mat-icon>
                 </mat-button-toggle>
 
                 <mat-button-toggle value="right" aria-label="Text align right">
-                <mat-icon>format_align_right</mat-icon>
+                <mat-icon color="accent">format_align_right</mat-icon>
                 </mat-button-toggle>
             </mat-button-toggle-group>
 
-            <div class="add-column">
-                <div>column</div>
-                <button mat-icon-button class="icon-add-column" aria-label="Example icon-button with add icon">
-                    <mat-icon>add</mat-icon>
-                </button>
-                <button mat-icon-button class="icon-add-column" aria-label="Example icon-button with remove icon">
-                    <mat-icon>remove</mat-icon>
-                </button>
-            </div>
+                <button mat-button class="btn"  >Add-Column</button> 
+                <button mat-button class="btn"  >Add-Row</button>
+
         </div>
     </mat-toolbar-row>
   
@@ -76,7 +69,7 @@
             <input id="square" type="text" placeholder="B2">
     
             <button mat-icon-button class="icon-square" aria-label="Example icon-button with arrow_drop_down icon">
-                <mat-icon>arrow_drop_down</mat-icon>
+                <mat-icon color="accent">arrow_drop_down</mat-icon>
             </button>
     
             <img class="logo" src="../../../assets/fx.jpg">
@@ -85,4 +78,5 @@
         </div>  
     </mat-toolbar-row>
   
+    
   </mat-toolbar>

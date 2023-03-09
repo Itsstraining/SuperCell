@@ -32,6 +32,6 @@
         <button mat-flat-button (click)="openDialog()" class="btn-share">Share</button>
     </div>
     <div id="avatar">
-        <img src="{{(this.user$ | async)?.picture}}" [matMenuTriggerFor]="menu" title="ava" />
+        <img src="{{(this.user$ | async)?.picture}}" title="ava" />
     </div>
   </mat-toolbar>
