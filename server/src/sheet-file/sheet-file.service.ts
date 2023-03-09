@@ -5,14 +5,49 @@ import { SheetFile, SheetFileDocument } from 'src/schemas/sheet-file.schema';
 
 @Injectable()
 export class SheetFileService {
-    constructor(@InjectModel(SheetFile.name) private SheetFileModel: Model<SheetFileDocument>) {}
+  constructor(
+    @InjectModel(SheetFile.name)
+    private sheetFileModel: Model<SheetFileDocument>,
+  ) {}
 
-  async create(createSheetFileDto: SheetFile): Promise<SheetFile> {
-    const createdSheetFile = new this.SheetFileModel(createSheetFileDto);
-    return createdSheetFile.save();
+  async create(createSheetFileDto: SheetFile) {
+    try {
+      const createdSheetFile = new this.sheetFileModel(createSheetFileDto);
+      return createdSheetFile.save();
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
   }
 
-  async findAll(): Promise<SheetFile[]> {
-    return this.SheetFileModel.find().exec();
+  async findAll() {
+    try {
+      return await this.sheetFileModel.find().exec();
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
+
+  async update(updateSheetFileDto: SheetFile): Promise<SheetFile> {
+    try {
+      return this.sheetFileModel.findOneAndUpdate(
+        { id: updateSheetFileDto._id },
+        updateSheetFileDto,
+        { new: true },
+      );
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
+
+  async findByUserId(userId: string) {
+    try {
+      return await this.sheetFileModel.find({ owner: userId }).exec();
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
   }
 }

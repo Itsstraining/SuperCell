@@ -7,6 +7,7 @@ export type SheetFileDocument = HydratedDocument<SheetFile>;
 
 @Schema({timestamps: true})
 export class SheetFile {
+  [x: string]: any;
     
   @IsNotEmpty()
   @Prop()
