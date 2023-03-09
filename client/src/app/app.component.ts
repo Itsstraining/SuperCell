@@ -27,13 +27,8 @@ export class AppComponent {
         let user = getAuth().currentUser;
         let idToken = await user!.getIdToken(true);
         this.store.dispatch(UserActions.getUserInfo({ idToken }));
-<<<<<<< HEAD
-        this.route.navigate(['/spreadsheet']);
-      }else{
-=======
         this.route.navigate(['/home']);
-      } else {
->>>>>>> ac2ab4421a08591cacbb17ee36d8390ff4f9e9f5
+      }else{
         this.store.dispatch(UserActions.clearUserInfo());
         this.route.navigate(['/']);
       }
