@@ -1,13 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Socket } from 'ngx-socket-io';
 import { User } from '../models/user.model';
+import { SheetFile } from '../models/sheetFile.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private socket: Socket) { }
 
   createUser(idToken:string){
     return this.http.post('http://localhost:6969/user', '',{ headers: new HttpHeaders({ 'Authorization': `${idToken}` }) });
@@ -16,4 +18,14 @@ export class UserService {
   getUserInfo(idToken:string){
     return this.http.get<User[]>('http://localhost:6969/user/info',{ headers: new HttpHeaders({ 'Authorization': `${idToken}` }) });
   }
+
+  getShareId(email:string){
+    const id = 'message' + email;
+    return this.socket.fromEvent(id);
+  }
+
+  sendMessage(data: SheetFile){
+    this.socket.emit('message', data);
+  }
+
 }
