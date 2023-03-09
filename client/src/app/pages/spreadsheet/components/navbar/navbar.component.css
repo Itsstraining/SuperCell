@@ -1,0 +1,84 @@
+.container {
+    width: 100vw;
+    height: 8vh;
+    background-color: rgb(249, 251, 251);
+}
+
+.toolbar {
+    height: 90%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.tools {
+
+    display: flex;
+}
+
+.tools>.logo {
+    height: 50px;
+    min-width: 129px;
+    margin: auto 0 auto 15px;
+
+}
+
+.tools>.logo>img {
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+}
+
+.btn-list {
+   
+    background-color: rgb(255, 255, 255);
+    border: none;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.btn-list>.btn 
+{
+    color: rgb(211, 12, 77) !important;
+    font-size: large;
+    font-weight: 800;
+}
+
+.tools>.btn-list {
+    margin: 1%;
+}
+
+.tools>.share {
+    margin:1%;
+}
+
+.toolbar >  .share > .btn-share
+{
+    align-items:center; 
+    margin:1%;
+}
+
+.btn-share 
+{
+    background-color: rgb(211, 12, 77) !important;
+    color: white !important;
+}
+
+#avatar {
+    width: 40px;
+    height: 40px;
+    margin: auto 0;
+
+}
+
+#avatar>img {
+    border: 2px solid #d30c4d;
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+}

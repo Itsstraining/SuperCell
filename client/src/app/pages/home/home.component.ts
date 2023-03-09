@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 import { SheetFile } from 'src/app/models/sheetFile.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserState } from 'src/states/user.state';
+import { CreateDialogComponent } from './components/create-dialog/create-dialog.component';
+import { InviteDialogComponent } from './components/invite-dialog/invite-dialog.component';
 import { RenameDialogComponent } from './components/rename-dialog/rename-dialog.component';
 
 @Component({
@@ -84,6 +86,26 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(RenameDialogComponent, {
+      data: {name: 'Sheet 1'},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  Create(): void {
+    const dialogRef = this.dialog.open(CreateDialogComponent, {
+      data: {name: 'Sheet 1'},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  Invite(): void {
+    const dialogRef = this.dialog.open(InviteDialogComponent, {
       data: {name: 'Sheet 1'},
     });
 

@@ -12,7 +12,7 @@
   <div id="option-but">
     <section>
       <div class="example-button-row">
-        <button mat-stroked-button>
+        <button mat-stroked-button  (click)="Create()">
           <mat-icon>add_circle </mat-icon>Create spreadsheet
         </button>
         <button mat-stroked-button>
@@ -54,15 +54,15 @@
         </div>
         <mat-menu #menu="matMenu">
           <button mat-menu-item [routerLink]="'../spreadsheet'">
-            <mat-icon>bookmark_manager</mat-icon>
+            <mat-icon id="menu-icon">bookmark_manager</mat-icon>
             <span>Edit</span>
           </button>
           <button mat-menu-item (click)="openDialog()">
-            <mat-icon>drive_file_rename_outline</mat-icon>
+            <mat-icon id="menu-icon">drive_file_rename_outline</mat-icon>
             <span>Rename</span>
           </button>
-          <button mat-menu-item>
-            <mat-icon>folder_share</mat-icon>
+          <button mat-menu-item >
+            <mat-icon id="menu-icon">folder_share</mat-icon>
             <span>Share</span>
           </button>
           <button mat-menu-item disabled>
