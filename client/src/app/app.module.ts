@@ -11,7 +11,6 @@ import { ShareModule } from './share/share/share.module';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { ExcelsisModule } from 'projects/excelsis/src/public-api';
 import { authReducer } from 'src/reducers/auth.reducer';
 import { AuthEffects } from 'src/effects/auth.effect';
 import { userReducer } from 'src/reducers/user.reducer';
@@ -41,7 +40,6 @@ const config: SocketIoConfig = { url: 'http://localhost:6969', options: {} };
       AuthEffects,
       UserEffects
     ]),
-    ExcelsisModule,
     SocketIoModule.forRoot(config),
     FormsModule,
   ],

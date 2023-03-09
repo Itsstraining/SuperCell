@@ -7,6 +7,7 @@ import { initializeApp } from 'firebase-admin/app';
 
 var serviceAccount = require("../firebase-admin-key.json");
 
+
 async function bootstrap() {
 
   const admin = initializeApp({credential: credential.cert(serviceAccount)});
@@ -15,6 +16,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors();
   await app.listen(6969);
+  
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();

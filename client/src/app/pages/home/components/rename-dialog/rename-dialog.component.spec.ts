@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateComponent } from './create.component';
+import { RenameDialogComponent } from './rename-dialog.component';
 
-describe('CreateComponent', () => {
-  let component: CreateComponent;
-  let fixture: ComponentFixture<CreateComponent>;
+describe('RenameDialogComponent', () => {
+  let component: RenameDialogComponent;
+  let fixture: ComponentFixture<RenameDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateComponent ]
+      declarations: [ RenameDialogComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CreateComponent);
+    fixture = TestBed.createComponent(RenameDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

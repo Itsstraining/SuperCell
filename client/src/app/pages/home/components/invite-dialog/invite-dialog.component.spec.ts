@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExcelsisComponent } from './excelsis.component';
+import { InviteDialogComponent } from './invite-dialog.component';
 
-describe('ExcelsisComponent', () => {
-  let component: ExcelsisComponent;
-  let fixture: ComponentFixture<ExcelsisComponent>;
+describe('InviteDialogComponent', () => {
+  let component: InviteDialogComponent;
+  let fixture: ComponentFixture<InviteDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ExcelsisComponent ]
+      declarations: [ InviteDialogComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ExcelsisComponent);
+    fixture = TestBed.createComponent(InviteDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,12 @@
+.mdc-dialog__content>:first-child {
+  margin-top: 0;
+  width: 210px;
+}
+::ng-deep .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label
+{
+  color: #ff4081 !important;
+}
+
+::ng-deep .mdc-text-field--filled .mdc-line-ripple::after{
+  border-bottom-color: #ff4081 !important;
+}
