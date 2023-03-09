@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { SheetFile } from 'src/app/models/sheetFile.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserState } from 'src/states/user.state';
+import { RenameDialogComponent } from './components/rename-dialog/rename-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -63,7 +65,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
 
   user$ = this.store.select('user', 'user');
-  constructor(private store: Store<{ user: UserState }>) {}
+  constructor(
+    private store: Store<{ user: UserState }>,
+    public dialog: MatDialog
+  ) {}
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
@@ -73,6 +79,16 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (user) {
         console.log(user);
       }
+    });
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(RenameDialogComponent, {
+      data: {name: 'Sheet 1'},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
 }

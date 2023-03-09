@@ -6,6 +6,7 @@ import { HomeComponent } from './home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ShareModule } from 'src/app/share/share/share.module';
 import { LogoutConfirmDialogComponent } from './components/logout-confirm-dialog/logout-confirm-dialog.component';
+import { RenameDialogComponent } from './components/rename-dialog/rename-dialog.component';
 
 
 
@@ -14,7 +15,8 @@ import { LogoutConfirmDialogComponent } from './components/logout-confirm-dialog
   declarations: [
     HomeComponent,
     NavbarComponent,
-    LogoutConfirmDialogComponent
+    LogoutConfirmDialogComponent,
+    RenameDialogComponent
   ],
   imports: [
     CommonModule,
