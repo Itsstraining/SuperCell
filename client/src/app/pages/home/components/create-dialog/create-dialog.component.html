@@ -45,7 +45,8 @@
         </span>
         <span matListItemMeta>
           <mat-action-list>
-            <mat-slide-toggle class="example-margin" [checked]="checked" [disabled]="disabled" disableRipple="true">
+            <mat-slide-toggle class="example-margin" [checked]="isChecked" [disabled]="disabled" disableRipple="true"
+              [(ngModel)]="isChecked" name="canCollab">
             </mat-slide-toggle>
           </mat-action-list>
         </span>
@@ -70,6 +71,6 @@
     <div mat-button mat-dialog-close matRipple [matRippleDisabled]='true' style="margin:10px;cursor: pointer;">
       Cancel</div>
     <button mat-flat-button [disabled]="!fileNameFormControl.value" [mat-dialog-close]="!fileNameFormControl.value"
-      id="createBut">Create</button>
+      id="createBut" (click)="createNewFile()">Create</button>
   </div>
 </div>

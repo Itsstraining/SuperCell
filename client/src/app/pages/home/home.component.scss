@@ -12,9 +12,10 @@
 
   #add-mem-but {
     margin-right: 55px;
+
     // color: rgb(212, 12, 79) !important;
-    mat-icon{
-      color:  rgb(212, 12, 79) !important;
+    mat-icon {
+      color: rgb(212, 12, 79) !important;
     }
   }
 
@@ -24,6 +25,7 @@
     margin-left: 50px;
     // color: rgb(212, 12, 79) !important;
   }
+
   .mat-mdc-button {
     --mat-mdc-button-persistent-ripple-color: rgb(211, 12, 77) !important;
     --mat-mdc-button-ripple-color: rgba(211, 12, 77, 0.1);
@@ -51,8 +53,9 @@
     margin: 8px 8px 8px 0;
     height: 60px;
     width: 440px;
-    mat-icon{
-      color:  rgb(212, 12, 79) !important;
+
+    mat-icon {
+      color: rgb(212, 12, 79) !important;
     }
   }
 
@@ -71,9 +74,11 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
+
     img {
       width: 40%;
     }
+
     #blank-title {
       font-size: 2rem;
       font-weight: bold;
@@ -81,6 +86,7 @@
       letter-spacing: 0;
       color: #4c4c4c;
     }
+
     #blank-detail {
       text-align: center;
       font-size: 1.6rem;
@@ -90,15 +96,75 @@
       color: #989898;
     }
   }
+
+  ::ng-deep .mdc-list-item.mdc-list-item--with-trailing-meta .mdc-list-item__end {
+    height: 100% !important;
+    display: flex !important;
+
+    button {
+      margin: auto 0;
+    }
+  }
+
+  ::ng-deep .mdc-list-item.mdc-list-item--with-two-lines .mdc-list-item__start {
+    // margin-top: 23px !important;
+    padding: 9px !important;
+  }
+
+  .e9e3e7 {
+    background-color: #e9e3e7 !important;
+    border-color: #e9e3e7 !important;
+    color: rgb(58, 3, 45) !important;
+  }
+
+  .fff6d4 {
+    background-color: #fff6d4 !important;
+    border-color: #fff6d4 !important;
+    color: rgb(58, 3, 45) !important;
+  }
+
+  .dae9fd {
+    background-color: #dae9fd !important;
+    border-color: #dae9fd !important;
+    color: rgb(58, 3, 45) !important;
+  }
+
+  .fdeacc {
+    background-color: #fdeacc !important;
+    border-color: #fdeacc !important;
+    color: rgb(58, 3, 45) !important;
+  }
+
+  .cef6ec {
+    background-color: #cef6ec !important;
+    border-color: #cef6ec !important;
+    color: rgb(58, 3, 45) !important;
+  }
+
+  .fbd9db {
+    background-color: #fbd9db !important;
+    border-color: #fbd9db !important;
+    color: rgb(58, 3, 45) !important;
+  }
+
+
+  ::ng-deep .mdc-list-item__content {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+
+    .file-title {
+      font-weight: bold;
+    }
+  }
+
+
 }
 
-
-.mdc-list button mat-icon{
-  color:  rgb(212, 12, 79) !important;
+.mdc-list button mat-icon {
+  color: rgb(212, 12, 79) !important;
 }
 
-#menu-icon{
-  color:  rgb(212, 12, 79) !important;
+#menu-icon {
+  color: rgb(212, 12, 79) !important;
 }
-
-

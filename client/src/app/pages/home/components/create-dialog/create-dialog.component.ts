@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SheetFile } from 'src/app/models/sheetFile.model';
 import { User } from 'src/app/models/user.model';
 
 export interface Section {
@@ -23,29 +24,31 @@ export class CreateDialogComponent {
     this.dialogRef.close();
   }
 
-  color?: string;
-  fileColor = ['#e9e3e7', '#fff6d4', '#fdeacc', '#fbd9db', '#cef6ec', '#dae9fd']
+  color: string = 'e9e3e7';
+  fileColor = ['e9e3e7', 'fff6d4', 'fdeacc', 'fbd9db', 'cef6ec', 'dae9fd']
   fileNameFormControl = new FormControl('', [Validators.required]);
   disabled = false;;
-  checked = false;
+  isChecked = false;
 
 
   ngOnInit(): void {
   }
 
-  folders: Section[] = [
-    {
-      name: 'Photos',
-      updated: new Date('1/1/16'),
-    },
-    {
-      name: 'Recipes',
-      updated: new Date('1/17/16'),
-    },
-    {
-      name: 'Work',
-      updated: new Date('1/28/16'),
-    },
-  ];
+  createNewFile() {
+    let newFile: SheetFile = {
+      title: this.fileNameFormControl.value,
+      created_At: 0,
+      updated_At: 0,
+      owner: this.data,
+      shared: [],
+      content: [],
+      color: this.color,
+      _id: '',
+      canCollab: this.isChecked
+    }
+    this.dialogRef.close(newFile);
+  }
+
+
 
 }

@@ -7,12 +7,18 @@ button {
     color: rgb(211, 12, 77);
 }
 
+.sub-content {
+    font-size: 20px;
+    color: rgb(211, 12, 77);
+    margin: 0 24px 24px 24px;
+}
+
 .example-form {
     min-width: 150px;
     max-width: 400px;
     width: 100%;
     height: 50%;
-    margin: auto 30px 0 25px;
+    margin: 0px 27px 0 24px;
 }
 
 .example-full-width {
@@ -23,22 +29,44 @@ button {
 .add {
     color: white;
     background-color: rgb(211, 12, 77);
+    margin: -10px 10px 10px 0;
+}
+
+.add:disabled {
+    color: #000;
+    background-color: #efefef;
+    margin: -10px 10px 10px 0;
 }
 
 .example-header-image {
-    background-image: url('../../../../../../src/assets/avt.jpg');
+    // background-image: url('../../../../../../src/assets/avt.jpg');
     background-size: cover;
 }
 
+.mat-mdc-card {
+    --mdc-elevated-card-container-color: none !important;
+}
+
 .example-card {
-    width: 88%;
+    // width: 88%;
     height: 85px;
-    margin: 10px 10px 0 25px;
+    margin: 0 auto;
+
+    ::ng-deep .mat-mdc-card-header {
+        display: flex;
+        padding: 16px;
+        align-items: center;
+        margin: auto 0;
+    }
+
+    ::ng-deep .mat-mdc-card-avatar {
+        margin: auto 0;
+    }
 }
 
 #btn-dialog {
     display: flex;
-    margin: 130px 0 30px 285px;
+    margin: 20px 0 0 336px;
 }
 
 .btn-raised {
@@ -61,8 +89,10 @@ button {
     border: 1px solid rgb(175, 12, 51);
 }
 
-#delete {
+.delete {
     color: rgb(211, 12, 77);
+    margin: auto 0 auto auto;
+
 }
 
 ::ng-deep .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
@@ -75,4 +105,10 @@ button {
 
 .add-email {
     display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+::ng-deep .mat-mdc-dialog-content {
+    max-height: 40vh !important;
 }

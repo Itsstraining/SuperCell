@@ -72,8 +72,6 @@ mat-divider {
     margin: 8px 8px 8px 0;
 }
 
-
-
 .example-button-container {
     display: flex;
     justify-content: center;
@@ -88,39 +86,39 @@ mat-divider {
 
 .mat-but-tog-0 {
     background-color: rgb(233, 227, 231);
-    border-color: rgb(233, 227, 231);
+    border-color: #e9e3e7;
     color: rgb(58, 3, 45) !important;
 }
 
 .mat-but-tog-1 {
     background-color: rgb(255, 246, 212);
-    border-color: rgb(255, 246, 212);
+    border-color: #fff6d4;
     color: rgb(58, 3, 45) !important;
 
 }
 
 .mat-but-tog-2 {
     background-color: rgb(253, 234, 204);
-    border-color: rgb(253, 234, 204);
-    color: rgb(58, 3, 45) !important;
+    border-color: #fdeacc;
+    color: #3a032d !important;
 
 }
 
 .mat-but-tog-3 {
-    background-color: rgb(251, 217, 219);
+    background-color: #fbd9db;
     border-color: rgb(251, 217, 219);
     color: rgb(58, 3, 45) !important;
 }
 
 .mat-but-tog-4 {
-    background-color: rgb(206, 246, 236);
+    background-color: #cef6ec;
     border-color: rgb(206, 246, 236);
     color: rgb(58, 3, 45) !important;
 
 }
 
 .mat-but-tog-5 {
-    background-color: rgb(218, 233, 253);
+    background-color: #dae9fd;
     border-color: rgb(218, 233, 253);
     color: rgb(58, 3, 45) !important;
 
@@ -167,6 +165,10 @@ span {
     justify-content: center;
     align-items: center;
     height: 100%;
+}
+
+::ng-deep .mdc-list-item.mdc-list-item--with-one-line {
+    height: 49px !important;
 }
 
 #createBut {

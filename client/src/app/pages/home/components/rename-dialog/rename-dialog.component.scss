@@ -2,11 +2,21 @@
   margin-top: 0;
   width: 210px;
 }
-::ng-deep .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label
-{
+
+::ng-deep .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
   color: #ff4081 !important;
 }
 
-::ng-deep .mdc-text-field--filled .mdc-line-ripple::after{
+::ng-deep .mdc-text-field--filled .mdc-line-ripple::after {
   border-bottom-color: #ff4081 !important;
+}
+
+#renameBut {
+  background-color: #d30c4d !important;
+  color: white !important;
+}
+
+#renameBut:disabled {
+  background-color: #e7e7e7 !important;
+  color: #b3b3b3 !important;
 }

@@ -70,6 +70,7 @@ export class AppComponent {
       shared: [],
       content: [],
       color: '',
+      canCollab: false,
     };
     console.log('msg ', newMessageData);
     this.userService.sendMessage(newMessageData);

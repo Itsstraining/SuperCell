@@ -32,7 +32,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       },
       shared: [],
       content: [],
-      color: '1',
+      color: 'e9e3e7',
+      canCollab: true
     },
     {
       _id: '2',
@@ -48,7 +49,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       },
       shared: [],
       content: [],
-      color: '1',
+      color: 'e9e3e7',
+      canCollab: false
     },
     {
       _id: '3',
@@ -64,7 +66,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       },
       shared: [],
       content: [],
-      color: '1',
+      color: 'e9e3e7',
+      canCollab: false
     },
   ];
 
@@ -89,17 +92,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  openDialog(): void {
+  openRenameDialog(file: SheetFile): void {
     const dialogRef = this.dialog.open(RenameDialogComponent, {
-      data: { name: 'Sheet 1' },
+      data: file,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
       console.log('The dialog was closed');
     });
   }
 
-  Create(): void {
+  openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateDialogComponent, {
       data: this.user,
       width: '640px',
@@ -107,14 +111,18 @@ export class HomeComponent implements OnInit, OnDestroy {
       autoFocus: false //
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result)
       console.log('The dialog was closed');
     });
   }
 
-  Invite(): void {
+  openInviteDialog(): void {
     const dialogRef = this.dialog.open(InviteDialogComponent, {
-      data: { name: 'Sheet 1' },
+      data: this.user,
+      autoFocus: false,
+      height: '550px',
+      width: '520px',
     });
 
     dialogRef.afterClosed().subscribe(result => {

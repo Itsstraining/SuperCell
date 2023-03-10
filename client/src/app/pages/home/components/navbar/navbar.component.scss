@@ -65,7 +65,10 @@ input[type="text"] {
 }
 
 input[type="text"]:focus {
-  border: 1px solid #d30c4d;
+  border: none;
+  outline: 0;
+  border: 2px solid #d30c4d !important;
+  border-radius: 4px;
 }
 
 .search-container button {
