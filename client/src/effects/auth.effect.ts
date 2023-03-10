@@ -18,16 +18,16 @@ export class AuthEffects {
     ofType(AuthActions.login),
     switchMap(() => this.authService.login()),
     map((idToken) => {
-      console.log("idToken", idToken);
+      // console.log("idToken", idToken);
       let user = this.userService.createUser(idToken);
-      user.subscribe((data) => {
-        console.log("data", data);
-      });
-      return  AuthActions.loginSuccess(idToken)
+      // user.subscribe((data) => {
+      //   console.log("data", data);
+      // });
+      return AuthActions.loginSuccess(idToken)
     }),
-    catchError((error:string) =>
-    from([AuthActions.loginFailure(error)])
-  )));
+    catchError((error: string) =>
+      from([AuthActions.loginFailure(error)])
+    )));
 
   logout$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.logout),

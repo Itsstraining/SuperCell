@@ -7,6 +7,7 @@ import { User } from 'src/schemas/user.schema';
 
 @Injectable()
 export class UserService {
+
   private auth: Auth;
 
   constructor(@InjectModel('User') private userModel: Model<User>) {
@@ -29,8 +30,8 @@ export class UserService {
 
   async create(user: User) {
     try {
-      let availableUser = await this.findOne(user.uid);
-      if (availableUser.length == 0) {
+      let availableUser = await this.findOneByUid(user.uid);
+      if (!availableUser) {
         console.log("user", user)
         return await new this.userModel(user).save();
       } else {
@@ -42,13 +43,25 @@ export class UserService {
     }
   }
 
-  async findAll(uid: string) {
-    return await this.userModel.find().exec();
+  async findAll() {
+    try {
+      return await this.userModel.find().exec();
+    } catch (error) {
+      return null;
+    }
   }
 
-  async findOne(uid: string) {
+  async findOneByUid(uid: string) {
     try {
-      return await this.userModel.find({ uid: uid }).exec();
+      return await this.userModel.findOne({ uid: uid }).exec();
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async findOneByEmail(email: string) {
+    try {
+      return await this.userModel.findOne({ email: email }).exec();
     } catch (error) {
       return null;
     }

@@ -16,3 +16,8 @@ export const logout = createAction(
 
 export const logoutSuccess = createAction(
   "[Auth] Logout Success");
+
+export const storeIdToken = createAction(
+  "[Auth] Store Id Token",
+  (idToken: string) => ({ idToken }));
+

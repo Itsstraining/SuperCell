@@ -8,7 +8,7 @@ export class SheetFileService {
   constructor(
     @InjectModel(SheetFile.name)
     private sheetFileModel: Model<SheetFileDocument>,
-  ) {}
+  ) { }
 
   async create(createSheetFileDto: SheetFile) {
     try {
@@ -29,11 +29,11 @@ export class SheetFileService {
     }
   }
 
-  async update(updateSheetFileDto: SheetFile): Promise<SheetFile> {
+  async update(sheetFile: SheetFileDocument): Promise<SheetFile> {
     try {
       return this.sheetFileModel.findOneAndUpdate(
-        { id: updateSheetFileDto._id },
-        updateSheetFileDto,
+        { id: sheetFile.id },
+        sheetFile,
         { new: true },
       );
     } catch (err) {
