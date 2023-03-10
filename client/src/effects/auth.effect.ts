@@ -20,10 +20,14 @@ export class AuthEffects {
     map((idToken) => {
       // console.log("idToken", idToken);
       let user = this.userService.createUser(idToken);
-      // user.subscribe((data) => {
-      //   console.log("data", data);
-      // });
-      return AuthActions.loginSuccess(idToken)
+      user.subscribe((data) => {
+        if (data != null) {
+          console.log("data", data);
+        } else {
+          console.log("user is existed");
+        }
+      });
+      return AuthActions.loginSuccess()
     }),
     catchError((error: string) =>
       from([AuthActions.loginFailure(error)])

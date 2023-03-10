@@ -16,7 +16,7 @@ const routes: Routes = [
       import('./pages/home/home.module').then((m) => m.HomeModule),
   },
   {
-    path: 'spreadsheet',
+    path: 'spreadsheet/:id',
     canActivate: [AuthGuard],
     loadChildren: () =>
       import('./pages/spreadsheet/spreadsheet.module').then(
@@ -28,11 +28,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/login/login.module').then((m) => m.LoginModule),
   },
-  { path: '**', redirectTo: 'landing' },
+  // { path: '**', redirectTo: 'landing' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

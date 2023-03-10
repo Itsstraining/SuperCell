@@ -44,7 +44,6 @@ export class InviteDialogComponent implements OnInit, OnDestroy {
       });
   }
 
-
   onNoClick(): void {
     this.dialogRef.close();
     this.tempInviteList = [];

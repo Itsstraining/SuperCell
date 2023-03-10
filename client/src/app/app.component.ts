@@ -59,8 +59,8 @@ export class AppComponent {
     let newMessageData: SheetFile = {
       _id: '',
       title: '',
-      created_At: 0,
-      updated_At: 0,
+      createdAt: 0,
+      updatedAt: 0,
       owner: {
         _id: '',
         picture: '',

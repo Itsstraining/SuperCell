@@ -38,7 +38,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ReactiveFormsModule,
     MatRippleModule,
     MatSlideToggleModule,
-    MatTooltipModule
+    MatTooltipModule,
+    RouterModule,
+
 
   ],
   exports: [
@@ -58,7 +60,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ReactiveFormsModule,
     MatRippleModule,
     MatSlideToggleModule,
-    MatTooltipModule
+    MatTooltipModule,
+    RouterModule,
 
   ],
 })

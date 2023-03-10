@@ -2,7 +2,6 @@ import * as UserActions from '../actions/user.action';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { catchError, from, map, switchMap } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 

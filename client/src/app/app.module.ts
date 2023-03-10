@@ -16,7 +16,8 @@ import { AuthEffects } from 'src/effects/auth.effect';
 import { userReducer } from 'src/reducers/user.reducer';
 import { UserEffects } from 'src/effects/user.effect';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import { FormsModule } from '@angular/forms';
+import { SheetFileEffects } from 'src/effects/sheetFile.effect';
+import { sheetFileReducer } from 'src/reducers/sheetFile.reducer';
 
 const config: SocketIoConfig = { url: 'http://localhost:6969', options: {} };
 
@@ -31,14 +32,15 @@ const config: SocketIoConfig = { url: 'http://localhost:6969', options: {} };
     provideAuth(() => getAuth()),
     BrowserAnimationsModule,
     ShareModule,
-    RouterModule,
     StoreModule.forRoot({
       auth: authReducer,
-      user: userReducer
+      user: userReducer,
+      sheetFile: sheetFileReducer
     }, {}),
     EffectsModule.forRoot([
       AuthEffects,
-      UserEffects
+      UserEffects,
+      SheetFileEffects
     ]),
     SocketIoModule.forRoot(config),
   ],

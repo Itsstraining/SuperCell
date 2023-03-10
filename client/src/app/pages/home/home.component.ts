@@ -4,11 +4,16 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { SheetFile } from 'src/app/models/sheetFile.model';
 import { User } from 'src/app/models/user.model';
-import { AuthService } from 'src/app/services/auth.service';
+import { SheetFileState } from 'src/states/sheetFile.state';
 import { UserState } from 'src/states/user.state';
 import { CreateDialogComponent } from './components/create-dialog/create-dialog.component';
 import { InviteDialogComponent } from './components/invite-dialog/invite-dialog.component';
 import { RenameDialogComponent } from './components/rename-dialog/rename-dialog.component';
+import * as SheetFileActions from '../../../actions/sheetFile.action';
+import * as UserActions from '../../../actions/user.action';
+import * as AuthActions from '../../../actions/auth.action';
+import { AuthState } from 'src/states/auth.state';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -16,87 +21,71 @@ import { RenameDialogComponent } from './components/rename-dialog/rename-dialog.
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  sheetFiles: SheetFile[] = [
-    {
-      _id: '1',
-      title: 'Sheet 1',
-      created_At: 123456789,
-      updated_At: 123456789,
-      owner: {
-        _id: '1',
-        name: 'John Doe',
-        uid: '123456789',
-        email: 'hehe@gmail.com',
-        picture:
-          'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinteres',
-      },
-      shared: [],
-      content: [],
-      color: 'e9e3e7',
-      canCollab: true
-    },
-    {
-      _id: '2',
-      title: 'Sheet 2',
-      created_At: 123456789,
-      updated_At: 123456789,
-      owner: {
-        _id: '1',
-        name: 'John Doe',
-        uid: '123456789',
-        email: '',
-        picture: '',
-      },
-      shared: [],
-      content: [],
-      color: 'e9e3e7',
-      canCollab: false
-    },
-    {
-      _id: '3',
-      title: 'Sheet 3',
-      created_At: 123456789,
-      updated_At: 123456789,
-      owner: {
-        _id: '1',
-        name: 'John Doe',
-        uid: '123456789',
-        email: '',
-        picture: '',
-      },
-      shared: [],
-      content: [],
-      color: 'e9e3e7',
-      canCollab: false
-    },
-  ];
 
-  subscription!: Subscription;
 
+  idTokenSubscription!: Subscription;
+  userSubscription!: Subscription;
+  sheetFileSubscription!: Subscription;
+
+  sheetFiles$ = this.store.select('sheetFile');
+  sheetFiles: SheetFile[] = [];
+  idToken$ = this.store.select('auth', 'idToken');
+  idToken: string = '';
   user$ = this.store.select('user', 'user');
   user: User = <User>{};
+
   constructor(
-    private store: Store<{ user: UserState }>,
-    public dialog: MatDialog
+    private store: Store<{
+      user: UserState,
+      sheetFile: SheetFileState,
+      auth: AuthState
+    }>,
+    public dialog: MatDialog,
+    private route: Router
   ) { }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.userSubscription.unsubscribe();
+    this.idTokenSubscription.unsubscribe();
+    this.sheetFileSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.subscription = this.user$.subscribe((user) => {
-      if (user) {
+
+    this.userSubscription = this.user$.subscribe((user) => {
+      if (user._id) {
         this.user = user;
+        if (this.idToken) {
+          console.log('user: ', user._id);
+          this.store.dispatch(SheetFileActions.getSheetFilesByUserId({ idToken: this.idToken, _id: this.user._id }));
+        }
       }
     });
+    this.idTokenSubscription = this.idToken$.subscribe((idToken) => {
+      if (idToken) {
+        this.idToken = idToken;
+        if (this.user.uid) {
+          console.log('idToken: ', idToken);
+          this.store.dispatch(SheetFileActions.getSheetFilesByUserId({ idToken: this.idToken, _id: this.user._id }));
+        }
+      }
+    });
+    this.sheetFileSubscription = this.sheetFiles$.subscribe((sheetFiles) => {
+      if (sheetFiles.edittingFile._id) {
+        this.route.navigateByUrl('/spreadsheet/' + sheetFiles.edittingFile._id);
+      }
+      if (sheetFiles.sheetFiles.length > 0) {
+        console.log('sheetFiles: ', sheetFiles.sheetFiles);
+        this.sheetFiles = sheetFiles.sheetFiles;
+      }
+    });
+
   }
 
   openRenameDialog(file: SheetFile): void {
     const dialogRef = this.dialog.open(RenameDialogComponent, {
       data: file,
     });
-
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
       console.log('The dialog was closed');
@@ -110,10 +99,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       height: '650px',
       autoFocus: false //
     });
-
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result)
-      console.log('The dialog was closed');
+      if (result) {
+        console.log(result)
+        this.store.dispatch(SheetFileActions.createSheetFile({ sheetFile: result, idToken: this.idToken }));
+        console.log('The dialog was closed');
+      }
     });
   }
 
