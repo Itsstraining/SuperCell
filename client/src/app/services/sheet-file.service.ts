@@ -14,12 +14,12 @@ export class SheetFileService {
     return this.http.post<SheetFile>(environment.apiUrl + '/sheetfile', sheetFile, { headers: new HttpHeaders({ 'Authorization': `${idToken}` }) });
   }
 
-  getSheetFiles(idToken: string, _id: string | null) {
+  getSheetFiles(idToken: string, _id: string) {
     return this.http.get<SheetFile[]>(environment.apiUrl + '/sheetfile/user/' + _id, { headers: new HttpHeaders({ 'Authorization': `${idToken}` }) });
   }
 
-  getEdittingSheetFile(_id: string, idToken: string) {
-    return this.http.get<SheetFile>(environment.apiUrl + '/sheetfile/editting' + _id, { headers: new HttpHeaders({ 'Authorization': `${idToken}` }) });
+  getEdittingSheetFile(idToken: string, _id: string,) {
+    return this.http.get<SheetFile>(environment.apiUrl + '/sheetfile/editting/' + _id, { headers: new HttpHeaders({ 'Authorization': `${idToken}` }) });
   }
 
   update(sheetFile: SheetFile, idToken: string) {

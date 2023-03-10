@@ -56,7 +56,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (user._id) {
         this.user = user;
         if (this.idToken) {
-          console.log('user: ', user._id);
+          console.log('userId: ', user._id);
           this.store.dispatch(SheetFileActions.getSheetFilesByUserId({ idToken: this.idToken, _id: this.user._id }));
         }
       }
@@ -64,10 +64,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.idTokenSubscription = this.idToken$.subscribe((idToken) => {
       if (idToken) {
         this.idToken = idToken;
-        if (this.user.uid) {
-          console.log('idToken: ', idToken);
-          this.store.dispatch(SheetFileActions.getSheetFilesByUserId({ idToken: this.idToken, _id: this.user._id }));
-        }
+        // if (this.user.uid) {
+        //   console.log('idToken: ', idToken);
+        //   this.store.dispatch(SheetFileActions.getSheetFilesByUserId({ idToken: this.idToken, _id: this.user._id }));
+        // }
       }
     });
     this.sheetFileSubscription = this.sheetFiles$.subscribe((sheetFiles) => {

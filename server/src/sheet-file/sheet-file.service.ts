@@ -61,7 +61,8 @@ export class SheetFileService {
 
   async findEdittingById(id: string) {
     try {
-      return await this.sheetFileModel.findOne({ id: id, isEditting: true }).exec();
+      console.log(id);
+      return await this.sheetFileModel.findOne({ id: id, canCollab: true }).exec();
     } catch (err) {
       console.log(err);
       return null;

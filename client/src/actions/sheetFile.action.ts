@@ -5,7 +5,7 @@ export const getEdittingFile = createAction("[Sheet File] Get Editting Sheet Fil
 export const getEdittingFileSuccess = createAction("[Sheet File] Get Editting Sheet File Success", props<{ sheetFile: SheetFile }>());
 export const getEdittingFileFailure = createAction("[Sheet File] Get Editting Sheet File Failure", props<{ error: string }>());
 
-export const getSheetFilesByUserId = createAction("[Sheet File] Get Sheet Files By User Id", props<{ idToken: string, _id: string | null }>());
+export const getSheetFilesByUserId = createAction("[Sheet File] Get Sheet Files By User Id", props<{ idToken: string, _id: string }>());
 export const getSheetFilesByUserIdSuccess = createAction("[Sheet File] Get Sheet Files By User Id Success", props<{ sheetFiles: SheetFile[] }>());
 export const getSheetFilesByUserIdFailure = createAction("[Sheet File] Get Sheet Files By User Id Failure", props<{ error: string }>());
 

@@ -62,7 +62,7 @@ export class SheetFileController {
       let authHeader = headers.authorization;
       authHeader = authHeader.replace('Bearer ', '');
       let data = await this.userService.verifyIdToken(authHeader);
-      console.log(`find sheetfiles for user: ${data.email}, uid: ${_id}`);
+      console.log(`find sheetfiles for user: ${data.email}, _id: ${_id}`);
       if (!data.uid) {
         throw new HttpException('Invalid User', HttpStatus.FORBIDDEN);
       } else {
@@ -74,15 +74,16 @@ export class SheetFileController {
   }
 
   @Get('editting/:id')
-  async findEdittingById(@Param('id') id: string, @Headers('') headers: any) {
+  async findEdittingById(@Param('id') _id: string, @Headers('') headers: any) {
     try {
       let authHeader = headers.authorization;
       authHeader = authHeader.replace('Bearer ', '');
       let data = await this.userService.verifyIdToken(authHeader);
-      if (data.uid) {
+      console.log(`find editting sheetfile for user: ${data.email}, id: ${_id}`);
+      if (!data.uid) {
         throw new HttpException('Invalid User', HttpStatus.FORBIDDEN);
       } else {
-        return this.sheetFileService.findEdittingById(id);
+        return this.sheetFileService.findEdittingById(_id);
       }
     } catch (error) {
       throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
