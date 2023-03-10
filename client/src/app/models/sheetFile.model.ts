@@ -8,4 +8,5 @@ export interface SheetFile {
   owner: User;
   shared: User[];
   content: [];
+  color: string;
 }

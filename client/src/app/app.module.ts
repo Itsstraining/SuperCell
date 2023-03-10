@@ -41,7 +41,6 @@ const config: SocketIoConfig = { url: 'http://localhost:6969', options: {} };
       UserEffects
     ]),
     SocketIoModule.forRoot(config),
-    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

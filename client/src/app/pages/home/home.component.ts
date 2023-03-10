@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { SheetFile } from 'src/app/models/sheetFile.model';
+import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserState } from 'src/states/user.state';
 import { CreateDialogComponent } from './components/create-dialog/create-dialog.component';
@@ -31,6 +32,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       },
       shared: [],
       content: [],
+      color: '1',
     },
     {
       _id: '2',
@@ -46,6 +48,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       },
       shared: [],
       content: [],
+      color: '1',
     },
     {
       _id: '3',
@@ -61,16 +64,18 @@ export class HomeComponent implements OnInit, OnDestroy {
       },
       shared: [],
       content: [],
+      color: '1',
     },
   ];
 
   subscription!: Subscription;
 
   user$ = this.store.select('user', 'user');
+  user: User = <User>{};
   constructor(
     private store: Store<{ user: UserState }>,
     public dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -79,14 +84,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.user$.subscribe((user) => {
       if (user) {
-        console.log(user);
+        this.user = user;
       }
     });
   }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(RenameDialogComponent, {
-      data: {name: 'Sheet 1'},
+      data: { name: 'Sheet 1' },
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -96,7 +101,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   Create(): void {
     const dialogRef = this.dialog.open(CreateDialogComponent, {
-      data: {name: 'Sheet 1'},
+      data: this.user,
+      width: '640px',
+      height: '650px',
+      autoFocus: false //
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -106,7 +114,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   Invite(): void {
     const dialogRef = this.dialog.open(InviteDialogComponent, {
-      data: {name: 'Sheet 1'},
+      data: { name: 'Sheet 1' },
     });
 
     dialogRef.afterClosed().subscribe(result => {

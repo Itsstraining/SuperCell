@@ -28,7 +28,7 @@ export class AppComponent {
         let idToken = await user!.getIdToken(true);
         this.store.dispatch(UserActions.getUserInfo({ idToken }));
         this.route.navigate(['/home']);
-      }else{
+      } else {
         this.store.dispatch(UserActions.clearUserInfo());
         this.route.navigate(['/']);
       }
@@ -69,6 +69,7 @@ export class AppComponent {
       },
       shared: [],
       content: [],
+      color: '',
     };
     console.log('msg ', newMessageData);
     this.userService.sendMessage(newMessageData);

@@ -9,9 +9,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatRippleModule } from '@angular/material/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+
 
 @NgModule({
   declarations: [],
@@ -28,6 +34,12 @@ import { MatListModule } from '@angular/material/list';
     MatListModule,
     HttpClientModule,
     MatMenuModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatRippleModule,
+    MatSlideToggleModule,
+    MatTooltipModule
+
   ],
   exports: [
     MatToolbarModule,
@@ -42,6 +54,12 @@ import { MatListModule } from '@angular/material/list';
     HttpClientModule,
     MatMenuModule,
     MatButtonToggleModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatRippleModule,
+    MatSlideToggleModule,
+    MatTooltipModule
+
   ],
 })
-export class ShareModule {}
+export class ShareModule { }
