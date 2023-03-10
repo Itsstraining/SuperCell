@@ -12,7 +12,7 @@
   <div id="option-but">
     <section>
       <div class="example-button-row">
-        <button mat-stroked-button  (click)="Create()">
+        <button mat-stroked-button (click)="Create()">
           <mat-icon>add_circle </mat-icon>Create spreadsheet
         </button>
         <button mat-stroked-button>
@@ -29,17 +29,11 @@
 <!-- div 3 -->
 <div class="content">
   <div id="blank-space" *ngIf="sheetFiles == []">
-    <img
-      id="rows"
-      src="https://rows.com/f0ff810314d33d5e89ce178df62668c5.svg"
-      title="rows"
-    />
+    <img id="rows" src="https://rows.com/f0ff810314d33d5e89ce178df62668c5.svg" title="rows" />
     <br />
     <span id="blank-title">Create a new spreadsheet!</span>
-    <span id="blank-detail"
-      >Create a blank speardsheet, import a file or browse our template
-      gallery.</span
-    >
+    <span id="blank-detail">Create a blank speardsheet, import a file or browse our template
+      gallery.</span>
   </div>
   <div id="unblank-space" *ngIf="sheetFiles != []">
     <mat-action-list>
@@ -61,7 +55,7 @@
             <mat-icon id="menu-icon">drive_file_rename_outline</mat-icon>
             <span>Rename</span>
           </button>
-          <button mat-menu-item >
+          <button mat-menu-item (click)="Invite()">
             <mat-icon id="menu-icon">folder_share</mat-icon>
             <span>Share</span>
           </button>

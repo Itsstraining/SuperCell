@@ -1,0 +1,78 @@
+button {
+    margin-right: 8px;
+}
+
+.content {
+    font-size: 20px;
+    color: rgb(211, 12, 77);
+}
+
+.example-form {
+    min-width: 150px;
+    max-width: 400px;
+    width: 100%;
+    height: 50%;
+    margin: auto 30px 0 25px;
+}
+
+.example-full-width {
+    width: 100%;
+    height: 80px;
+}
+
+.add {
+    color: white;
+    background-color: rgb(211, 12, 77);
+}
+
+.example-header-image {
+    background-image: url('../../../../../../src/assets/avt.jpg');
+    background-size: cover;
+}
+
+.example-card {
+    width: 88%;
+    height: 85px;
+    margin: 10px 10px 0 25px;
+}
+
+#btn-dialog {
+    display: flex;
+    margin: 130px 0 30px 285px;
+}
+
+.btn-raised {
+    color: white;
+    background-color: rgb(211, 12, 77);
+}
+
+.btn-raised:hover {
+    color: white;
+    background-color: rgb(175, 12, 51);
+}
+
+.btn-stroked {
+    color: rgb(211, 12, 77);
+    border: 1px solid rgb(211, 12, 77);
+}
+
+.btn-stroked:hover {
+    color: rgb(211, 12, 77);
+    border: 1px solid rgb(175, 12, 51);
+}
+
+#delete {
+    color: rgb(211, 12, 77);
+}
+
+::ng-deep .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
+    color: rgb(211, 12, 77) !important;
+}
+
+::ng-deep .mdc-text-field--filled .mdc-line-ripple::after {
+    border-bottom-color: rgb(211, 12, 77) !important;
+}
+
+.add-email {
+    display: flex;
+}
