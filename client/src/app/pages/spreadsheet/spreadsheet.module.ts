@@ -8,6 +8,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ToolsComponent } from './components/tools/tools.component';
 import { ShareDialogComponent } from './components/share-dialog/share-dialog.component';
 import { FileDialogComponent } from './components/file-dialog/file-dialog.component';
+import { SheetTableComponent } from './components/sheet-table/sheet-table.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { FileDialogComponent } from './components/file-dialog/file-dialog.compon
     ToolsComponent,
     ShareDialogComponent,
     FileDialogComponent,
+    SheetTableComponent,
   ],
   imports: [
     CommonModule,

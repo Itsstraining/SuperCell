@@ -1,0 +1,31 @@
+<div class="sheet-container">
+    <div id="table">
+        <table class="sheet">
+            <tr *ngFor="let row of rows; let i = index;">
+                <td *ngFor="let col of rows[i]; let j = index;">
+                    <div *ngIf="i==0 && j==0" [ngClass]="getCellStyle(rows[i][j],currentCell)"
+                        (click)="selectAllBlock()">
+                        <mat-icon fontIcon="arrow_drop_down"></mat-icon>
+                    </div>
+                    <div *ngIf="i==0 && j!=0" [ngClass]="getCellStyle(rows[i][j],currentCell)"
+                        (click)="selectColHeader(rows[i][j].col)">
+                        {{rows[i][j].computedValue}}</div>
+                    <div *ngIf="j==0 && i!=0" [ngClass]="getCellStyle(rows[i][j],currentCell)"
+                        (click)="selectRowHeader(rows[i][j].row)">
+                        {{rows[i][j].computedValue}}</div>
+                    <div class="cell-container" *ngIf="i!=0 && j!=0" [ngClass]="getCellStyle(rows[i][j],currentCell)"
+                        #tooltip="matTooltip" matTooltip="{{rows[i][j].value}}">
+                        <textarea title="sheet" class="cell" type="text" (click)="selectCell(rows[i][j])"
+                            (mousedown)="cellMouseDown(rows[i][j])" (mousemove)="cellMouseMove(rows[i][j])"
+                            (mouseup)="cellMouseUp(rows[i][j])" [id]="'cell-'+i+'-'+j"
+                            (keydown)="enterCellKey(rows[i][j],$event)" [value]="rows[i][j].computedValue"
+                            (blur)="onBlur(rows[i][j],$event)">
+                        </textarea>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <button mat-raised-button (click)="addNewColumn()" id="addColBut">Add Column</button>
+    </div>
+    <button mat-raised-button (click)="addNewRow()" id="addRowBut">Add Row</button>
+</div>

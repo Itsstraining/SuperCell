@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { SheetFile } from 'src/app/models/sheetFile.model';
 import { User } from 'src/app/models/user.model';
 import { SheetFileState } from 'src/states/sheetFile.state';
@@ -14,6 +14,7 @@ import * as UserActions from '../../../actions/user.action';
 import * as AuthActions from '../../../actions/auth.action';
 import { AuthState } from 'src/states/auth.state';
 import { Router } from '@angular/router';
+import { SpreadsheetService } from 'src/app/services/spreadsheet.service';
 
 @Component({
   selector: 'app-home',
@@ -41,7 +42,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       auth: AuthState
     }>,
     public dialog: MatDialog,
-    private route: Router
+    private route: Router,
+    private spreadsheet: SpreadsheetService
   ) { }
 
   ngOnDestroy(): void {
@@ -120,4 +122,46 @@ export class HomeComponent implements OnInit, OnDestroy {
       console.log('The dialog was closed');
     });
   }
+
+  file$!: Observable<any>;
+  file: any[] = [];
+  shared: string = '';
+  newFile: SheetFile[] = [];
+  email: string = '';
+
+  joinRoom(email: string) {
+    if (email || email !== '') {
+      console.log('join room: ', email);
+      this.file$ = this.spreadsheet.getShareId(email);
+      this.file$.subscribe((file: any) => {
+        console.log('file: ', file);
+        this.file.push(file);
+      });
+    } else {
+      window.alert('Please enter a share id');
+    }
+  }
+
+  sendFile(file: any) {
+    let newFileData: SheetFile = {
+      _id: file._id,
+      title: file.title,
+      createdAt: file.createdAt,
+      updatedAt: file.updatedAt,
+      owner: {
+        _id: file.owner._id,
+        picture: file.owner.picture,
+        name: file.owner.name,
+        uid: file.owner.uid,
+        email: file.owner.email,
+      },
+      shared: [],
+      content: [],
+      color: '',
+      canCollab: false,
+    };
+    console.log('file ', newFileData);
+    this.spreadsheet.sendFile(newFileData);
+  }
+
 }
