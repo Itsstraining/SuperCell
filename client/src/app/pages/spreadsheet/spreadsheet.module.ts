@@ -7,7 +7,6 @@ import { ShareModule } from 'src/app/share/share/share.module';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ToolsComponent } from './components/tools/tools.component';
 import { ShareDialogComponent } from './components/share-dialog/share-dialog.component';
-import { FileDialogComponent } from './components/file-dialog/file-dialog.component';
 import { SheetTableComponent } from './components/sheet-table/sheet-table.component';
 
 
@@ -17,7 +16,6 @@ import { SheetTableComponent } from './components/sheet-table/sheet-table.compon
     NavbarComponent,
     ToolsComponent,
     ShareDialogComponent,
-    FileDialogComponent,
     SheetTableComponent,
   ],
   imports: [

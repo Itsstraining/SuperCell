@@ -12,38 +12,33 @@ export interface Section {
 @Component({
   selector: 'app-create-dialog',
   templateUrl: './create-dialog.component.html',
-  styleUrls: ['./create-dialog.component.scss']
+  styleUrls: ['./create-dialog.component.scss'],
 })
 export class CreateDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<CreateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: User
-  ) { }
+  ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   color: string = 'e9e3e7';
-  fileColor = ['e9e3e7', 'fff6d4', 'fdeacc', 'fbd9db', 'cef6ec', 'dae9fd']
+  fileColor = ['e9e3e7', 'fff6d4', 'fdeacc', 'fbd9db', 'cef6ec', 'dae9fd'];
   fileNameFormControl = new FormControl('', [Validators.required]);
-  disabled = false;;
+  disabled = false;
   isChecked = false;
 
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   createNewFile() {
     let newFile = {
       title: this.fileNameFormControl.value,
       owner: this.data,
       color: this.color,
-      canCollab: this.isChecked
-    }
+      canCollab: this.isChecked,
+    };
     this.dialogRef.close(newFile);
   }
-
-
-
 }
