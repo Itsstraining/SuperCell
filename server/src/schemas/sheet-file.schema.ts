@@ -27,6 +27,10 @@ export class SheetFile {
 
   @Prop({ default: false })
   canCollab: boolean;
+
+  @Prop({ default: [] })
+  inviteList: [];
+
 }
 
 export const SheetFileSchema = SchemaFactory.createForClass(SheetFile);

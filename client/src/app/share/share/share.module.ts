@@ -16,6 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 
@@ -38,6 +40,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     FormsModule,
     MatTooltipModule,
     RouterModule,
+    MatBadgeModule,
+    MatSnackBarModule,
   ],
   exports: [
     MatToolbarModule,
@@ -57,7 +61,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatRippleModule,
     MatSlideToggleModule,
     MatTooltipModule,
-    MatIconModule
+    MatBadgeModule,
+    MatSnackBarModule,
+    MatIconModule,
   ],
 })
 export class ShareModule { }
