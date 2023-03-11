@@ -14,6 +14,7 @@ import { User } from 'src/app/models/user.model';
 export class NavbarComponent
 {
   @Input('user') user !: User;
+
   @ViewChild('menuTrigger')
   menuTrigger!: MatMenuTrigger;
   subscription!: Subscription;
