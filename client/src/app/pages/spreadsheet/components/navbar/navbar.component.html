@@ -19,10 +19,8 @@
     </div>
     <div class="btn-list">
         <button mat-button class="btn"  color="accent" [routerLink]="'/home'">Exit</button>
-        <button mat-button class="btn"  color="accent" [matMenuTriggerFor]="menu" #menuTrigger>File</button>
-        <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="openFileDialog()">File</button>
-        </mat-menu>
+        <button mat-button class="btn"  color="accent" (click)="openFileDialog()">File</button>
+
         <button mat-button class="btn"  color="accent">Edit</button>
         <button mat-button class="btn"  color="accent">View</button>
         <button mat-button class="btn"  color="accent">Data</button>
