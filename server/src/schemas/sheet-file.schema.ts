@@ -5,10 +5,9 @@ import { User } from './user.schema';
 
 export type SheetFileDocument = HydratedDocument<SheetFile>;
 
-@Schema({timestamps: true})
+@Schema({ timestamps: true })
 export class SheetFile {
-  [x: string]: any;
-    
+
   @IsNotEmpty()
   @Prop()
   title: string;
@@ -20,8 +19,14 @@ export class SheetFile {
   @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }])
   shared: User[];
 
-  @Prop()
+  @Prop({ default: [] })
   content: [];
+
+  @Prop({ default: 'e9e3e7' })
+  color: string;
+
+  @Prop({ default: false })
+  canCollab: boolean;
 }
 
 export const SheetFileSchema = SchemaFactory.createForClass(SheetFile);

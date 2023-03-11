@@ -1,91 +1,113 @@
-button 
-{
-    margin-right: 8px;
+button {
+  margin-right: 8px;
 }
 
-.content
-{
+.content {
   font-size: 20px;
   color: rgb(211, 12, 77);
 }
-.example-form 
-{
+
+.sub-content {
+  font-size: 20px;
+  color: rgb(211, 12, 77);
+  margin: 0 24px 24px 24px;
+}
+
+.example-form {
   min-width: 150px;
   max-width: 400px;
   width: 100%;
   height: 50%;
-  margin: auto 30px 0 25px;
+  margin: 0px 27px 0 24px;
 }
-  
-.example-full-width
-{
+
+.example-full-width {
   width: 100%;
   height: 80px;
 }
 
-.add
-{
+.add {
   color: white;
-  background-color:rgb(211, 12, 77) ;
+  background-color: rgb(211, 12, 77);
+  margin: -10px 10px 10px 0;
 }
 
-.example-header-image 
-{
-  background-image: url('../../../../../../src/assets/avt.jpg');
+.add:disabled {
+  color: #000;
+  background-color: #efefef;
+  margin: -10px 10px 10px 0;
+}
+
+.example-header-image {
   background-size: cover;
 }
 
-.example-card 
-{
-  width: 88%;
+.mat-mdc-card {
+  --mdc-elevated-card-container-color: none !important;
+}
+
+.example-card {
+  /* width: 88%; */
   height: 85px;
-  margin: 10px 10px 0 25px;
+  margin: 0 auto;
 }
 
-#btn-dialog
-{
+.example-card ::ng-deep.mat-mdc-card-header {
   display: flex;
-  margin: 130px 0 30px 285px;
+  padding: 16px;
+  align-items: center;
+  margin: auto 0;
 }
 
-.btn-raised
-{
+.example-card ::ng-deep.mat-mdc-card-avatar {
+  margin: auto 0;
+}
+
+#btn-dialog {
+  display: flex;
+  margin: 20px 0 0 336px;
+}
+
+.btn-raised {
   color: white;
-  background-color:rgb(211, 12, 77) ;
+  background-color: rgb(211, 12, 77);
 }
 
-.btn-raised:hover
-{
+.btn-raised:hover {
   color: white;
-  background-color:rgb(175, 12, 51) ;
+  background-color: rgb(175, 12, 51);
 }
 
-.btn-stroked
-{
+.btn-stroked {
   color: rgb(211, 12, 77);
   border: 1px solid rgb(211, 12, 77);
 }
 
-.btn-stroked:hover
-{
+.btn-stroked:hover {
   color: rgb(211, 12, 77);
   border: 1px solid rgb(175, 12, 51);
 }
 
-#delete
-{
+.delete {
   color: rgb(211, 12, 77);
+  margin: auto 0 auto auto;
+
 }
-::ng-deep .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label
-{
+
+::ng-deep .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
   color: rgb(211, 12, 77) !important;
 }
 
-::ng-deep .mdc-text-field--filled .mdc-line-ripple::after{
+::ng-deep .mdc-text-field--filled .mdc-line-ripple::after {
   border-bottom-color: rgb(211, 12, 77) !important;
 }
 
-.add-email
-{
+.add-email {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+::ng-deep .mat-mdc-dialog-content {
+  max-height: 40vh !important;
 }

@@ -1,37 +1,32 @@
-
-  <div mat-dialog-content class="content">
-    Fill in the email you want to share:
+<div mat-dialog-content class="content">
+  Fill in the email you want to share:
+</div>
+<div class="add-email">
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Email...</mat-label>
+      <input matInput placeholder="" title="email" [formControl]="emailControl">
+    </mat-form-field>
+  </form>
+  <button mat-icon-button class="add" (click)="addInvite()" aria-label="Example icon-button with add icon"
+    [disabled]="!emailControl.value">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+<div class="sub-content">
+  People with access rights
+</div>
+<div mat-dialog-content>
+  <mat-card class="example-card" *ngFor="let user of tempInviteList">
+    <mat-card-header>
+      <img mat-card-avatar [src]="user.picture" title="ava" />
+      <mat-card-title>{{user.name}}</mat-card-title>
+      <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
+      <button mat-button color="accent" class="delete">Detele</button>
+    </mat-card-header>
+  </mat-card>
+  <div id="btn-dialog">
+    <button mat-stroked-button (click)="onNoClick()" color="accent" class="btn-stroked">Back</button>
+    <button mat-raised-button color="accent" class="btn-raised">Next</button>
   </div>
-
-  <div class="add-email">
-    <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <mat-label>Email...</mat-label>
-        <input matInput placeholder="">
-      </mat-form-field>
-    </form>
-    <button mat-icon-button class="add" aria-label="Example icon-button with add icon">
-      <mat-icon>add</mat-icon>
-    </button>
-  </div>
-  
-    <div mat-dialog-content class="content">
-      People with access rights
-    </div>
-
-    <mat-card class="example-card">
-      <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Shyren</mat-card-title>
-        <mat-card-subtitle>tuan.tt18989@sinhvien.hoasen.edu.vn</mat-card-subtitle>
-        <button mat-button color="accent" id="delete">Detele</button>
-      </mat-card-header>
-    </mat-card>
-
-    
-
-    <div id="btn-dialog">
-      <button mat-stroked-button (click)="onNoClick()" color="accent" class="btn-stroked">Back</button>
-      <button mat-raised-button color="accent" class="btn-raised">Next</button>
-    </div>
-  
+</div>

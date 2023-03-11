@@ -12,7 +12,7 @@
   <div id="option-but">
     <section>
       <div class="example-button-row">
-        <button mat-stroked-button  (click)="Create()">
+        <button mat-stroked-button (click)="openCreateDialog()">
           <mat-icon>add_circle </mat-icon>Create spreadsheet
         </button>
         <button mat-stroked-button>
@@ -29,39 +29,33 @@
 <!-- div 3 -->
 <div class="content">
   <div id="blank-space" *ngIf="sheetFiles == []">
-    <img
-      id="rows"
-      src="https://rows.com/f0ff810314d33d5e89ce178df62668c5.svg"
-      title="rows"
-    />
+    <img id="rows" src="https://rows.com/f0ff810314d33d5e89ce178df62668c5.svg" title="rows" />
     <br />
     <span id="blank-title">Create a new spreadsheet!</span>
-    <span id="blank-detail"
-      >Create a blank speardsheet, import a file or browse our template
-      gallery.</span
-    >
+    <span id="blank-detail">Create a blank speardsheet, import a file or browse our template
+      gallery.</span>
   </div>
   <div id="unblank-space" *ngIf="sheetFiles != []">
     <mat-action-list>
       <mat-list-item *ngFor="let file of sheetFiles">
-        <!-- <mat-icon matListIcon>folder</mat-icon> -->
-        <h3 matListItemTitle>{{ file.title }} - {{ file.owner.name }}</h3>
-        <p matListItemLine class="demo-2">{{ file.updated_At | date }}</p>
-        <div matListItemMeta>
+        <mat-icon matListItemIcon [ngClass]="file.color">folder</mat-icon>
+        <span matListItemLine class="file-title">{{ file.title }} - {{ file.owner.name }}</span>
+        <span matListItemLine class="file-modified-date">{{ file.updatedAt | date }}</span>
+        <span matListItemMeta>
           <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
           </button>
-        </div>
+        </span>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item [routerLink]="'../spreadsheet'">
+          <button mat-menu-item [routerLink]="'../spreadsheet/'+file._id">
             <mat-icon id="menu-icon">bookmark_manager</mat-icon>
             <span>Edit</span>
           </button>
-          <button mat-menu-item (click)="openDialog()">
+          <button mat-menu-item (click)="openRenameDialog(file)">
             <mat-icon id="menu-icon">drive_file_rename_outline</mat-icon>
             <span>Rename</span>
           </button>
-          <button mat-menu-item >
+          <button mat-menu-item (click)="openInviteDialog()">
             <mat-icon id="menu-icon">folder_share</mat-icon>
             <span>Share</span>
           </button>
