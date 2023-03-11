@@ -58,10 +58,4 @@ export class SheetFileEffects {
         catchError((error: string) =>
             from([SheetFileActions.updateSheetFileFailure({ error })])
         )));
-
-
-
-
-
-
 }
