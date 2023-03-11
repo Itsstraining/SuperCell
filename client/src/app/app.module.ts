@@ -18,6 +18,7 @@ import { UserEffects } from 'src/effects/user.effect';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { SheetFileEffects } from 'src/effects/sheetFile.effect';
 import { sheetFileReducer } from 'src/reducers/sheetFile.reducer';
+import { sheetReducer } from 'src/reducers/sheet.reducer';
 
 const config: SocketIoConfig = { url: 'http://localhost:6969', options: {} };
 
@@ -35,7 +36,8 @@ const config: SocketIoConfig = { url: 'http://localhost:6969', options: {} };
     StoreModule.forRoot({
       auth: authReducer,
       user: userReducer,
-      sheetFile: sheetFileReducer
+      sheetFile: sheetFileReducer,
+      sheet: sheetReducer
     }, {}),
     EffectsModule.forRoot([
       AuthEffects,

@@ -3,9 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { SheetFile } from '../models/sheetFile.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class SheetFileService {
   constructor(private http: HttpClient) {}
 

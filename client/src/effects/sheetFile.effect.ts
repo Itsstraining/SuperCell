@@ -3,8 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { catchError, from, map, Subscription, switchMap } from 'rxjs';
 import { SheetFileService } from 'src/app/services/sheet-file.service';
-import { Store } from '@ngrx/store';
-import { SheetFileState } from 'src/states/sheetFile.state';
+
 
 @Injectable()
 export class SheetFileEffects {

@@ -27,7 +27,6 @@
     border: none;    
 }
 
-
 .front-s {
     width: 10%;
     margin: 0px 0px 0px 15px;
@@ -87,10 +86,8 @@
 
 .example-spacer 
 {
-    flex: auto;
+    margin: 1%;
 }
-
-
 
 .operation
 {

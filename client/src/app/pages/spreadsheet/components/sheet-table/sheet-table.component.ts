@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, Renderer2 } from '@angular/core';
+import { updateCurrentUser } from '@firebase/auth';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CellBlock } from 'src/app/models/cell-block.model';
@@ -83,11 +84,11 @@ export class SheetTableComponent  implements OnInit
         console.log('currentCell is change', this.currentCell);
         this.newCurrentCellEvent.emit(this.currentCell);
       }
-      
     });
   }
 
-  addNewRow() {
+  addNewRow() 
+  {
     console.log('add new row');
     this.store.dispatch(SheetActions.setBaseRow({ baseRow: this.baseRow + 1 }));
     if (this.isSelectAll) 
@@ -96,10 +97,12 @@ export class SheetTableComponent  implements OnInit
     }
   }
 
-  addNewColumn() {
+  addNewColumn() 
+  {
     console.log('add new column');
     this.store.dispatch(SheetActions.setBaseCol({ baseCol: this.baseCol + 1 }));
-    if (this.isSelectAll) {
+    if (this.isSelectAll) 
+    {
       this.selectAllBlock();
     }
   }
@@ -178,9 +181,9 @@ export class SheetTableComponent  implements OnInit
     }
 
     if ((cell.col >= this.cellBlock.start.col && cell.col <= this.cellBlock.end.col && cell.row == 0)
-      || (cell.row >= this.cellBlock.start.row && cell.row <= this.cellBlock.end.row && cell.col == 0)
-      || (cell.row <= this.cellBlock.start.row && cell.row >= this.cellBlock.end.row && cell.col == 0)
-      || (cell.col <= this.cellBlock.start.col && cell.col >= this.cellBlock.end.col && cell.row == 0)
+     || (cell.row >= this.cellBlock.start.row && cell.row <= this.cellBlock.end.row && cell.col == 0)
+     || (cell.row <= this.cellBlock.start.row && cell.row >= this.cellBlock.end.row && cell.col == 0)
+     || (cell.col <= this.cellBlock.start.col && cell.col >= this.cellBlock.end.col && cell.row == 0)
     ) 
     {
       if (classes.includes('corner-header')) 
@@ -231,18 +234,21 @@ export class SheetTableComponent  implements OnInit
       }
     }
     if (cell.row >= this.cellBlock.end.row &&
-      cell.row <= this.cellBlock.start.row &&
-      cell.col <= this.cellBlock.end.col &&
-      cell.col >= this.cellBlock.start.col &&
-      cell.row !== 0 && cell.col !== 0) {
-      if (!classes.includes('selected-cell')) {
-        classes.push('selected-block');
-      }
+        cell.row <= this.cellBlock.start.row &&
+        cell.col <= this.cellBlock.end.col &&
+        cell.col >= this.cellBlock.start.col &&
+        cell.row !== 0 && cell.col !== 0) 
+        {
+        if (!classes.includes('selected-cell')) 
+        {
+          classes.push('selected-block');
+        }
     }
     return classes;
   }
 
-  selectCell(cell: Cell) {
+  selectCell(cell: Cell) 
+  {
     console.log('selectCell');
     this.store.dispatch(SheetActions.setCurrentCell({ currentCell: cell }));
     this.store.dispatch(SheetActions.setIsSelectAll({ isSelectAll: false }));
@@ -252,7 +258,8 @@ export class SheetTableComponent  implements OnInit
   cellMouseDown(cell: Cell) {
     let newCellBlock: CellBlock = { start: { row: cell.row, col: cell.col }, end: { row: cell.row, col: cell.col } };
     if (newCellBlock.end.col != this.cellBlock.end.col || newCellBlock.end.row != this.cellBlock.end.row
-      || newCellBlock.start.col != this.cellBlock.start.col || newCellBlock.start.row != this.cellBlock.start.row) {
+      || newCellBlock.start.col != this.cellBlock.start.col || newCellBlock.start.row != this.cellBlock.start.row) 
+      {
       console.log('cellMouseDown');
       this.store.dispatch(SheetActions.setIsSelectAll({ isSelectAll: false }));
       this.store.dispatch(SheetActions.setCellBlock({ cellBlock: newCellBlock }));
@@ -315,7 +322,6 @@ export class SheetTableComponent  implements OnInit
     this.store.dispatch(SheetActions.setCellBlock({ cellBlock: newCellBlock }));
     this.el.nativeElement.querySelector(`#cell-${this.currentCell.row}-${this.currentCell.col}`).focus();
   }
-
   changeCellByTab(cell: Cell, event: any) 
   {
     if (cell.row >= this.cellBlock.start.row &&
@@ -456,8 +462,10 @@ export class SheetTableComponent  implements OnInit
   }
 
 
-  enterCellKey(cell: Cell, event: any) {
-    if (event.code == "Enter") {
+  enterCellKey(cell: Cell, event: any) 
+  {
+    if (event.code == "Enter") 
+    {
       console.log('changeCell by Enter');
       let newRow = this.rows[cell.row].map((c, index) => {
         if (index == cell.col && c.row == cell.row) {
@@ -481,6 +489,7 @@ export class SheetTableComponent  implements OnInit
       event.preventDefault();
       this.store.dispatch(SheetActions.setCurrentCell({ currentCell: newRows[cell.row][cell.col] }));
     }
+
     if (event.code == "Tab") 
     {
       if (this.cellBlock.start.row == -1 && this.cellBlock.start.col == -1 && this.cellBlock.end.row == -1 && this.cellBlock.end.col == -1) 
@@ -494,6 +503,34 @@ export class SheetTableComponent  implements OnInit
       else 
       {
         this.changeCellByTabInCellBlock(cell, event);
+      }
+    }
+
+    if(event.code == "Delete")
+    {
+      let startCol = this.cellBlock.start.col; 
+      let startRow = this.cellBlock.start.row;
+      for( let i = 0; i < (this.cellBlock.end.col - this.cellBlock.start.col + 1)* (this.cellBlock.end.row - this.cellBlock.start.row + 1); i++)
+      {
+        if(startCol > this.cellBlock.end.col)
+        {
+          startCol = this.cellBlock.start.col;
+          startRow++;
+
+          if(this.rows[startRow][startCol].value == "" && this.rows[startRow][startCol].computedValue == "")
+          {
+            continue;
+          }
+          else
+          {
+            this.rows[startRow][startCol].value = "";
+            this.rows[startRow][startCol].computedValue = "";
+          }
+        }
+        else
+        {
+          startCol++;
+        }
       }
     }
   }
