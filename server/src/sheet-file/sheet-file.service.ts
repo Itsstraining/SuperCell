@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { SheetFile, SheetFileDocument } from 'src/schemas/sheet-file.schema';
 import { User, UserDocument } from 'src/schemas/user.schema';
+import { SheetFileModule } from './sheet-file.module';
 
 @Injectable()
 export class SheetFileService {
@@ -47,7 +48,7 @@ export class SheetFileService {
 
   async rename(sheetFile: SheetFileDocument): Promise<SheetFile> {
     try {
-      console.log(sheetFile._id); 
+      console.log(sheetFile.title); 
       return this.sheetFileModel.findOneAndUpdate(
         { _id: sheetFile._id },
         { title: sheetFile.title },
@@ -83,4 +84,16 @@ export class SheetFileService {
       return null;
     }
   }
+
+  async findRequest(sheetFile: SheetFileDocument) {
+    try {
+      return await this.sheetFileModel.find(sheetFile.inviteList).exec();
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
+
+
+
 }

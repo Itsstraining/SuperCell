@@ -8,7 +8,7 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No </button>
-  <button mat-button [mat-dialog-close]="newFileName" cdkFocusInitial [disabled]="!newFileName" id="renameBut"
+  <button mat-button  [disabled]="!newFileName" id="renameBut"
   (click)="renameNewFile()"> Ok
   </button>
 </div>

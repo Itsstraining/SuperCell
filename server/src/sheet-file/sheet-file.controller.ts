@@ -66,6 +66,7 @@ export class SheetFileController {
       let data = await this.userService.verifyIdToken(authHeader);
       console.log(`rename sheetfile for user: ${data.email}`);
       if (!data.uid) {
+        console.log('Invalid User')
         throw new HttpException('Invalid User', HttpStatus.FORBIDDEN);
       } else {
         return this.sheetFileService.rename(sheetFile);

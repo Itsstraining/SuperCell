@@ -10,4 +10,5 @@ export interface SheetFile {
   content: [];
   color: string;
   canCollab: boolean;
+  inviteList: User[];
 }
