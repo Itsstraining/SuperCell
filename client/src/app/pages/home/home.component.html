@@ -69,17 +69,4 @@
   </div>
 </div>
 
-<input type="text" [(ngModel)]="email" placeholder="shareId">
-<button (click)="joinRoom(email)">join</button>
-<input type="text" [(ngModel)]="newFile" placeholder="message">
-<button (click)="sendFile(file)">join</button>
 
-
-<div>
-<p *ngFor="let msg of file">{{msg._id}}</p>
-<p *ngFor="let msg of file">{{msg.title}}</p>
-<p *ngFor="let msg of file">{{msg.created_At}}</p>
-<p *ngFor="let msg of file">{{msg.updated_At}}</p>
-<p *ngFor="let msg of file">{{msg.owner}}</p>
-
-</div>

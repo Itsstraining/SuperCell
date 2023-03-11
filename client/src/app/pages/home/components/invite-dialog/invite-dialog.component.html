@@ -6,10 +6,16 @@
         <mat-form-field class="example-full-width">
             <mat-label>Email...</mat-label>
             <input matInput placeholder="" title="email" [formControl]="emailControl">
+            <mat-error *ngIf="emailControl.hasError('email')">
+              Must be <strong>email</strong>
+            </mat-error>
+            <mat-error *ngIf="emailControl.hasError('required')">
+              Missing required <strong>field</strong>
+            </mat-error>
         </mat-form-field>
     </form>
     <button mat-icon-button class="add" (click)="addInvite()" aria-label="Example icon-button with add icon"
-        [disabled]="!emailControl.value">
+        [disabled]="!emailControl.valid">
         <mat-icon>add</mat-icon>
     </button>
 </div>

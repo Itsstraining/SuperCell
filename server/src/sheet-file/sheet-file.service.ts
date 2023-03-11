@@ -3,15 +3,15 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { SheetFile, SheetFileDocument } from 'src/schemas/sheet-file.schema';
 import { User, UserDocument } from 'src/schemas/user.schema';
+import { SheetFileModule } from './sheet-file.module';
 
 @Injectable()
 export class SheetFileService {
-
   constructor(
     @InjectModel(SheetFile.name)
     private sheetFileModel: Model<SheetFileDocument>,
-    @InjectModel(User.name) private userModel: Model<UserDocument>
-  ) { }
+    @InjectModel(User.name) private userModel: Model<UserDocument>,
+  ) {}
 
   async create(createSheetFileDto: SheetFile) {
     try {
@@ -62,10 +62,24 @@ export class SheetFileService {
   async findEdittingById(id: string) {
     try {
       console.log(id);
-      return await this.sheetFileModel.findOne({ id: id, canCollab: true }).exec();
+      return await this.sheetFileModel
+        .findOne({ id: id, canCollab: true })
+        .exec();
     } catch (err) {
       console.log(err);
       return null;
     }
   }
+
+  async findRequest(sheetFile: SheetFileDocument) {
+    try {
+      return await this.sheetFileModel.find(sheetFile.inviteList).exec();
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
+
+
+
 }
