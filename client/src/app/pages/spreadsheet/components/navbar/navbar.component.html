@@ -3,6 +3,14 @@
         <img src="../../../assets/logo.png" title="logo" [routerLink]="'../home'">
     </div>
     <div class="btn-list">
+<<<<<<< HEAD
+        <button mat-button class="btn"  color="accent" [routerLink]="'/home'">Exit</button>
+        <button mat-button class="btn"  color="accent" (click)="openFileDialog()">File</button>
+
+        <button mat-button class="btn"  color="accent">Edit</button>
+        <button mat-button class="btn"  color="accent">View</button>
+        <button mat-button class="btn"  color="accent">Data</button>
+=======
         <button mat-button class="btn" color="accent" [routerLink]="'/home'">Exit</button>
         <button mat-button class="btn" color="accent" [matMenuTriggerFor]="menu" #menuTrigger>File</button>
         <mat-menu #menu="matMenu">
@@ -11,6 +19,7 @@
         <button mat-button class="btn" color="accent">Edit</button>
         <button mat-button class="btn" color="accent">View</button>
         <button mat-button class="btn" color="accent">Data</button>
+>>>>>>> 255f8bf3a7ab9986bcacdb3046e2e91aafef8fe9
     </div>
     <span class="example-spacer"></span>
     <div class="share">

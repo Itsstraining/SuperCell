@@ -34,18 +34,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatListModule,
     HttpClientModule,
     MatMenuModule,
+    MatTooltipModule,
     FormsModule,
-    ReactiveFormsModule,
-    MatRippleModule,
-    MatSlideToggleModule,
     MatTooltipModule,
     RouterModule,
-
-
   ],
   exports: [
     MatToolbarModule,
-    MatIconModule,
     RouterModule,
     MatInputModule,
     MatCardModule,
@@ -56,13 +51,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     HttpClientModule,
     MatMenuModule,
     MatButtonToggleModule,
+    MatTooltipModule,
     FormsModule,
     ReactiveFormsModule,
     MatRippleModule,
     MatSlideToggleModule,
     MatTooltipModule,
-    RouterModule,
-
   ],
 })
 export class ShareModule { }
