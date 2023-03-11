@@ -11,9 +11,7 @@ export interface DialogData { }
 })
 export class ShareDialogComponent {
 
-  tempInviteList: User[] = [
-
-  ];
+  tempInviteList: User[] = [];
   emailControl = new FormControl('');
   subscription!: Subscription;
   constructor(
@@ -29,6 +27,6 @@ export class ShareDialogComponent {
   }
 
   addInvite() {
-    this.tempInviteList.push(this.data);
+      this.tempInviteList.push(this.data);
   }
 }
