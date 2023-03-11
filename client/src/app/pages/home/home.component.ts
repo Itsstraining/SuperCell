@@ -89,8 +89,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       data: file,
     });
     dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
       console.log(result);
+      this.store.dispatch(SheetFileActions.renameSheetFile({ sheetFile: result, idToken: this.idToken }));
       console.log('The dialog was closed');
+      }
     });
   }
 

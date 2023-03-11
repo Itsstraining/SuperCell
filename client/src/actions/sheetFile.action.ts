@@ -19,5 +19,10 @@ export const createSheetFile = createAction("[Sheet File] Create Sheet File", pr
 export const createSheetFileSuccess = createAction("[Sheet File] Create Sheet File Success", props<{ sheetFile: SheetFile }>());
 export const createSheetFileFailure = createAction("[Sheet File] Create Sheet File Failure", props<{ error: string }>());
 
+//rename sheet file
+export const renameSheetFile = createAction("[Sheet File] Rename Sheet File", props<{ idToken: string, sheetFile: SheetFile }>());
+export const renameSheetFileSuccess = createAction("[Sheet File] Rename Sheet File Success", props<{ sheetFile: SheetFile }>());
+export const renameSheetFileFailure = createAction("[Sheet File] Rename Sheet File Failure", props<{ error: string }>());
+
 export const clearUserSheetFiles = createAction("[Sheet File] Clear User Sheet Files");
 

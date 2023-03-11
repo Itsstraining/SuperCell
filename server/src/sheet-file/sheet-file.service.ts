@@ -6,12 +6,11 @@ import { User, UserDocument } from 'src/schemas/user.schema';
 
 @Injectable()
 export class SheetFileService {
-
   constructor(
     @InjectModel(SheetFile.name)
     private sheetFileModel: Model<SheetFileDocument>,
-    @InjectModel(User.name) private userModel: Model<UserDocument>
-  ) { }
+    @InjectModel(User.name) private userModel: Model<UserDocument>,
+  ) {}
 
   async create(createSheetFileDto: SheetFile) {
     try {
@@ -46,6 +45,20 @@ export class SheetFileService {
     }
   }
 
+  async rename(sheetFile: SheetFileDocument): Promise<SheetFile> {
+    try {
+      console.log(sheetFile._id); 
+      return this.sheetFileModel.findOneAndUpdate(
+        { _id: sheetFile._id },
+        { title: sheetFile.title },
+        { new: true },
+      );
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
+
   async findByUserId(id: string) {
     try {
       return await this.sheetFileModel
@@ -62,7 +75,9 @@ export class SheetFileService {
   async findEdittingById(id: string) {
     try {
       console.log(id);
-      return await this.sheetFileModel.findOne({ id: id, canCollab: true }).exec();
+      return await this.sheetFileModel
+        .findOne({ id: id, canCollab: true })
+        .exec();
     } catch (err) {
       console.log(err);
       return null;

@@ -26,7 +26,8 @@ export class SheetFileService {
     return this.http.put<SheetFile>(environment.apiUrl + '/sheetfile/update', sheetFile, { headers: new HttpHeaders({ 'Authorization': `${idToken}` }) });
   }
 
-
-
+  rename(sheetFile: SheetFile, idToken: string) {
+    return this.http.put<SheetFile>(environment.apiUrl + '/sheetfile/rename/' + sheetFile._id, sheetFile, { headers: new HttpHeaders({ 'Authorization': `${idToken}` }) });
+  }
 
 }

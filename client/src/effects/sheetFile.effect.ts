@@ -59,8 +59,20 @@ export class SheetFileEffects {
             from([SheetFileActions.updateSheetFileFailure({ error })])
         )));
 
-
-
+    reNameSheetFile$ = createEffect(() => this.actions$.pipe(
+        ofType(SheetFileActions.renameSheetFile),
+        switchMap((action) => this.sheetFileService.rename(action.sheetFile, action.idToken)),
+        map((sheetFile) => {
+            if(sheetFile._id){
+              console.log("sheetFile", sheetFile);
+            }else{
+              return SheetFileActions.renameSheetFileFailure({ error: "Sheet file not found" })
+            }
+            return SheetFileActions.renameSheetFileSuccess({ sheetFile })
+        }),
+        catchError((error: string) =>
+            from([SheetFileActions.renameSheetFileFailure({ error })])
+    )));
 
 
 
