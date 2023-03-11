@@ -109,4 +109,10 @@ export class SheetFileController {
       throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
   }
+
+  @Get('file')
+  async findRequest(@Headers('') headers: any) {
+    
+  }
+
 }
