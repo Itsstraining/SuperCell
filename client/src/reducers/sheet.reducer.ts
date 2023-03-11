@@ -22,8 +22,8 @@ export const initialState: SheetState = {
             col: -1
         }
     },
-    baseRow: 6,
-    baseCol: 6,
+    baseRow: 21,
+    baseCol: 17,
     isSelecting: false,
     isSelectAll: false,
 };
