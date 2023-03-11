@@ -12,9 +12,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
-<<<<<<< HEAD
-import {MatTooltipModule} from '@angular/material/tooltip';
-=======
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -22,7 +19,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
->>>>>>> 255f8bf3a7ab9986bcacdb3046e2e91aafef8fe9
 @NgModule({
   declarations: [],
   imports: [
@@ -38,22 +34,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatListModule,
     HttpClientModule,
     MatMenuModule,
-<<<<<<< HEAD
     MatTooltipModule,
-=======
     FormsModule,
-    ReactiveFormsModule,
-    MatRippleModule,
-    MatSlideToggleModule,
     MatTooltipModule,
     RouterModule,
-
-
->>>>>>> 255f8bf3a7ab9986bcacdb3046e2e91aafef8fe9
   ],
   exports: [
     MatToolbarModule,
-    MatIconModule,
     RouterModule,
     MatInputModule,
     MatCardModule,
@@ -64,17 +51,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     HttpClientModule,
     MatMenuModule,
     MatButtonToggleModule,
-<<<<<<< HEAD
     MatTooltipModule,
-=======
     FormsModule,
     ReactiveFormsModule,
     MatRippleModule,
     MatSlideToggleModule,
     MatTooltipModule,
-    RouterModule,
-
->>>>>>> 255f8bf3a7ab9986bcacdb3046e2e91aafef8fe9
   ],
 })
 export class ShareModule { }
