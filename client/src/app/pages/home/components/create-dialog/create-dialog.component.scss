@@ -23,7 +23,9 @@
 ::ng-deep .mat-mdc-dialog-container .mdc-dialog__title {
     margin: 0 !important;
     padding: 30px !important;
-    background-color: #f1f1f1 !important;
+    background-color: rgba(212, 12, 79) !important;
+    color: white !important;
+
 
     #dialog-title {
         margin-bottom: 0 !important;
@@ -201,4 +203,8 @@ span {
 
 .itemName {
     font-weight: 500;
+}
+
+::ng-deep .mdc-dialog .mdc-dialog__content {
+    padding: 0px 24px 12px 24px;
 }

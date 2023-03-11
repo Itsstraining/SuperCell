@@ -15,6 +15,7 @@ import * as AuthActions from '../../../actions/auth.action';
 import { AuthState } from 'src/states/auth.state';
 import { Router } from '@angular/router';
 import { SpreadsheetService } from 'src/app/services/spreadsheet.service';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +29,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   userSubscription!: Subscription;
   sheetFileSubscription!: Subscription;
   errorSubscription!: Subscription;
+  isRenameSubscription!: Subscription;
 
+  isRename$ = this.store.select('sheetFile', 'isRename');
   error$ = this.store.select('sheetFile', 'error');
   sheetFiles$ = this.store.select('sheetFile');
   sheetFiles: SheetFile[] = [];
@@ -45,7 +48,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     }>,
     public dialog: MatDialog,
     private route: Router,
-    private spreadsheet: SpreadsheetService
+    private _snackBar: MatSnackBar,
+
   ) { }
 
   ngOnDestroy(): void {
@@ -84,10 +88,14 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     });
     this.errorSubscription = this.error$.subscribe((error) => {
-      if (error == 'rename success') {
+      if (error) {
+        this.openSnackBar('Rename unsuccess');
+      }
+    });
+    this.isRenameSubscription = this.isRename$.subscribe((isRename) => {
+      if (isRename) {
         this.store.dispatch(SheetFileActions.getSheetFilesByUserId({ idToken: this.idToken, _id: this.user._id }));
-      }else{
-
+        this.openSnackBar('Rename success');
       }
     });
 
@@ -99,9 +107,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-      console.log(result);
-      this.store.dispatch(SheetFileActions.renameSheetFile({ sheetFile: result, idToken: this.idToken }));
-      console.log('The dialog was closed');
+        console.log(result);
+        this.store.dispatch(SheetFileActions.renameSheetFile({ sheetFile: result, idToken: this.idToken }));
+        console.log('The dialog was closed');
       }
     });
   }
@@ -136,7 +144,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
 
-
+  horizontalPosition: MatSnackBarHorizontalPosition = 'left';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+  openSnackBar(content: string) {
+    this._snackBar.open(content, 'Oke', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 2000,
+    });
+  }
 
 
 

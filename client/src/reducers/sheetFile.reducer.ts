@@ -8,6 +8,7 @@ const initialState: SheetFileState = {
     sheetFiles: [],
     error: '',
     edittingFile: <SheetFile>{},
+    isRename: false,
 };
 
 export const sheetFileReducer = createReducer(
@@ -108,6 +109,7 @@ export const sheetFileReducer = createReducer(
         console.log(action.type);
         let newState = {
             ...state,
+            isRename: false,
         };
         return newState;
     }),
@@ -116,6 +118,7 @@ export const sheetFileReducer = createReducer(
         let newState = {
             ...state,
             error: '',
+            isRename: true,
         };
         return newState;
     }),
@@ -124,6 +127,7 @@ export const sheetFileReducer = createReducer(
         let newState = {
             ...state,
             error: action.error,
+            isRename: false,
         };
         return newState;
     }),

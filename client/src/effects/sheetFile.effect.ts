@@ -64,16 +64,16 @@ export class SheetFileEffects {
         ofType(SheetFileActions.renameSheetFile),
         switchMap((action) => this.sheetFileService.rename(action.sheetFile, action.idToken)),
         map((sheetFile) => {
-            if(sheetFile._id){
-              console.log("sheetFile", sheetFile);
-              return SheetFileActions.renameSheetFileFailure({ error: "rename success" })
-            }else{
-              return SheetFileActions.renameSheetFileFailure({ error: "Sheet file not found" })
+            if (sheetFile._id) {
+                console.log("sheetFile", sheetFile);
+                return SheetFileActions.renameSheetFileSuccess({ isRename: true })
+            } else {
+                return SheetFileActions.renameSheetFileFailure({ error: "Sheet file not found" })
             }
         }),
         catchError((error: string) =>
             from([SheetFileActions.renameSheetFileFailure({ error })])
-    )));
+        )));
 
 
 

@@ -11,7 +11,7 @@ export class SheetFileService {
     @InjectModel(SheetFile.name)
     private sheetFileModel: Model<SheetFileDocument>,
     @InjectModel(User.name) private userModel: Model<UserDocument>,
-  ) {}
+  ) { }
 
   async create(createSheetFileDto: SheetFile) {
     try {
@@ -48,7 +48,7 @@ export class SheetFileService {
 
   async rename(sheetFile: SheetFileDocument): Promise<SheetFile> {
     try {
-      console.log(sheetFile.title); 
+      console.log(sheetFile.title);
       return this.sheetFileModel.findOneAndUpdate(
         { _id: sheetFile._id },
         { title: sheetFile.title },
@@ -66,6 +66,7 @@ export class SheetFileService {
         .find({ owner: { $eq: Object(id) } })
         .select('-content')
         .populate('owner', 'name uid', this.userModel)
+        .sort({ updatedAt: -1 })
         .exec();
     } catch (err) {
       console.log(err);
