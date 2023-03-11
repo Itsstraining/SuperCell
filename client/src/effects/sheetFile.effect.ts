@@ -1,15 +1,16 @@
 import * as SheetFileActions from '../actions/sheetFile.action';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { catchError, from, map, switchMap } from 'rxjs';
+import { catchError, from, map, Subscription, switchMap } from 'rxjs';
 import { SheetFileService } from 'src/app/services/sheet-file.service';
+
 
 @Injectable()
 export class SheetFileEffects {
 
     constructor(
         private actions$: Actions,
-        private sheetFileService: SheetFileService
+        private sheetFileService: SheetFileService,
     ) { }
 
     getSheetFilesByUserId$ = createEffect(() => this.actions$.pipe(
@@ -58,4 +59,22 @@ export class SheetFileEffects {
         catchError((error: string) =>
             from([SheetFileActions.updateSheetFileFailure({ error })])
         )));
+
+    reNameSheetFile$ = createEffect(() => this.actions$.pipe(
+        ofType(SheetFileActions.renameSheetFile),
+        switchMap((action) => this.sheetFileService.rename(action.sheetFile, action.idToken)),
+        map((sheetFile) => {
+            if(sheetFile._id){
+              console.log("sheetFile", sheetFile);
+              return SheetFileActions.renameSheetFileFailure({ error: "rename success" })
+            }else{
+              return SheetFileActions.renameSheetFileFailure({ error: "Sheet file not found" })
+            }
+        }),
+        catchError((error: string) =>
+            from([SheetFileActions.renameSheetFileFailure({ error })])
+    )));
+
+
+
 }

@@ -28,7 +28,7 @@ export class AppComponent {
         let idToken = await user!.getIdToken(true);
         this.store.dispatch(AuthActions.storeIdToken(idToken));
         this.store.dispatch(UserActions.getUserInfo({ idToken }));
-        this.route.navigate(['/home']);
+        this.route.navigate(['../home']);
       } else {
         this.store.dispatch(UserActions.clearUserInfo());
         this.route.navigate(['/']);

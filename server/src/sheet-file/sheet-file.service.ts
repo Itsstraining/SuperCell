@@ -46,6 +46,20 @@ export class SheetFileService {
     }
   }
 
+  async rename(sheetFile: SheetFileDocument): Promise<SheetFile> {
+    try {
+      console.log(sheetFile.title); 
+      return this.sheetFileModel.findOneAndUpdate(
+        { _id: sheetFile._id },
+        { title: sheetFile.title },
+        { new: true },
+      );
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
+
   async findByUserId(id: string) {
     try {
       return await this.sheetFileModel

@@ -104,6 +104,29 @@ export const sheetFileReducer = createReducer(
         };
         return newState;
     }),
+    on(SheetFileActions.renameSheetFile, (state, action) => {
+        console.log(action.type);
+        let newState = {
+            ...state,
+        };
+        return newState;
+    }),
+    on(SheetFileActions.renameSheetFileSuccess, (state, action) => {
+        console.log(action.type);
+        let newState = {
+            ...state,
+            error: '',
+        };
+        return newState;
+    }),
+    on(SheetFileActions.renameSheetFileFailure, (state, action) => {
+        console.log(action.type);
+        let newState = {
+            ...state,
+            error: action.error,
+        };
+        return newState;
+    }),
     on(SheetFileActions.clearUserSheetFiles, (state, action) => {
         console.log(action.type);
         let newState = {

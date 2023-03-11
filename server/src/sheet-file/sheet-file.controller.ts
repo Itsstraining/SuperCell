@@ -46,10 +46,30 @@ export class SheetFileController {
       let authHeader = headers.authorization;
       authHeader = authHeader.replace('Bearer ', '');
       let data = await this.userService.verifyIdToken(authHeader);
+      console.log(`update sheetfile name for user: ${data.email}}`);
       if (data.uid != sheetFile.owner.uid) {
         throw new HttpException('Invalid User', HttpStatus.FORBIDDEN);
-      } else {
+      } else { 
         return this.sheetFileService.update(sheetFile);
+      }
+    } catch (error) {
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+    }
+  }
+
+  
+  @Put('rename')  
+  async rename(@Headers('') headers: any,@Body() sheetFile: SheetFileDocument) {
+    try {
+      let authHeader = headers.authorization;
+      authHeader = authHeader.replace('Bearer ', '');
+      let data = await this.userService.verifyIdToken(authHeader);
+      console.log(`rename sheetfile for user: ${data.email}`);
+      if (!data.uid) {
+        console.log('Invalid User')
+        throw new HttpException('Invalid User', HttpStatus.FORBIDDEN);
+      } else {
+        return this.sheetFileService.rename(sheetFile);
       }
     } catch (error) {
       throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);

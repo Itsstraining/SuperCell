@@ -24,7 +24,7 @@ export const authReducer = createReducer(initialState,
     return { ...state, idToken: "", error: "" }
   }),
   on(AuthActions.storeIdToken, (state, { type, idToken }) => {
-    console.log(type);
+    console.log(type, idToken);
     return { ...state, idToken: idToken }
   }),
 );

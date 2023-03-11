@@ -27,7 +27,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   idTokenSubscription!: Subscription;
   userSubscription!: Subscription;
   sheetFileSubscription!: Subscription;
+  errorSubscription!: Subscription;
 
+  error$ = this.store.select('sheetFile', 'error');
   sheetFiles$ = this.store.select('sheetFile');
   sheetFiles: SheetFile[] = [];
   idToken$ = this.store.select('auth', 'idToken');
@@ -81,6 +83,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.sheetFiles = sheetFiles.sheetFiles;
       }
     });
+    this.errorSubscription = this.error$.subscribe((error) => {
+      if (error == 'rename success') {
+        this.store.dispatch(SheetFileActions.getSheetFilesByUserId({ idToken: this.idToken, _id: this.user._id }));
+      }else{
+
+      }
+    });
 
   }
 
@@ -89,8 +98,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       data: file,
     });
     dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
       console.log(result);
+      this.store.dispatch(SheetFileActions.renameSheetFile({ sheetFile: result, idToken: this.idToken }));
       console.log('The dialog was closed');
+      }
     });
   }
 
@@ -122,6 +134,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       console.log('The dialog was closed');
     });
   }
+
+
+
 
 
 
