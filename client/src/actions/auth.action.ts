@@ -4,8 +4,7 @@ export const login = createAction(
   "[Auth] Login");
 
 export const loginSuccess = createAction(
-  "[Auth] Login Success",
-  (idToken: string) => ({ idToken }));
+  "[Auth] Login Success");
 
 export const loginFailure = createAction(
   "[Auth] Login Failure",
@@ -16,3 +15,8 @@ export const logout = createAction(
 
 export const logoutSuccess = createAction(
   "[Auth] Logout Success");
+
+export const storeIdToken = createAction(
+  "[Auth] Store Id Token",
+  (idToken: string) => ({ idToken }));
+

@@ -10,22 +10,26 @@ import { SheetFile } from '../models/sheetFile.model';
 })
 export class UserService {
 
-  constructor(private http:HttpClient, private socket: Socket) { }
+  constructor(private http: HttpClient, private socket: Socket) { }
 
-  createUser(idToken:string){
-    return this.http.post(environment.apiUrl + '/user', '',{ headers: new HttpHeaders({ 'Authorization': `${idToken}` }) });
+  createUser(idToken: string) {
+    return this.http.post(environment.apiUrl + '/user', '', { headers: new HttpHeaders({ 'Authorization': `${idToken}` }) });
   }
 
-  getUserInfo(idToken:string){
-    return this.http.get<User[]>(environment.apiUrl + '/user/info',{ headers: new HttpHeaders({ 'Authorization': `${idToken}` }) });
+  getUserInfo(idToken: string) {
+    return this.http.get<User>(environment.apiUrl + '/user/info', { headers: new HttpHeaders({ 'Authorization': `${idToken}` }) });
   }
 
-  getShareId(email:string){
+  getUserInfoByEmail(email: string | null, idToken: string) {
+    return this.http.get<User>(environment.apiUrl + '/user/email/' + email, { headers: new HttpHeaders({ 'Authorization': `${idToken}` }) });
+  }
+
+  getShareId(email: string) {
     const id = 'message' + email;
     return this.socket.fromEvent(id);
   }
 
-  sendMessage(data: SheetFile){
+  sendMessage(data: SheetFile) {
     this.socket.emit('message', data);
   }
 

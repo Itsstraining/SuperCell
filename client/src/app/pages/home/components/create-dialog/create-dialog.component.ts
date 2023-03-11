@@ -35,15 +35,10 @@ export class CreateDialogComponent {
   }
 
   createNewFile() {
-    let newFile: SheetFile = {
+    let newFile = {
       title: this.fileNameFormControl.value,
-      created_At: 0,
-      updated_At: 0,
       owner: this.data,
-      shared: [],
-      content: [],
       color: this.color,
-      _id: '',
       canCollab: this.isChecked
     }
     this.dialogRef.close(newFile);

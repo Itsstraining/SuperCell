@@ -11,9 +11,9 @@ export const authReducer = createReducer(initialState,
     console.log(action.type);
     return { ...state, error: "" }
   }),
-  on(AuthActions.loginSuccess, (state, { idToken, type }) => {
+  on(AuthActions.loginSuccess, (state, { type }) => {
     console.log(type);
-    return { ...state, idToken, error: "" }
+    return { ...state, error: "" }
   }),
   on(AuthActions.loginFailure, (state, { error }) => {
     console.log(error);
@@ -22,5 +22,9 @@ export const authReducer = createReducer(initialState,
   on(AuthActions.logout, (state, { type }) => {
     console.log(type);
     return { ...state, idToken: "", error: "" }
-  })
+  }),
+  on(AuthActions.storeIdToken, (state, { type, idToken }) => {
+    console.log(type);
+    return { ...state, idToken: idToken }
+  }),
 );

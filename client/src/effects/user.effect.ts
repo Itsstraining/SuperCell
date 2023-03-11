@@ -2,7 +2,6 @@ import * as UserActions from '../actions/user.action';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { catchError, from, map, switchMap } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 
@@ -17,12 +16,25 @@ export class UserEffects {
   getUserInfo$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.getUserInfo),
     switchMap((action) => this.userService.getUserInfo(action.idToken)),
-    map((user:User[]) => {
-      console.log("user", user);
-      return  UserActions.getUserInfoSuccess({user:user[0]})
+    map((user: User) => {
+      // console.log("user", user);
+      return UserActions.getUserInfoSuccess({ user: user })
     }),
-    catchError((error:string) =>
-    from([UserActions.getUserInfoFailure({error})])
-  )));
+    catchError((error: string) =>
+      from([UserActions.getUserInfoFailure({ error })])
+    )));
+
+  getUserInfoByEmail$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.getUserInfoByEmail),
+    switchMap((action) => this.userService.getUserInfoByEmail(action.email, action.idToken)),
+    map((user: User) => {
+      // console.log("user", user); 
+      return UserActions.getUserInfoByEmailSuccess({ user: user })
+    }
+    ),
+    catchError((error: string) =>
+      from([UserActions.getUserInfoByEmailFailure({ error })])
+    )));
+
 
 }

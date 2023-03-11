@@ -5,6 +5,7 @@ import * as UserActions from '../actions/user.action';
 
 const initialState: UserState = {
   user: <User>{},
+  inviteUser: <User>{},
   error: '',
 };
 
@@ -13,6 +14,7 @@ export const userReducer = createReducer(
   on(UserActions.getUserInfo, (state, action) => {
     console.log(action.type);
     let newState = {
+
       ...state,
     };
     return newState;
@@ -20,6 +22,7 @@ export const userReducer = createReducer(
   on(UserActions.getUserInfoSuccess, (state, action) => {
     console.log(action.type);
     let newState = {
+
       ...state,
       user: action.user,
     };
@@ -41,4 +44,28 @@ export const userReducer = createReducer(
     };
     return newState;
   }),
+  on(UserActions.getUserInfoByEmail, (state, action) => {
+    console.log(action.type);
+    let newState = {
+      ...state,
+    };
+    return newState;
+  }),
+  on(UserActions.getUserInfoByEmailSuccess, (state, action) => {
+    console.log(action.type);
+    let newState = {
+      ...state,
+      inviteUser: action.user,
+    };
+    return newState;
+  }),
+  on(UserActions.getUserInfoByEmailFailure, (state, action) => {
+    console.log(action.type);
+    let newState = {
+      ...state,
+      error: action.error,
+    };
+    return newState;
+  }),
+
 );

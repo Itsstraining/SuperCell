@@ -40,14 +40,14 @@
       <mat-list-item *ngFor="let file of sheetFiles">
         <mat-icon matListItemIcon [ngClass]="file.color">folder</mat-icon>
         <span matListItemLine class="file-title">{{ file.title }} - {{ file.owner.name }}</span>
-        <span matListItemLine class="file-modified-date">{{ file.updated_At | date }}</span>
+        <span matListItemLine class="file-modified-date">{{ file.updatedAt | date }}</span>
         <span matListItemMeta>
           <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
           </button>
         </span>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item [routerLink]="'../spreadsheet'">
+          <button mat-menu-item [routerLink]="'../spreadsheet/'+file._id">
             <mat-icon id="menu-icon">bookmark_manager</mat-icon>
             <span>Edit</span>
           </button>
