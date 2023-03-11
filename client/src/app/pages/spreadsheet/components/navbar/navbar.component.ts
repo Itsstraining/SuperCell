@@ -11,7 +11,7 @@ import { User } from 'src/app/models/user.model';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent 
+export class NavbarComponent
 {
   @Input('user') user !: User;
 
@@ -33,10 +33,16 @@ export class NavbarComponent
   }
 
   openFileDialog() {
-    const dialogRef = this.filedialog.open(FileDialogComponent, { restoreFocus: false });
-    dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
+    const dialogRef = this.dialog.open(FileDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
+
+
+
+
+
 }
-
-
 

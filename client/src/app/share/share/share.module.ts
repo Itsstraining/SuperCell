@@ -57,6 +57,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatRippleModule,
     MatSlideToggleModule,
     MatTooltipModule,
+    MatIconModule
   ],
 })
 export class ShareModule { }

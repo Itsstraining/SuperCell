@@ -36,44 +36,4 @@ export class AppComponent {
     });
   }
 
-  chat$!: Observable<any>;
-  message: any[] = [];
-  shared: string = '';
-  newMessage: string = '';
-  email: string = '';
-
-  joinRoom(email: string) {
-    if (email || email !== '') {
-      console.log('join room: ', email);
-      this.chat$ = this.userService.getShareId(email);
-      this.chat$.subscribe((message: any) => {
-        console.log('message: ', message);
-        this.message.push(message);
-      });
-    } else {
-      window.alert('Please enter a share id');
-    }
-  }
-
-  sendMessage(message: any) {
-    let newMessageData: SheetFile = {
-      _id: '',
-      title: '',
-      createdAt: 0,
-      updatedAt: 0,
-      owner: {
-        _id: '',
-        picture: '',
-        name: '',
-        uid: '',
-        email: '',
-      },
-      shared: [],
-      content: [],
-      color: '',
-      canCollab: false,
-    };
-    console.log('msg ', newMessageData);
-    this.userService.sendMessage(newMessageData);
-  }
 }
