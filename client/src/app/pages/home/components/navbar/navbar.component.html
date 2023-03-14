@@ -2,9 +2,8 @@
   <div id="logo-box">
     <img src="../../../assets/logo.png" title="logo" />
   </div>
-  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-    <mat-icon matBadge="{{(requestList$ | async)?.length || ''}}" matBadgeColor="primary"
-      matBadgeSize="small">sms</mat-icon>
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" (click)="requestListDialog('0ms', '0ms')" >
+    <mat-icon matBadge="{{(requestList$ | async)?.length || ''}}" matBadgeColor="primary" matBadgeSize="small" >sms</mat-icon>
     <span class="cdk-visually-hidden">
       Example with a home icon with overlaid badge showing the number 15
     </span>

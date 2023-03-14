@@ -1,0 +1,29 @@
+
+.dialog{
+
+  width: 500px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  h1{
+    color: rgb(211, 12, 77);
+  }
+}
+
+.content{
+  width: 100%;
+  height: fit-content;
+
+  margin: 0 auto;
+
+}
+
+.Accept{
+  color: rgb(211, 12, 77);
+  margin: auto 0 auto auto;
+}
+
+
+
