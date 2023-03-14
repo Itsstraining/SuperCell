@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, Observable, Subscription } from 'rxjs';
 import { User } from 'src/app/models/user.model';
+import { SpreadsheetService } from 'src/app/services/spreadsheet.service';
 import { AuthState } from 'src/states/auth.state';
 import { SheetFileState } from 'src/states/sheetFile.state';
 import { UserState } from 'src/states/user.state';
@@ -14,6 +15,9 @@ import * as SheetFileActions from '../../../actions/sheetFile.action';
   styleUrls: ['./spreadsheet.component.scss']
 })
 export class SpreadsheetComponent {
+
+  spreadSheet$ !: Observable<any>;
+
   user$ = this.store.select('user', 'user');
   userSubscription!: Subscription;
   user: User = <User>{};
@@ -32,7 +36,8 @@ export class SpreadsheetComponent {
       sheetFile: SheetFileState,
       auth: AuthState
     }>,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private spreadsheetService: SpreadsheetService) {
 
   }
 
@@ -65,8 +70,28 @@ export class SpreadsheetComponent {
         if (this.idToken) {
           console.log('sheetId: ', this.id);
           this.store.dispatch(SheetFileActions.getEdittingFile({ _id: id, idToken: this.idToken }));
+
+          this.spreadSheet$ = this.spreadsheetService.getMessage(id);
+          this.spreadsheetService.sendMessage({
+            _id: id,
+            title: '',
+            createdAt: 0,
+            updatedAt: 0,
+            owner: <User>{},
+            shared: [],
+            content: [],
+            color: '',
+            canCollab: true,
+            inviteList: []
+          });
         }
       }
     });
+    this.spreadSheet$.subscribe((data) => {
+      if (data) {
+        console.log(data);
+      }
+    });
   }
+
 }

@@ -1,25 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
+import { map } from 'rxjs';
 import { SheetFile } from '../models/sheetFile.model';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class SpreadsheetService 
-{
+export class SpreadsheetService {
 
-  constructor(private socket: Socket, private http: HttpClient) { }
+  constructor(private socket: Socket) { }
 
-  getShareId(email:string)
-  {
-    return this.http.get('${environment.apiUrl}/sheetfile/id')
+  sendMessage(file: SheetFile) {
+    console.log('send message', file._id);
+    this.socket.emit('sheetfile', file);
   }
 
-  sendFile(newFileData: SheetFile)
-  {
-    this.http.post('${environment.apiUrl}/sheetfile', newFileData).subscribe((Response) => console.log(Response))
-
+  getMessage(_id: string) {
+    console.log('join room', _id);
+    return this.socket.fromEvent(`sheetfile-${_id}`).pipe(map((data: any) => {
+      // console.log(data);
+      return data;
+    }));
   }
 }

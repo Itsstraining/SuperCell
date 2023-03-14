@@ -34,12 +34,12 @@ export class SheetTableComponent implements OnInit {
     this.sheet$.subscribe((sheet) => {
       if (sheet.rows != this.rows) {
         this.rows = sheet.rows;
-        console.log('rows is change', this.rows);
+        // console.log('rows is change', this.rows);
       }
 
       if (sheet.baseCol != this.baseCol) {
         this.baseCol = sheet.baseCol;
-        console.log('baseCol is change', this.baseCol);
+        // console.log('baseCol is change', this.baseCol);
         if (this.baseCol > 0 && this.baseRow > 0) {
           this.drawTable();
         }
@@ -47,7 +47,7 @@ export class SheetTableComponent implements OnInit {
 
       if (sheet.baseRow != this.baseRow) {
         this.baseRow = sheet.baseRow;
-        console.log('baseRow is change', this.baseRow);
+        // console.log('baseRow is change', this.baseRow);
         if (this.baseRow > 0 && this.baseCol > 0) {
           this.drawTable();
         }
@@ -55,22 +55,22 @@ export class SheetTableComponent implements OnInit {
 
       if (sheet.isSelectAll != this.isSelectAll) {
         this.isSelectAll = sheet.isSelectAll;
-        console.log('isSelectAll is change', this.isSelectAll);
+        // console.log('isSelectAll is change', this.isSelectAll);
       }
 
       if (sheet.isSelecting != this.isSelecting) {
         this.isSelecting = sheet.isSelecting;
-        console.log('isSelecting is change', this.isSelecting);
+        // console.log('isSelecting is change', this.isSelecting);
       }
 
       if (sheet.cellBlock != this.cellBlock) {
         this.cellBlock = sheet.cellBlock;
-        console.log('cellBlock is change', this.cellBlock);
+        // console.log('cellBlock is change', this.cellBlock);
       }
 
       if (sheet.currentCell != this.currentCell) {
         this.currentCell = sheet.currentCell;
-        console.log('currentCell is change', this.currentCell);
+        // console.log('currentCell is change', this.currentCell);
         this.newCurrentCellEvent.emit(this.currentCell);
       }
     });
@@ -473,7 +473,7 @@ export class SheetTableComponent implements OnInit {
                 return c;
               })
             }
-            else if(index >= this.cellBlock.end.row && index <= this.cellBlock.start.row){
+            else if (index >= this.cellBlock.end.row && index <= this.cellBlock.start.row) {
               return r.map((c, index) => {
                 if (index >= this.cellBlock.start.col && index <= this.cellBlock.end.col) {
                   return {
