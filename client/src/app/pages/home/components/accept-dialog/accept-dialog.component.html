@@ -1,0 +1,23 @@
+<div class="dialog">
+  <h1 mat-dialog-title>Request List</h1>
+
+  <div mat-dialog-content class="content">
+    <mat-card class="content" *ngFor="let request of this.data | async">
+      <mat-card-header>
+        <img mat-card-avatar [src]="request.owner.picture" />
+        <mat-card-title>{{ request.owner.name }}</mat-card-title>
+        <mat-card-subtitle> </mat-card-subtitle>
+        <mat-card-subtitle
+          >Đã mời bạn tham gia edit file :
+          {{ request.title }}</mat-card-subtitle
+        >
+        <button mat-button color="accent" class="Accept">Accept</button>
+      </mat-card-header>
+
+    </mat-card>
+  </div>
+  <div mat-dialog-actions class="action">
+    <button mat-button mat-dialog-close>Close</button>
+  </div>
+</div>
+

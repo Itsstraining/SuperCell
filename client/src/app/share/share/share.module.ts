@@ -18,6 +18,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 
 @NgModule({
   declarations: [],
@@ -40,6 +42,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     RouterModule,
     MatBadgeModule,
     MatSnackBarModule,
+    MatCheckboxModule,
   ],
   exports: [
     MatToolbarModule,
@@ -62,6 +65,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatBadgeModule,
     MatSnackBarModule,
     MatIconModule,
+    MatCheckboxModule,
   ],
 })
 export class ShareModule { }
