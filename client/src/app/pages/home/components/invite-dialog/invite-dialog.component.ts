@@ -33,7 +33,7 @@ export class InviteDialogComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<InviteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: User,
     private store: Store<{ user: UserState; auth: AuthState }>
-  ) {}
+  ) { }
 
   ngOnDestroy(): void {
     this.inviteUserSubscription.unsubscribe();
@@ -43,7 +43,7 @@ export class InviteDialogComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.inviteUserSubscription = this.inviteUser$.subscribe((user) => {
       if (user._id) {
-        console.log('user: ', user);
+        console.log('user: ', user.email);
         if (!this.tempInviteList.find((u) => u._id === user._id)) {
           this.tempInviteList.push(user);
         } else {
@@ -65,14 +65,14 @@ export class InviteDialogComponent implements OnInit, OnDestroy {
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close([]);
     this.tempInviteList = [];
   }
 
   addInvite() {
     let email = this.emailControl.value;
     this.emailControl.setValue('');
-    return this.store.dispatch(
+    this.store.dispatch(
       UserActions.getUserInfoByEmail({ email: email, idToken: this.idToken })
     );
   }
@@ -90,4 +90,15 @@ export class InviteDialogComponent implements OnInit, OnDestroy {
       duration: 2000,
     });
   }
+
+  invite() {
+    console.log('tempInviteList: ', this.tempInviteList);
+    if (this.tempInviteList.length === 0) {
+      this.dialogRef.close([]);
+    } else {
+      this.dialogRef.close(this.tempInviteList);
+    }
+  }
+
+
 }

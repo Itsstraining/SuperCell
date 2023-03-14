@@ -8,6 +8,8 @@ import { SheetFileService } from 'src/app/services/sheet-file.service';
 import { Store } from '@ngrx/store';
 import { SheetFileState } from 'src/states/sheetFile.state';
 import { AcceptDialogComponent } from '../accept-dialog/accept-dialog.component';
+import { UserState } from 'src/states/user.state';
+
 
 @Component({
   selector: 'app-navbar',
@@ -15,8 +17,8 @@ import { AcceptDialogComponent } from '../accept-dialog/accept-dialog.component'
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  @Input('user') user$ !: Observable<User>;
-  constructor(private dialog: MatDialog,private store:Store<{sheetFile : SheetFileState}>) { }
+  @Input('user') user$ !: Observable<UserState>;
+  constructor(private dialog: MatDialog, private store: Store<{ sheetFile: SheetFileState }>) { }
 
   requestList$ = this.store.select('sheetFile', 'requestList');
 

@@ -75,7 +75,7 @@ export class SheetFileEffects {
             from([SheetFileActions.renameSheetFileFailure({ error })])
         )));
 
-      inviteSheetFile$ = createEffect(() => this.actions$.pipe(
+    inviteSheetFile$ = createEffect(() => this.actions$.pipe(
         ofType(SheetFileActions.inviteSheetFile),
         switchMap((action) => this.sheetFileService.invite(action.sheetFile, action.idToken)),
         map((sheetFile) => {
@@ -86,11 +86,14 @@ export class SheetFileEffects {
                 return SheetFileActions.inviteSheetFileFailure({ error: "Sheet file not found" })
             }
         }),
-        catchError((error: string) =>
-            from([SheetFileActions.inviteSheetFileFailure({ error })])
+        catchError((error: string) => {
+            console.log("error", error);
+            return from([SheetFileActions.inviteSheetFileFailure({ error })])
+
+        }
         )));
 
-      acceptRequest$ = createEffect(() => this.actions$.pipe(
+    acceptRequest$ = createEffect(() => this.actions$.pipe(
         ofType(SheetFileActions.acceptRequest),
         switchMap((action) => this.sheetFileService.acceptRequest(action.sheetFile, action.idToken, action.uid)),
         map((sheetFile) => {
@@ -105,7 +108,7 @@ export class SheetFileEffects {
             from([SheetFileActions.acceptRequestFailure({ error })])
         )));
 
-      getRequest$ = createEffect(() => this.actions$.pipe(
+    getRequest$ = createEffect(() => this.actions$.pipe(
         ofType(SheetFileActions.findRequestList),
         switchMap((action) => this.sheetFileService.findRequestList(action.idToken, action._id)),
         map((sheetFiles) => {

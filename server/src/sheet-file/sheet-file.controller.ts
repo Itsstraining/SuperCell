@@ -49,7 +49,7 @@ export class SheetFileController {
       console.log(`update sheetfile name for user: ${data.email}}`);
       if (data.uid != sheetFile.owner.uid) {
         throw new HttpException('Invalid User', HttpStatus.FORBIDDEN);
-      } else { 
+      } else {
         return this.sheetFileService.update(sheetFile);
       }
     } catch (error) {
@@ -57,9 +57,9 @@ export class SheetFileController {
     }
   }
 
-  
-  @Put('rename')  
-  async rename(@Headers('') headers: any,@Body() sheetFile: SheetFileDocument) {
+
+  @Put('rename')
+  async rename(@Headers('') headers: any, @Body() sheetFile: SheetFileDocument) {
     try {
       let authHeader = headers.authorization;
       authHeader = authHeader.replace('Bearer ', '');
@@ -133,7 +133,7 @@ export class SheetFileController {
       let authHeader = headers.authorization;
       authHeader = authHeader.replace('Bearer ', '');
       let data = await this.userService.verifyIdToken(authHeader);
-      console.log(`update sheetfile editting for user: ${data.email}`);
+      console.log(`invite user from file : ${sheetFile.title}`);
       if (!data.uid) {
         throw new HttpException('Invalid User', HttpStatus.FORBIDDEN);
       } else {

@@ -10,11 +10,8 @@ import { CreateDialogComponent } from './components/create-dialog/create-dialog.
 import { InviteDialogComponent } from './components/invite-dialog/invite-dialog.component';
 import { RenameDialogComponent } from './components/rename-dialog/rename-dialog.component';
 import * as SheetFileActions from '../../../actions/sheetFile.action';
-import * as UserActions from '../../../actions/user.action';
-import * as AuthActions from '../../../actions/auth.action';
 import { AuthState } from 'src/states/auth.state';
 import { Router } from '@angular/router';
-import { SpreadsheetService } from 'src/app/services/spreadsheet.service';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
@@ -26,7 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   idTokenSubscription!: Subscription;
-  userSubscription!: Subscription;
+  userStateSubscription!: Subscription;
   sheetFileSubscription!: Subscription;
   errorSubscription!: Subscription;
   isRenameSubscription!: Subscription;
@@ -37,7 +34,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   sheetFiles: SheetFile[] = [];
   idToken$ = this.store.select('auth', 'idToken');
   idToken: string = '';
-  user$ = this.store.select('user', 'user');
+  userState$ = this.store.select('user');
   user: User = <User>{};
 
   constructor(
@@ -53,22 +50,25 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnDestroy(): void {
-    this.userSubscription.unsubscribe();
+    this.userStateSubscription.unsubscribe();
     this.idTokenSubscription.unsubscribe();
     this.sheetFileSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
 
-    this.userSubscription = this.user$.subscribe((user) => {
-      if (user._id) {
-        this.user = user;
+    this.userStateSubscription = this.userState$.subscribe((userState) => {
+      if (userState.user._id != this.user._id) {
+        this.user = userState.user;
         if (this.idToken) {
-          console.log('userId: ', user._id);
+          console.log('userId: ', userState.user._id);
           // console.log('idToken: ', this.idToken);
           this.store.dispatch(SheetFileActions.getSheetFilesByUserId({ idToken: this.idToken, _id: this.user._id }));
           this.store.dispatch(SheetFileActions.findRequestList({ idToken: this.idToken, _id: this.user._id }));
         }
+      }
+      if (userState.error) {
+        this.openSnackBar('Some thing went wrong');
       }
     });
     this.idTokenSubscription = this.idToken$.subscribe((idToken) => {
@@ -84,13 +84,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (sheetFiles.edittingFile._id) {
         this.route.navigateByUrl('/spreadsheet/' + sheetFiles.edittingFile._id);
       }
-      if (sheetFiles.sheetFiles.length > 0) {
+      if (sheetFiles.sheetFiles != this.sheetFiles) {
         console.log('sheetFiles: ', sheetFiles.sheetFiles);
         this.sheetFiles = sheetFiles.sheetFiles;
       }
     });
     this.errorSubscription = this.error$.subscribe((error) => {
-      if (error) {
+      if (error == 'Sheet file not found') {
         this.openSnackBar('Rename unsuccess');
       }
     });
@@ -106,6 +106,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   openRenameDialog(file: SheetFile): void {
     const dialogRef = this.dialog.open(RenameDialogComponent, {
       data: file,
+      restoreFocus: false,
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
@@ -121,7 +122,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       data: this.user,
       width: '640px',
       height: '650px',
-      autoFocus: false //
+      autoFocus: false,
+      restoreFocus: false,
+
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
@@ -132,19 +135,33 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  openInviteDialog(): void {
+  openInviteDialog(sheetFile: SheetFile): void {
     const dialogRef = this.dialog.open(InviteDialogComponent, {
       data: this.user,
       autoFocus: false,
       height: '550px',
       width: '520px',
+      restoreFocus: false,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    dialogRef.afterClosed().subscribe((result: User[]) => {
+      // console.log(result);
+      if (result != undefined) {
+        if (result.length == 0) {
+          this.openSnackBar('Invite unsuccess due to no user selected');
+        } else {
+          let updatedSheetFile = {
+            ...sheetFile,
+            inviteList: result
+          }
+          console.log('sheetFile: ', updatedSheetFile);
+          this.store.dispatch(SheetFileActions.inviteSheetFile({ idToken: this.idToken, sheetFile: updatedSheetFile }));
+        }
+      } else {
+        this.openSnackBar('Invite unsuccess');
+      }
     });
   }
-
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'left';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
@@ -153,6 +170,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
       duration: 2000,
+      panelClass: ['snackbar']
     });
   }
 
