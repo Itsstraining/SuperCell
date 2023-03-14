@@ -1,16 +1,17 @@
 <mat-toolbar>
     <div class="logo">
-        <img src="../../../assets/logo.png" title="logo">
+        <img src="../../../assets/logo.png" title="logo" >
     </div>
     <div class="btn-list">
-        <button mat-button class="btn" color="accent" (click)="turnBackHome()">Exit</button>
+        
         <button mat-button class="btn" color="accent">Edit</button>
         <button mat-button class="btn" color="accent">View</button>
         <button mat-button class="btn" color="accent">Data</button>
     </div>
     <span class="example-spacer"></span>
     <div class="share">
-        <button mat-flat-button (click)="openDialog()" class="btn-share">Share</button>
+        <button mat-flat-button (click)="openDialog()" color="accent" class="btn-share">Share</button>
+        <button mat-button class="btn-exit" color="accent" (click)="turnBackHome()">Exit</button>
     </div>
     <div id="avatar">
         <img src="{{this.user.picture}}" title="ava" />

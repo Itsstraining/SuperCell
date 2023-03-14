@@ -1,19 +1,23 @@
-button {
+button 
+{
   margin-right: 8px;
 }
 
-.content {
+.content 
+{
   font-size: 20px;
   color: rgb(211, 12, 77);
 }
 
-.sub-content {
+.sub-content 
+{
   font-size: 20px;
   color: rgb(211, 12, 77);
   margin: 0 24px 24px 24px;
 }
 
-.example-form {
+.example-form 
+{
   min-width: 150px;
   max-width: 400px;
   width: 100%;
@@ -21,12 +25,14 @@ button {
   margin: 0px 27px 0 24px;
 }
 
-.example-full-width {
+.example-full-width 
+{
   width: 100%;
   height: 80px;
 }
 
-.add {
+.add 
+{
   color: white;
   background-color: rgb(211, 12, 77);
   margin: -10px 10px 10px 0;
