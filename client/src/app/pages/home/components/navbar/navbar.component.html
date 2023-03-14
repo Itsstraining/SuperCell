@@ -3,12 +3,13 @@
     <img src="../../../assets/logo.png" title="logo" />
   </div>
   <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-    <mat-icon matBadge="{{(requestList$ | async)?.length || ''}}" matBadgeColor="primary" matBadgeSize="small">sms</mat-icon>
+    <mat-icon matBadge="{{(requestList$ | async)?.length || ''}}" matBadgeColor="primary"
+      matBadgeSize="small">sms</mat-icon>
     <span class="cdk-visually-hidden">
       Example with a home icon with overlaid badge showing the number 15
     </span>
   </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" >
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
     <mat-icon>help</mat-icon>
   </button>
   <section>
@@ -27,7 +28,7 @@
     </form>
   </div>
   <div id="avatar">
-    <img src="{{(this.user$ | async)?.picture}}" [matMenuTriggerFor]="menu" title="ava"    />
+    <img src="{{(this.user$ | async)?.user?.picture}}" [matMenuTriggerFor]="menu" title="ava" />
   </div>
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="openDialog('0ms', '0ms')">

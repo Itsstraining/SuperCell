@@ -31,6 +31,6 @@ export class NavbarComponent {
   }
 
   turnBackHome() {
-    window.location.href = '/';
+    window.location.href = '/home';
   }
 }

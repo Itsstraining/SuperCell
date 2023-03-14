@@ -9,5 +9,26 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.snackbar {
+    background-color: #fff !important;
+    color: rgb(212, 12, 79) !important;
+}
+
+.mat-mdc-snack-bar-container {
+    &.snackbar {
+        --mdc-snackbar-container-color: #fff !important;
+        --mat-mdc-snack-bar-button-color: rgb(212, 12, 79) !important;
+        --mdc-snackbar-supporting-text-color: rgb(212, 12, 79) !important;
+    }
+}

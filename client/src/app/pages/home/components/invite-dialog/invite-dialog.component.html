@@ -7,10 +7,10 @@
             <mat-label>Email...</mat-label>
             <input matInput placeholder="" title="email" [formControl]="emailControl">
             <mat-error *ngIf="emailControl.hasError('email')">
-              Must be <strong>email</strong>
+                Must be <strong>email</strong>
             </mat-error>
             <mat-error *ngIf="emailControl.hasError('required')">
-              Missing required <strong>field</strong>
+                Missing required <strong>field</strong>
             </mat-error>
         </mat-form-field>
     </form>
@@ -33,6 +33,6 @@
     </mat-card>
     <div id="btn-dialog">
         <button mat-stroked-button (click)="onNoClick()" color="accent" class="btn-stroked">Back</button>
-        <button mat-raised-button color="accent" class="btn-raised">Next</button>
+        <button mat-raised-button color="accent" class="btn-raised" (click)="invite()">Invite</button>
     </div>
 </div>

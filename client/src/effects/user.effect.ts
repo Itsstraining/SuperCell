@@ -7,7 +7,7 @@ import { User } from 'src/app/models/user.model';
 
 @Injectable()
 export class UserEffects {
-  constructor(private actions$: Actions, private userService: UserService) {}
+  constructor(private actions$: Actions, private userService: UserService) { }
 
   getUserInfo$ = createEffect(() =>
     this.actions$.pipe(
@@ -30,7 +30,7 @@ export class UserEffects {
         this.userService.getUserInfoByEmail(action.email, action.idToken)
       ),
       map((user: User) => {
-        console.log('user', user);
+        console.log('user invited: ', user.email);
         if (user == null) {
           return UserActions.getUserInfoByEmailFailure({
             error: 'User not found',
@@ -39,8 +39,10 @@ export class UserEffects {
           return UserActions.getUserInfoByEmailSuccess({ user: user });
         }
       }),
-      catchError((error: string) =>
-        from([UserActions.getUserInfoByEmailFailure({ error })])
+      catchError((error: string) => {
+        return from([UserActions.getUserInfoByEmailFailure({ error })])
+
+      }
       )
     )
   );
