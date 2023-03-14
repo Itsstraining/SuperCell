@@ -9,6 +9,7 @@ import { LogoutConfirmDialogComponent } from './components/logout-confirm-dialog
 import { RenameDialogComponent } from './components/rename-dialog/rename-dialog.component';
 import { CreateDialogComponent } from './components/create-dialog/create-dialog.component';
 import { InviteDialogComponent } from './components/invite-dialog/invite-dialog.component';
+import { AcceptDialogComponent } from './components/accept-dialog/accept-dialog.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { InviteDialogComponent } from './components/invite-dialog/invite-dialog.
     RenameDialogComponent,
     CreateDialogComponent,
     InviteDialogComponent,
+    AcceptDialogComponent,
   ],
   imports: [
     CommonModule,

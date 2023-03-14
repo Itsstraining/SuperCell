@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/user.service';
 import { SheetFileService } from 'src/app/services/sheet-file.service';
 import { Store } from '@ngrx/store';
 import { SheetFileState } from 'src/states/sheetFile.state';
+import { AcceptDialogComponent } from '../accept-dialog/accept-dialog.component';
 
 @Component({
   selector: 'app-navbar',
@@ -29,16 +30,12 @@ export class NavbarComponent {
   }
 
   requestListDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(LogoutConfirmDialogComponent, {
-      width: '250px',
+    this.dialog.open(AcceptDialogComponent, {
+      // width: '550px',
       enterAnimationDuration,
       exitAnimationDuration,
+      data: this.requestList$
     });
   }
-
-
-
-
-
 
 }
