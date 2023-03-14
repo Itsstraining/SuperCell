@@ -26,3 +26,19 @@ export const renameSheetFileFailure = createAction("[Sheet File] Rename Sheet Fi
 
 export const clearUserSheetFiles = createAction("[Sheet File] Clear User Sheet Files");
 
+//invite sheet file
+export const inviteSheetFile = createAction("[Sheet File] Invite Sheet File", props<{ idToken: string, sheetFile: SheetFile }>());
+export const inviteSheetFileSuccess = createAction("[Sheet File] Invite Sheet File Success", props<{ isInvite: boolean }>());
+export const inviteSheetFileFailure = createAction("[Sheet File] Invite Sheet File Failure", props<{ error: string }>());
+
+//find request list
+export const findRequestList = createAction("[Sheet File] Find Request List", props<{ idToken: string, _id: string }>());
+export const findRequestListSuccess = createAction("[Sheet File] Find Request List Success", props<{ sheetFiles: SheetFile[] }>());
+export const findRequestListFailure = createAction("[Sheet File] Find Request List Failure", props<{ error: string }>());
+
+//accept request
+export const acceptRequest = createAction("[Sheet File] Accept Request", props<{ idToken: string, sheetFile: SheetFile, uid: string }>());
+export const acceptRequestSuccess = createAction("[Sheet File] Accept Request Success", props<{ isAccept: boolean }>());
+export const acceptRequestFailure = createAction("[Sheet File] Accept Request Failure", props<{ error: string }>());
+
+

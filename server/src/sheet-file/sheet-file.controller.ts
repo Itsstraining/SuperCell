@@ -110,9 +110,56 @@ export class SheetFileController {
     }
   }
 
-  @Get('file')
-  async findRequest(@Headers('') headers: any) {
-    
+  @Get('request/:id')
+  async findRequest(@Headers('') headers: any, @Param('id') uid: string) {
+    try {
+      let authHeader = headers.authorization;
+      authHeader = authHeader.replace('Bearer ', '');
+      let data = await this.userService.verifyIdToken(authHeader);
+      console.log(`find sheetfile for user: ${data.email}`);
+      if (!data.uid) {
+        throw new HttpException('Invalid User', HttpStatus.FORBIDDEN);
+      } else {
+        return this.sheetFileService.findRequest(uid);
+      }
+    } catch (error) {
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+    }
   }
+
+  @Put('invite')
+  async inviteUser(@Headers('') headers: any, @Body() sheetFile: SheetFileDocument) {
+    try {
+      let authHeader = headers.authorization;
+      authHeader = authHeader.replace('Bearer ', '');
+      let data = await this.userService.verifyIdToken(authHeader);
+      console.log(`update sheetfile editting for user: ${data.email}`);
+      if (!data.uid) {
+        throw new HttpException('Invalid User', HttpStatus.FORBIDDEN);
+      } else {
+        return this.sheetFileService.inviteUser(sheetFile);
+      }
+    } catch (error) {
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+    }
+  }
+
+  @Put('accept/:id')
+  async acceptRequest(@Headers('') headers: any, @Body() sheetFile: SheetFileDocument, @Param('id') uid: string) {
+    try {
+      let authHeader = headers.authorization;
+      authHeader = authHeader.replace('Bearer ', '');
+      let data = await this.userService.verifyIdToken(authHeader);
+      console.log(`update sheetfile editting for user: ${data.email}`);
+      if (!data.uid) {
+        throw new HttpException('Invalid User', HttpStatus.FORBIDDEN);
+      } else {
+        return this.sheetFileService.acceptRequest(sheetFile, uid);
+      }
+    } catch (error) {
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+    }
+  }
+
 
 }

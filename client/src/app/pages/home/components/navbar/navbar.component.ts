@@ -3,6 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { LogoutConfirmDialogComponent } from '../logout-confirm-dialog/logout-confirm-dialog.component';
+import { UserService } from 'src/app/services/user.service';
+import { SheetFileService } from 'src/app/services/sheet-file.service';
+import { Store } from '@ngrx/store';
+import { SheetFileState } from 'src/states/sheetFile.state';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +15,10 @@ import { LogoutConfirmDialogComponent } from '../logout-confirm-dialog/logout-co
 })
 export class NavbarComponent {
   @Input('user') user$ !: Observable<User>;
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog,private store:Store<{sheetFile : SheetFileState}>) { }
+
+  requestList$ = this.store.select('sheetFile', 'requestList');
+
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(LogoutConfirmDialogComponent, {
@@ -21,7 +28,13 @@ export class NavbarComponent {
     });
   }
 
-
+  requestListDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(LogoutConfirmDialogComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
 
 
 

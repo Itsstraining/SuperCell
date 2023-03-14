@@ -44,4 +44,26 @@ export class SheetFileService {
       { headers: new HttpHeaders({ Authorization: `${idToken}` }) }
     );
   }
+
+  invite(sheetFile: SheetFile, idToken: string) {
+    return this.http.put<SheetFile>(
+      environment.apiUrl + '/sheetfile/invite',
+      sheetFile,
+      { headers: new HttpHeaders({ Authorization: `${idToken}` }) }
+    );
+  }
+
+  findRequestList(idToken: string, _id: string) {
+    return this.http.get<SheetFile[]>(
+      environment.apiUrl + '/sheetfile/request/' + _id,
+      { headers: new HttpHeaders({ Authorization: `${idToken}` }) }
+    );
+  }
+  acceptRequest(sheetFile: SheetFile, idToken: string, uid: string) {
+    return this.http.put(
+      environment.apiUrl + `/sheetfile/accept/${uid}`,
+      sheetFile,
+      { headers: new HttpHeaders({ Authorization: `${idToken}` }) }
+    );
+  }
 }
