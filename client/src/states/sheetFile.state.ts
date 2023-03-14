@@ -5,4 +5,7 @@ export interface SheetFileState {
     error: string;
     edittingFile: SheetFile;
     isRename: boolean;
+    isInvite: boolean;
+    isAccept: boolean;
+    requestList: SheetFile[];
 }

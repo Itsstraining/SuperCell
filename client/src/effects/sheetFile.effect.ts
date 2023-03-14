@@ -75,6 +75,54 @@ export class SheetFileEffects {
             from([SheetFileActions.renameSheetFileFailure({ error })])
         )));
 
+      inviteSheetFile$ = createEffect(() => this.actions$.pipe(
+        ofType(SheetFileActions.inviteSheetFile),
+        switchMap((action) => this.sheetFileService.invite(action.sheetFile, action.idToken)),
+        map((sheetFile) => {
+            if (sheetFile._id) {
+                console.log("sheetFile", sheetFile);
+                return SheetFileActions.inviteSheetFileSuccess({ isInvite: true })
+            } else {
+                return SheetFileActions.inviteSheetFileFailure({ error: "Sheet file not found" })
+            }
+        }),
+        catchError((error: string) =>
+            from([SheetFileActions.inviteSheetFileFailure({ error })])
+        )));
+
+      acceptRequest$ = createEffect(() => this.actions$.pipe(
+        ofType(SheetFileActions.acceptRequest),
+        switchMap((action) => this.sheetFileService.acceptRequest(action.sheetFile, action.idToken, action.uid)),
+        map((sheetFile) => {
+            if (sheetFile) {
+                console.log("sheetFile", sheetFile);
+                return SheetFileActions.acceptRequestSuccess({ isAccept: true })
+            } else {
+                return SheetFileActions.acceptRequestFailure({ error: "Sheet file not found" })
+            }
+        }),
+        catchError((error: string) =>
+            from([SheetFileActions.acceptRequestFailure({ error })])
+        )));
+
+      getRequest$ = createEffect(() => this.actions$.pipe(
+        ofType(SheetFileActions.findRequestList),
+        switchMap((action) => this.sheetFileService.findRequestList(action.idToken, action._id)),
+        map((sheetFiles) => {
+            if (sheetFiles && sheetFiles.length > 0) {
+                console.log("requests", sheetFiles);
+                return SheetFileActions.findRequestListSuccess({ sheetFiles })
+            } else {
+                return SheetFileActions.findRequestListSuccess({ sheetFiles: [] })
+            }
+        }),
+        catchError((error: string) =>
+            from([SheetFileActions.findRequestListFailure({ error })])
+        )));
+
+
+
+
 
 
 }

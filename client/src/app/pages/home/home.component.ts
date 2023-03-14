@@ -65,7 +65,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.user = user;
         if (this.idToken) {
           console.log('userId: ', user._id);
+          // console.log('idToken: ', this.idToken);
           this.store.dispatch(SheetFileActions.getSheetFilesByUserId({ idToken: this.idToken, _id: this.user._id }));
+          this.store.dispatch(SheetFileActions.findRequestList({ idToken: this.idToken, _id: this.user._id }));
         }
       }
     });

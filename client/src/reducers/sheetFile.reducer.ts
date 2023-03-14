@@ -9,6 +9,9 @@ const initialState: SheetFileState = {
     error: '',
     edittingFile: <SheetFile>{},
     isRename: false,
+    isInvite: false,
+    isAccept: false,
+    requestList: [],
 };
 
 export const sheetFileReducer = createReducer(
@@ -140,5 +143,89 @@ export const sheetFileReducer = createReducer(
         };
         return newState;
     }),
+    on(SheetFileActions.inviteSheetFile, (state, action) => {
+
+        console.log(action.type);
+        let newState = {
+            ...state,
+            isInvite: false,
+        };
+        return newState;
+    }),
+    on(SheetFileActions.inviteSheetFileSuccess, (state, action) => {
+        console.log(action.type);
+        let newState = {
+            ...state,
+            error: '',
+            isInvite: true,
+        };
+        return newState;
+    }),
+    on(SheetFileActions.inviteSheetFileFailure, (state, action) => {
+        console.log(action.type);
+        let newState = {
+            ...state,
+            error: action.error,
+            isInvite: false,
+        };
+        return newState;
+    }),
+    on(SheetFileActions.acceptRequest, (state, action) => {
+
+        console.log(action.type);
+        let newState = {
+
+            ...state,
+            isAccept: false,
+        };
+        return newState;
+    }),
+    on(SheetFileActions.acceptRequestSuccess, (state, action) => {
+        console.log(action.type);
+        let newState = {
+            ...state,
+            error: '',
+            isAccept: true,
+        };
+        return newState;
+    }),
+    on(SheetFileActions.acceptRequestFailure, (state, action) => {
+
+        console.log(action.type);
+        let newState = {
+            ...state,
+            error: action.error,
+            isAccept: false,
+        };
+        return newState;
+    }),
+    on(SheetFileActions.findRequestList, (state, action) => {
+        console.log(action.type);
+        let newState = {
+            ...state,
+        };
+        return newState;
+    }),
+    on(SheetFileActions.findRequestListSuccess, (state, action) => {
+        console.log(action.type);
+        let newState = {
+            ...state,
+            requestList: action.sheetFiles,
+        };
+        return newState;
+    }),
+    on(SheetFileActions.findRequestListFailure, (state, action) => {
+        console.log(action.type);
+        let newState = {
+            ...state,
+            error: action.error,
+        };
+        return newState;
+    }),
+
+
+
+
+
 );
 

@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IsNotEmpty } from 'class-validator';
 import mongoose, { HydratedDocument } from 'mongoose';
-import { User } from './user.schema';
+import { User, UserDocument } from './user.schema';
 
 export type SheetFileDocument = HydratedDocument<SheetFile>;
 
@@ -14,10 +14,10 @@ export class SheetFile {
 
   @IsNotEmpty()
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  owner: User;
+  owner: UserDocument;
 
   @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }])
-  shared: User[];
+  shared: UserDocument[];
 
   @Prop({ default: [] })
   content: [];
@@ -28,8 +28,8 @@ export class SheetFile {
   @Prop({ default: false })
   canCollab: boolean;
 
-  @Prop({ default: [] })
-  inviteList: [];
+  @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }])
+  inviteList: UserDocument[];
 
 }
 

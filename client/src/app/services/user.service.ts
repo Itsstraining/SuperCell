@@ -8,7 +8,7 @@ import { SheetFile } from '../models/sheetFile.model';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService 
+export class UserService
 {
 
   constructor(private http: HttpClient, private socket: Socket) { }
@@ -33,5 +33,7 @@ export class UserService
   sendMessage(data: SheetFile) {
     this.socket.emit('message', data);
   }
+
+
 
 }

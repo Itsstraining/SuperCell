@@ -19,7 +19,7 @@ import * as UserActions from '../../../../../actions/user.action';
   styleUrls: ['./invite-dialog.component.scss'],
 })
 export class InviteDialogComponent implements OnInit, OnDestroy {
-  requestList: [] = [];
+  requestList: User[] = [];
   error$ = this.store.select((state) => state.user.error);
   errorSubscription!: Subscription;
   tempInviteList: User[] = [];
