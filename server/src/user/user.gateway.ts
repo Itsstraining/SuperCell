@@ -8,9 +8,9 @@ import { UserService } from './user.service';
 
 @WebSocketGateway({ cors: true })
 export class UserGateway {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
-  @WebSocketServer() server;
+  @WebSocketServer() server: { emit: (arg0: string, arg1: any) => void; };
 
   handleConnection(client: any, ...args: any[]) {
     console.log('client connected', client.id);
@@ -26,6 +26,6 @@ export class UserGateway {
     console.log(email);
     console.log('message', payload);
     this.server.emit('message' + email, payload);
-    
+
   }
 }

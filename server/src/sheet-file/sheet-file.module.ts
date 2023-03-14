@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { SheetFile, SheetFileSchema } from 'src/schemas/sheet-file.schema';
 import { UserModule } from 'src/user/user.module';
 import { User, UserSchema } from 'src/schemas/user.schema';
+import { SheetFileGateway } from './sheet-file.gateway';
 
 @Module({
   imports: [
@@ -13,6 +14,6 @@ import { User, UserSchema } from 'src/schemas/user.schema';
     forwardRef(() => UserModule)
   ],
   controllers: [SheetFileController],
-  providers: [SheetFileService]
+  providers: [SheetFileService, SheetFileGateway]
 })
 export class SheetFileModule { }
