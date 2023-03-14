@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Document, Model, Types } from 'mongoose';
 import { SheetFile, SheetFileDocument } from 'src/schemas/sheet-file.schema';
 import { User, UserDocument } from 'src/schemas/user.schema';
 import { SheetFileModule } from './sheet-file.module';
@@ -11,7 +11,7 @@ export class SheetFileService {
     @InjectModel(SheetFile.name)
     private sheetFileModel: Model<SheetFileDocument>,
     @InjectModel(User.name) private userModel: Model<UserDocument>,
-  ) {}
+  ) { }
 
   async create(createSheetFileDto: SheetFile) {
     try {
@@ -33,18 +33,18 @@ export class SheetFileService {
     }
   }
 
-  async update(sheetFile: SheetFileDocument): Promise<SheetFile> {
-    try {
-      return this.sheetFileModel.findOneAndUpdate(
-        { id: sheetFile.id },
-        sheetFile,
-        { new: true },
-      );
-    } catch (err) {
-      console.log(err);
-      return null;
-    }
-  }
+  // async update(sheetFile: SheetFileDocument): Promise<SheetFile> {
+  //   try {
+  //     return this.sheetFileModel.findOneAndUpdate(
+  //       { id: sheetFile.id },
+  //       sheetFile,
+  //       { new: true },
+  //     );
+  //   } catch (err) {
+  //     console.log(err);
+  //     return null;
+  //   }
+  // }
 
   async rename(sheetFile: SheetFileDocument): Promise<SheetFile> {
     try {
@@ -62,20 +62,29 @@ export class SheetFileService {
 
   async findByUserId(id: string) {
     try {
+      //find with owner or shared
       let myProject = await this.sheetFileModel
         .find({ owner: { $eq: Object(id) } })
+        .populate('shared', 'name uid picture', this.userModel)
+        .populate('owner', 'name uid picture', this.userModel)
         .select('-content')
-        .populate('owner', 'name uid', this.userModel)
         .sort({ updatedAt: -1 })
         .exec();
       let sharedProject = await this.sheetFileModel
         .find({ shared: { $eq: Object(id) } })
+        .populate('owner', 'name uid picture', this.userModel)
+        .populate('shared', 'name uid picture', this.userModel)
         .select('-content')
-        .populate('owner', 'name uid', this.userModel)
         .sort({ updatedAt: -1 })
         .exec();
-      // console.log(sharedProject);
-      return  [...myProject, ...sharedProject];
+      console.log('sharedProject length: ' + sharedProject.length);
+      let result: any = [...myProject, ...sharedProject];
+      result.sort((a: { updatedAt: number; }, b: { updatedAt: number; }) => {
+        return b.updatedAt - a.updatedAt;
+      });
+
+      return [...myProject, ...sharedProject];
+
     } catch (err) {
       console.log(err);
       return null;
@@ -117,7 +126,25 @@ export class SheetFileService {
         let newInviteList = sheetFile.inviteList.filter(
           (item) => item.uid != sheetFile.owner.uid,
         );
-        console.log(`${sheetFile._id} was updated`);
+        //check if user is already in shared list
+        let isExist: UserDocument;
+        newInviteList.forEach(user => {
+          isExist = sheetFile.shared.find((item) => {
+            if (item._id == user._id) {
+              return user
+            }
+          });
+          if (isExist) {
+            return
+          }
+        });
+        if (isExist) {
+          // console.log(isExist)
+          return {
+            error: `User ${isExist.name} is already in shared list`
+          }
+        }
+
         let newSheetFile: SheetFile = {
           canCollab: sheetFile.canCollab,
           content: sheetFile.content,
@@ -127,8 +154,9 @@ export class SheetFileService {
           shared: sheetFile.shared,
           inviteList: newInviteList,
         };
-        return this.sheetFileModel.findOneAndUpdate(
-          { id: sheetFile.id },
+        console.log(`${sheetFile._id} was updated`);
+        return await this.sheetFileModel.findOneAndUpdate(
+          { _id: sheetFile._id },
           newSheetFile,
           { new: true },
         );
@@ -148,7 +176,7 @@ export class SheetFileService {
           console.log(item._id);
           item._id != Object(uid);
         });
-        console.log(`${sheetFile._id} was updated`);
+        console.log(newInviteList)
         let newSheetFile: SheetFile = {
           canCollab: sheetFile.canCollab,
           content: sheetFile.content,
@@ -159,7 +187,7 @@ export class SheetFileService {
           inviteList: newInviteList,
         };
         return await this.sheetFileModel.findOneAndUpdate(
-          { id: sheetFile.id },
+          { _id: sheetFile._id },
           newSheetFile,
           { new: true },
         );

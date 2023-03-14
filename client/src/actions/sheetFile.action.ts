@@ -10,9 +10,9 @@ export const getSheetFilesByUserIdSuccess = createAction("[Sheet File] Get Sheet
 export const getSheetFilesByUserIdFailure = createAction("[Sheet File] Get Sheet Files By User Id Failure", props<{ error: string }>());
 
 //update sheet file
-export const updateSheetFile = createAction("[Sheet File] Update Sheet File", props<{ idToken: string, sheetFile: SheetFile }>());
-export const updateSheetFileSuccess = createAction("[Sheet File] Update Sheet File Success", props<{ sheetFile: SheetFile }>());
-export const updateSheetFileFailure = createAction("[Sheet File] Update Sheet File Failure", props<{ error: string }>());
+// export const updateSheetFile = createAction("[Sheet File] Update Sheet File", props<{ idToken: string, sheetFile: SheetFile }>());
+// export const updateSheetFileSuccess = createAction("[Sheet File] Update Sheet File Success", props<{ sheetFile: SheetFile }>());
+// export const updateSheetFileFailure = createAction("[Sheet File] Update Sheet File Failure", props<{ error: string }>());
 
 //create sheet file
 export const createSheetFile = createAction("[Sheet File] Create Sheet File", props<{ idToken: string, sheetFile: SheetFile }>());

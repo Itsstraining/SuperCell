@@ -27,10 +27,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   sheetFileSubscription!: Subscription;
   errorSubscription!: Subscription;
   isRenameSubscription!: Subscription;
+  isAcceptSubscription!: Subscription;
+  isInviteSubscription!: Subscription;
 
+  isInvite$ = this.store.select('sheetFile', 'isInvite');
+  isAccept$ = this.store.select('sheetFile', 'isAccept');
   isRename$ = this.store.select('sheetFile', 'isRename');
   error$ = this.store.select('sheetFile', 'error');
-  sheetFiles$ = this.store.select('sheetFile');
+  error: string = '';
+  sheetFileState$ = this.store.select('sheetFile');
   sheetFiles: SheetFile[] = [];
   idToken$ = this.store.select('auth', 'idToken');
   idToken: string = '';
@@ -53,6 +58,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.userStateSubscription.unsubscribe();
     this.idTokenSubscription.unsubscribe();
     this.sheetFileSubscription.unsubscribe();
+    this.errorSubscription.unsubscribe();
+    this.isRenameSubscription.unsubscribe();
+    this.isAcceptSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -80,13 +88,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         // }
       }
     });
-    this.sheetFileSubscription = this.sheetFiles$.subscribe((sheetFiles) => {
-      if (sheetFiles.edittingFile._id) {
-        this.route.navigateByUrl('/spreadsheet/' + sheetFiles.edittingFile._id);
+    this.sheetFileSubscription = this.sheetFileState$.subscribe((state) => {
+      if (state.edittingFile._id) {
+        this.route.navigateByUrl('/spreadsheet/' + state.edittingFile._id);
       }
-      if (sheetFiles.sheetFiles != this.sheetFiles) {
-        console.log('sheetFiles: ', sheetFiles.sheetFiles);
-        this.sheetFiles = sheetFiles.sheetFiles;
+      if (state.sheetFiles != this.sheetFiles) {
+        console.log('sheetFiles: ', state.sheetFiles);
+        this.sheetFiles = state.sheetFiles;
+      }
+      if (state.error.includes('is already in shared list')) {
+        this.openSnackBar(state.error);
       }
     });
     this.errorSubscription = this.error$.subscribe((error) => {
@@ -98,6 +109,18 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (isRename) {
         this.store.dispatch(SheetFileActions.getSheetFilesByUserId({ idToken: this.idToken, _id: this.user._id }));
         this.openSnackBar('Rename success');
+      }
+    });
+    this.isAcceptSubscription = this.isAccept$.subscribe((isAccept) => {
+      if (isAccept) {
+        this.store.dispatch(SheetFileActions.getSheetFilesByUserId({ idToken: this.idToken, _id: this.user._id }));
+        this.store.dispatch(SheetFileActions.findRequestList({ idToken: this.idToken, _id: this.user._id }));
+        // this.openSnackBar('Accept success');
+      }
+    });
+    this.isInviteSubscription = this.isInvite$.subscribe((isInvite) => {
+      if (isInvite) {
+        this.openSnackBar('Invite success');
       }
     });
 
@@ -128,14 +151,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result)
+        // console.log(result)
         this.store.dispatch(SheetFileActions.createSheetFile({ sheetFile: result, idToken: this.idToken }));
-        console.log('The dialog was closed');
+        console.log('Create dialog was closed');
       }
     });
   }
 
   openInviteDialog(sheetFile: SheetFile): void {
+    // console.log('sheetFileId: ', sheetFile._id)
     const dialogRef = this.dialog.open(InviteDialogComponent, {
       data: this.user,
       autoFocus: false,
@@ -143,22 +167,21 @@ export class HomeComponent implements OnInit, OnDestroy {
       width: '520px',
       restoreFocus: false,
     });
-
     dialogRef.afterClosed().subscribe((result: User[]) => {
       // console.log(result);
       if (result != undefined) {
         if (result.length == 0) {
-          this.openSnackBar('Invite unsuccess due to no user selected');
+          // this.openSnackBar('Invite unsuccess due to no user selected');
         } else {
           let updatedSheetFile = {
             ...sheetFile,
             inviteList: result
           }
-          console.log('sheetFile: ', updatedSheetFile);
+          console.log('sheetFile Invite: ', updatedSheetFile._id);
           this.store.dispatch(SheetFileActions.inviteSheetFile({ idToken: this.idToken, sheetFile: updatedSheetFile }));
         }
       } else {
-        this.openSnackBar('Invite unsuccess');
+        // this.openSnackBar('Invite unsuccess');
       }
     });
   }
@@ -175,5 +198,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
 
+  handleError(event: any) {
+    console.log(event);
+    event.target.src = '../../assets/avatar.jpeg';
 
+  }
 }

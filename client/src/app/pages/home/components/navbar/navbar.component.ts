@@ -36,8 +36,15 @@ export class NavbarComponent {
       // width: '550px',
       enterAnimationDuration,
       exitAnimationDuration,
-      data: this.requestList$
+      data: this.requestList$,
+      autoFocus: false,
     });
+  }
+
+  handleError(event: any) {
+    console.log(event);
+    event.target.src = '../../../assets/avatar.jpeg';
+
   }
 
 }

@@ -62,29 +62,29 @@ export const sheetFileReducer = createReducer(
         };
         return newState;
     }),
-    on(SheetFileActions.updateSheetFile, (state, action) => {
-        console.log(action.type);
-        let newState = {
-            ...state,
-        };
-        return newState;
-    }),
-    on(SheetFileActions.updateSheetFileSuccess, (state, action) => {
-        console.log(action.type);
-        let newState = {
-            ...state,
-            edittingFile: action.sheetFile,
-        };
-        return newState;
-    }),
-    on(SheetFileActions.updateSheetFileFailure, (state, action) => {
-        console.log(action.type);
-        let newState = {
-            ...state,
-            error: action.error,
-        };
-        return newState;
-    }),
+    // on(SheetFileActions.updateSheetFile, (state, action) => {
+    //     console.log(action.type);
+    //     let newState = {
+    //         ...state,
+    //     };
+    //     return newState;
+    // }),
+    // on(SheetFileActions.updateSheetFileSuccess, (state, action) => {
+    //     console.log(action.type);
+    //     let newState = {
+    //         ...state,
+    //         edittingFile: action.sheetFile,
+    //     };
+    //     return newState;
+    // }),
+    // on(SheetFileActions.updateSheetFileFailure, (state, action) => {
+    //     console.log(action.type);
+    //     let newState  = {
+    //         ...state,
+    //         error: action.error,
+    //     };
+    //     return newState;
+    // }),
     on(SheetFileActions.createSheetFile, (state, action) => {
         console.log(action.type);
         let newState = {

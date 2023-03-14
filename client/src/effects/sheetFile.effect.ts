@@ -49,16 +49,16 @@ export class SheetFileEffects {
             from([SheetFileActions.createSheetFileFailure({ error })])
         )));
 
-    updateSheetFile$ = createEffect(() => this.actions$.pipe(
-        ofType(SheetFileActions.updateSheetFile),
-        switchMap((action) => this.sheetFileService.update(action.sheetFile, action.idToken)),
-        map((sheetFile) => {
-            console.log("sheetFile", sheetFile);
-            return SheetFileActions.updateSheetFileSuccess({ sheetFile })
-        }),
-        catchError((error: string) =>
-            from([SheetFileActions.updateSheetFileFailure({ error })])
-        )));
+    // updateSheetFile$ = createEffect(() => this.actions$.pipe(
+    //     ofType(SheetFileActions.updateSheetFile),
+    //     switchMap((action) => this.sheetFileService.update(action.sheetFile, action.idToken)),
+    //     map((sheetFile) => {
+    //         console.log("sheetFile", sheetFile);
+    //         return SheetFileActions.updateSheetFileSuccess({ sheetFile })
+    //     }),
+    //     catchError((error: string) =>
+    //         from([SheetFileActions.updateSheetFileFailure({ error })])
+    //     )));
 
     reNameSheetFile$ = createEffect(() => this.actions$.pipe(
         ofType(SheetFileActions.renameSheetFile),
@@ -78,12 +78,13 @@ export class SheetFileEffects {
     inviteSheetFile$ = createEffect(() => this.actions$.pipe(
         ofType(SheetFileActions.inviteSheetFile),
         switchMap((action) => this.sheetFileService.invite(action.sheetFile, action.idToken)),
-        map((sheetFile) => {
+        map((sheetFile: any) => {
             if (sheetFile._id) {
                 console.log("sheetFile", sheetFile);
                 return SheetFileActions.inviteSheetFileSuccess({ isInvite: true })
             } else {
-                return SheetFileActions.inviteSheetFileFailure({ error: "Sheet file not found" })
+                console.log("sheetFile", sheetFile);
+                return SheetFileActions.inviteSheetFileFailure({ error: sheetFile.error })
             }
         }),
         catchError((error: string) => {

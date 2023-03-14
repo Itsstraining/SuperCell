@@ -5,7 +5,7 @@ import { SheetFile } from '../models/sheetFile.model';
 
 @Injectable({ providedIn: 'root' })
 export class SheetFileService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   create(sheetFile: SheetFile, idToken: string) {
     return this.http.post<SheetFile>(
@@ -46,7 +46,7 @@ export class SheetFileService {
   }
 
   invite(sheetFile: SheetFile, idToken: string) {
-    return this.http.put<SheetFile>(
+    return this.http.put(
       environment.apiUrl + '/sheetfile/invite',
       sheetFile,
       { headers: new HttpHeaders({ Authorization: `${idToken}` }) }

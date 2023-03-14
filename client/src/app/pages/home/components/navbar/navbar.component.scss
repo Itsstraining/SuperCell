@@ -67,7 +67,7 @@ input[type="text"] {
 input[type="text"]:focus {
   border: none;
   outline: 0;
-  border: 2px solid #d30c4d !important;
+  border: 1px solid #d30c4d !important;
   border-radius: 4px;
 }
 
@@ -96,10 +96,11 @@ input[type="text"]:focus {
   margin: auto 0;
 
   img {
-    border: 2px solid #d30c4d;
+    border: 1px solid #d30c4d;
     border-radius: 50%;
     height: 100%;
     width: 100%;
+    object-fit: cover;
     cursor: pointer;
   }
 }

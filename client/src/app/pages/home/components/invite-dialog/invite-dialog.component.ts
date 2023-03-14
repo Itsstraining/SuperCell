@@ -10,6 +10,8 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { AuthState } from 'src/states/auth.state';
+import { SheetState } from 'src/states/sheet.state';
+import { SheetFileState } from 'src/states/sheetFile.state';
 import { UserState } from 'src/states/user.state';
 import * as UserActions from '../../../../../actions/user.action';
 
@@ -19,25 +21,29 @@ import * as UserActions from '../../../../../actions/user.action';
   styleUrls: ['./invite-dialog.component.scss'],
 })
 export class InviteDialogComponent implements OnInit, OnDestroy {
-  requestList: User[] = [];
-  error$ = this.store.select((state) => state.user.error);
-  errorSubscription!: Subscription;
-  tempInviteList: User[] = [];
+
+  userError$ = this.store.select((state) => state.user.error);
+  inviteUser$ = this.store.select((state) => state.user.inviteUser);
+
+  userErrorSubscription!: Subscription;
   inviteUserSubscription!: Subscription;
   idTokenSubscription!: Subscription;
+
   emailControl = new FormControl('', [Validators.required, Validators.email]);
-  inviteUser$ = this.store.select((state) => state.user.inviteUser);
+  tempInviteList: User[] = [];
   idToken: string = '';
+
   constructor(
     private _snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<InviteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: User,
-    private store: Store<{ user: UserState; auth: AuthState }>
+    private store: Store<{ user: UserState; auth: AuthState, sheetFile: SheetFileState }>
   ) { }
 
   ngOnDestroy(): void {
     this.inviteUserSubscription.unsubscribe();
     this.idTokenSubscription.unsubscribe();
+    this.userErrorSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -47,7 +53,7 @@ export class InviteDialogComponent implements OnInit, OnDestroy {
         if (!this.tempInviteList.find((u) => u._id === user._id)) {
           this.tempInviteList.push(user);
         } else {
-          return this.openSnackBar();
+          return this.openSnackBar('User is already in list!');
         }
       }
     });
@@ -56,12 +62,12 @@ export class InviteDialogComponent implements OnInit, OnDestroy {
       .subscribe((idToken) => {
         this.idToken = idToken;
       });
-    this.errorSubscription = this.error$.subscribe((error) => {
+    this.userErrorSubscription = this.userError$.subscribe((error) => {
       if (error === 'User not found') {
-        this.emailControl.setErrors({ incorrect: true });
-        this.openSnackBar();
+        this.openSnackBar('User not found!!');
       }
     });
+
   }
 
   onNoClick(): void {
@@ -71,6 +77,9 @@ export class InviteDialogComponent implements OnInit, OnDestroy {
 
   addInvite() {
     let email = this.emailControl.value;
+    if (this.emailControl.value == this.data.email) {
+      return this.openSnackBar('You cannot invite yourself!');
+    }
     this.emailControl.setValue('');
     this.store.dispatch(
       UserActions.getUserInfoByEmail({ email: email, idToken: this.idToken })
@@ -83,11 +92,12 @@ export class InviteDialogComponent implements OnInit, OnDestroy {
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'left';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
-  openSnackBar() {
-    this._snackBar.open('User not found!!', 'Oke', {
+  openSnackBar(content: string) {
+    this._snackBar.open(content, 'Oke', {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
       duration: 2000,
+      panelClass: ['snackbar'],
     });
   }
 
