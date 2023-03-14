@@ -49,15 +49,22 @@
     flex: 1 1 auto;
 }
 
-
-.logo {
+.btn-exit
+{
+    color: rgb(211, 12, 77) !important;
+    font-size:small ;
+    font-weight: 700;
+    margin: 0 0 0 10px;
+}
+.logo 
+{
     height: 50px;
     min-width: 129px;
     margin: auto 0 auto 15px;
-
 }
 
-.logo>img {
+.logo>img 
+{
     height: 100%;
     width: 100%;
     cursor: pointer;

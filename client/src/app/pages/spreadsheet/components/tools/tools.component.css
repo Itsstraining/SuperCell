@@ -7,43 +7,48 @@
 {
     color: rgb(255 64 129) !important;
 }
-.front-w {
-    
+
+.front-w 
+{
     width: 15%;
     border: 1px solid rgb(228, 228, 228);
     display: flex;
     justify-content: space-between;
 }
+
 .icon-front-w 
 {
     background-color: rgb(255, 255, 255);
     border: none;
 }
-#word {
+
+#word 
+{
     background-color: rgb(255, 255, 255);
-    width: 45%;
+    width: 47%;
     font-size: 16px;
-    padding: 5px 10px 5px 10px;
+    padding: 5px 5px 5px 5px;
     border: none;    
 }
 
-.front-s {
+.front-s 
+{
     width: 10%;
     margin: 0px 0px 0px 15px;
     border: 1px solid rgb(228, 228, 228);
     display: flex;
-    justify-content: space-between;
-    
-    
+    justify-content: space-between; 
 }
-.icon-front-s {
 
+.icon-front-s 
+{
     margin: 0px 0px 0px -255px;
     background-color: rgb(255, 255, 255);
     border: none;
 }
-#size {
 
+#size 
+{
     background-color: rgb(255, 255, 255);
     width: 20%;
     font-size: 16px;
@@ -53,29 +58,32 @@
 }
 
 
-.icon {
+.icon 
+{
     display: flex;
     align-items: center;
 }
 
-.icon >.example-icon {
-   
+.icon >.example-icon 
+{
     margin: 1%;
-
 }
 
-.tools>.icon {
+.tools>.icon 
+{
     margin: 0px 15px 0px 0px;
 }
 
 
-.example-icon {
+.example-icon 
+{
     background-color: rgb(255, 255, 255);
     border: none;
     padding: 0 14px;
 }
 
-.example-icon:hover {
+.example-icon:hover 
+{
     background-color: rgb(255, 255, 255);
 }
 
@@ -97,6 +105,7 @@
     justify-content: space-between;
     align-items:center;
 }
+
 .square
 {
     width: 100%;
@@ -109,7 +118,7 @@
 #square
 {
     background-color: rgb(255, 255, 255);
-    width: 9%;
+    width: 6%;
     font-size: 17px;
     padding: 5px 0px 5px 5px;
     border: none;
