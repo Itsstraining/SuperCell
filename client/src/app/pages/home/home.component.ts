@@ -4,15 +4,19 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { SheetFile } from 'src/app/models/sheetFile.model';
 import { User } from 'src/app/models/user.model';
-import { SheetFileState } from 'src/states/sheetFile.state';
-import { UserState } from 'src/states/user.state';
+import { SheetFileState } from '../../states/sheetFile.state';
+import { UserState } from '../../states/user.state';
 import { CreateDialogComponent } from './components/create-dialog/create-dialog.component';
 import { InviteDialogComponent } from './components/invite-dialog/invite-dialog.component';
 import { RenameDialogComponent } from './components/rename-dialog/rename-dialog.component';
-import * as SheetFileActions from '../../../actions/sheetFile.action';
-import { AuthState } from 'src/states/auth.state';
+import * as SheetFileActions from '../../actions/sheetFile.action';
+import { AuthState } from '../../states/auth.state';
 import { Router } from '@angular/router';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -20,8 +24,6 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-
-
   idTokenSubscription!: Subscription;
   userStateSubscription!: Subscription;
   sheetFileSubscription!: Subscription;
@@ -44,15 +46,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<{
-      user: UserState,
-      sheetFile: SheetFileState,
-      auth: AuthState
+      user: UserState;
+      sheetFile: SheetFileState;
+      auth: AuthState;
     }>,
     public dialog: MatDialog,
     private route: Router,
-    private _snackBar: MatSnackBar,
-
-  ) { }
+    private _snackBar: MatSnackBar
+  ) {}
 
   ngOnDestroy(): void {
     this.userStateSubscription.unsubscribe();
@@ -64,15 +65,24 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     this.userStateSubscription = this.userState$.subscribe((userState) => {
       if (userState.user._id != this.user._id) {
         this.user = userState.user;
         if (this.idToken) {
           console.log('userId: ', userState.user._id);
           // console.log('idToken: ', this.idToken);
-          this.store.dispatch(SheetFileActions.getSheetFilesByUserId({ idToken: this.idToken, _id: this.user._id }));
-          this.store.dispatch(SheetFileActions.findRequestList({ idToken: this.idToken, _id: this.user._id }));
+          this.store.dispatch(
+            SheetFileActions.getSheetFilesByUserId({
+              idToken: this.idToken,
+              _id: this.user._id,
+            })
+          );
+          this.store.dispatch(
+            SheetFileActions.findRequestList({
+              idToken: this.idToken,
+              _id: this.user._id,
+            })
+          );
         }
       }
       if (userState.error) {
@@ -107,14 +117,29 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
     this.isRenameSubscription = this.isRename$.subscribe((isRename) => {
       if (isRename) {
-        this.store.dispatch(SheetFileActions.getSheetFilesByUserId({ idToken: this.idToken, _id: this.user._id }));
+        this.store.dispatch(
+          SheetFileActions.getSheetFilesByUserId({
+            idToken: this.idToken,
+            _id: this.user._id,
+          })
+        );
         this.openSnackBar('Rename success');
       }
     });
     this.isAcceptSubscription = this.isAccept$.subscribe((isAccept) => {
       if (isAccept) {
-        this.store.dispatch(SheetFileActions.getSheetFilesByUserId({ idToken: this.idToken, _id: this.user._id }));
-        this.store.dispatch(SheetFileActions.findRequestList({ idToken: this.idToken, _id: this.user._id }));
+        this.store.dispatch(
+          SheetFileActions.getSheetFilesByUserId({
+            idToken: this.idToken,
+            _id: this.user._id,
+          })
+        );
+        this.store.dispatch(
+          SheetFileActions.findRequestList({
+            idToken: this.idToken,
+            _id: this.user._id,
+          })
+        );
         // this.openSnackBar('Accept success');
       }
     });
@@ -123,7 +148,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.openSnackBar('Invite success');
       }
     });
-
   }
 
   openRenameDialog(file: SheetFile): void {
@@ -134,7 +158,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         console.log(result);
-        this.store.dispatch(SheetFileActions.renameSheetFile({ sheetFile: result, idToken: this.idToken }));
+        this.store.dispatch(
+          SheetFileActions.renameSheetFile({
+            sheetFile: result,
+            idToken: this.idToken,
+          })
+        );
         console.log('The dialog was closed');
       }
     });
@@ -147,12 +176,16 @@ export class HomeComponent implements OnInit, OnDestroy {
       height: '650px',
       autoFocus: false,
       restoreFocus: false,
-
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         // console.log(result)
-        this.store.dispatch(SheetFileActions.createSheetFile({ sheetFile: result, idToken: this.idToken }));
+        this.store.dispatch(
+          SheetFileActions.createSheetFile({
+            sheetFile: result,
+            idToken: this.idToken,
+          })
+        );
         console.log('Create dialog was closed');
       }
     });
@@ -175,10 +208,15 @@ export class HomeComponent implements OnInit, OnDestroy {
         } else {
           let updatedSheetFile = {
             ...sheetFile,
-            inviteList: result
-          }
+            inviteList: result,
+          };
           console.log('sheetFile Invite: ', updatedSheetFile._id);
-          this.store.dispatch(SheetFileActions.inviteSheetFile({ idToken: this.idToken, sheetFile: updatedSheetFile }));
+          this.store.dispatch(
+            SheetFileActions.inviteSheetFile({
+              idToken: this.idToken,
+              sheetFile: updatedSheetFile,
+            })
+          );
         }
       } else {
         // this.openSnackBar('Invite unsuccess');
@@ -193,14 +231,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
       duration: 2000,
-      panelClass: ['snackbar']
+      panelClass: ['snackbar'],
     });
   }
-
 
   handleError(event: any) {
     console.log(event);
     event.target.src = '../../assets/avatar.jpeg';
-
   }
 }

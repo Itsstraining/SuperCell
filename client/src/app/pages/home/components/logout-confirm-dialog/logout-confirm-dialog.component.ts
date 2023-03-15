@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { User } from 'src/app/models/user.model';
-import * as AuthActions from '../../../../../actions/auth.action';
+import * as AuthActions from '../../../../actions/auth.action';
 
 @Component({
   selector: 'app-logout-confirm-dialog',

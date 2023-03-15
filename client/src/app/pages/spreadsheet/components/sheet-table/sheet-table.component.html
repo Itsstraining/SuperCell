@@ -19,7 +19,7 @@
                             (mousedown)="cellMouseDown(rows[i][j])" (mousemove)="cellMouseMove(rows[i][j])"
                             (mouseup)="cellMouseUp(rows[i][j])" [id]="'cell-'+i+'-'+j"
                             (keydown)="enterCellKey(rows[i][j],$event)" [value]="rows[i][j].computedValue"
-                            (blur)="onBlur(rows[i][j],$event)">
+                            >
                         </textarea>
                     </div>
                 </td>

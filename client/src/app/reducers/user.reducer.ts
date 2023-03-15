@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { User } from 'src/app/models/user.model';
-import { UserState } from 'src/states/user.state';
+import { UserState } from '../states/user.state';
 import * as UserActions from '../actions/user.action';
 
 const initialState: UserState = {
@@ -14,7 +14,6 @@ export const userReducer = createReducer(
   on(UserActions.getUserInfo, (state, action) => {
     console.log(action.type);
     let newState = {
-
       ...state,
     };
     return newState;
@@ -22,7 +21,6 @@ export const userReducer = createReducer(
   on(UserActions.getUserInfoSuccess, (state, action) => {
     console.log(action.type);
     let newState = {
-
       ...state,
       user: action.user,
     };
@@ -66,6 +64,5 @@ export const userReducer = createReducer(
       error: action.error,
     };
     return newState;
-  }),
-
+  })
 );

@@ -1,19 +1,25 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, Renderer2 } from '@angular/core';
-import { updateCurrentUser } from '@firebase/auth';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CellBlock } from 'src/app/models/cell-block.model';
 import { Cell } from 'src/app/models/cell.model';
-import { SheetState } from 'src/states/sheet.state';
-import * as SheetActions from '../../../../../actions/sheet.action'
+import { SheetState } from '../../../../states/sheet.state';
+import * as SheetActions from '../../../../actions/sheet.action';
+import { FxService } from 'src/app/services/fx.service';
 
 @Component({
   selector: 'app-sheet-table',
   templateUrl: './sheet-table.component.html',
-  styleUrls: ['./sheet-table.component.scss']
+  styleUrls: ['./sheet-table.component.scss'],
 })
 export class SheetTableComponent implements OnInit {
-  @Output() newCurrentCellEvent = new EventEmitter<Cell>()
+  @Output() newCurrentCellEvent = new EventEmitter<Cell>();
   rows: Array<Array<Cell>> = [];
   currentCell: Cell = <Cell>{};
   cellBlock: CellBlock = <CellBlock>{};
@@ -24,13 +30,13 @@ export class SheetTableComponent implements OnInit {
   sheet$: Observable<SheetState>;
   constructor(
     private store: Store<{ sheet: SheetState }>,
-    private renderer: Renderer2,
-    private el: ElementRef) {
+    private el: ElementRef,
+    private fxService: FxService
+  ) {
     this.sheet$ = this.store.select('sheet');
   }
 
   ngOnInit(): void {
-
     this.sheet$.subscribe((sheet) => {
       if (sheet.rows != this.rows) {
         this.rows = sheet.rows;
@@ -100,16 +106,23 @@ export class SheetTableComponent implements OnInit {
         if (j == 0 && i == 0) {
           let rootCell = { value: '', row: i, col: j, computedValue: '' };
           row.push(rootCell);
-        }
-        else if (i == 0 && j != 0) {
-          let rowHeaderCell = { value: '', row: i, col: j, computedValue: this.getColName(j - 1) };
+        } else if (i == 0 && j != 0) {
+          let rowHeaderCell = {
+            value: '',
+            row: i,
+            col: j,
+            computedValue: this.getColName(j - 1),
+          };
           row.push(rowHeaderCell);
-        }
-        else if (i != 0 && j == 0) {
-          let colHeaderCell = { value: '', row: i, col: j, computedValue: i.toString() };
+        } else if (i != 0 && j == 0) {
+          let colHeaderCell = {
+            value: '',
+            row: i,
+            col: j,
+            computedValue: i.toString(),
+          };
           row.push(colHeaderCell);
-        }
-        else {
+        } else {
           if (this.rows[i] && this.rows[i][j]) {
             row.push(this.rows[i][j]);
             continue;
@@ -118,7 +131,7 @@ export class SheetTableComponent implements OnInit {
             value: '',
             row: i,
             col: j,
-            computedValue: ''
+            computedValue: '',
           };
           row.push(cell);
         }
@@ -151,56 +164,75 @@ export class SheetTableComponent implements OnInit {
       classes.push('row-header');
     }
 
-    if ((cell.col >= this.cellBlock.start.col && cell.col <= this.cellBlock.end.col && cell.row == 0)
-      || (cell.row >= this.cellBlock.start.row && cell.row <= this.cellBlock.end.row && cell.col == 0)
-      || (cell.row <= this.cellBlock.start.row && cell.row >= this.cellBlock.end.row && cell.col == 0)
-      || (cell.col <= this.cellBlock.start.col && cell.col >= this.cellBlock.end.col && cell.row == 0)
+    if (
+      (cell.col >= this.cellBlock.start.col &&
+        cell.col <= this.cellBlock.end.col &&
+        cell.row == 0) ||
+      (cell.row >= this.cellBlock.start.row &&
+        cell.row <= this.cellBlock.end.row &&
+        cell.col == 0) ||
+      (cell.row <= this.cellBlock.start.row &&
+        cell.row >= this.cellBlock.end.row &&
+        cell.col == 0) ||
+      (cell.col <= this.cellBlock.start.col &&
+        cell.col >= this.cellBlock.end.col &&
+        cell.row == 0)
     ) {
       if (classes.includes('corner-header')) {
         if (this.isSelectAll) {
           classes.push('select-corner-header');
         }
-      }
-
-      else {
+      } else {
         classes.push('selected-header');
       }
     }
     if (cell.row == currentCell.row && cell.col == currentCell.col) {
       classes.push('selected-cell');
     }
-    if (cell.row >= this.cellBlock.start.row &&
+    if (
+      cell.row >= this.cellBlock.start.row &&
       cell.row <= this.cellBlock.end.row &&
       cell.col >= this.cellBlock.start.col &&
       cell.col <= this.cellBlock.end.col &&
-      cell.row !== 0 && cell.col !== 0) {
+      cell.row !== 0 &&
+      cell.col !== 0
+    ) {
       if (!classes.includes('selected-cell')) {
         classes.push('selected-block');
       }
     }
-    if (cell.row <= this.cellBlock.start.row &&
+    if (
+      cell.row <= this.cellBlock.start.row &&
       cell.row >= this.cellBlock.end.row &&
       cell.col <= this.cellBlock.start.col &&
       cell.col >= this.cellBlock.end.col &&
-      cell.row !== 0 && cell.col !== 0) {
+      cell.row !== 0 &&
+      cell.col !== 0
+    ) {
       if (!classes.includes('selected-cell')) {
         classes.push('selected-block');
       }
     }
-    if (cell.row <= this.cellBlock.end.row &&
+    if (
+      cell.row <= this.cellBlock.end.row &&
       cell.row >= this.cellBlock.start.row &&
       cell.col >= this.cellBlock.end.col &&
       cell.col <= this.cellBlock.start.col &&
-      cell.row !== 0 && cell.col !== 0) {
+      cell.row !== 0 &&
+      cell.col !== 0
+    ) {
       if (!classes.includes('selected-cell')) {
         classes.push('selected-block');
       }
     }
-    if (cell.row >= this.cellBlock.end.row &&
+    if (
+      cell.row >= this.cellBlock.end.row &&
       cell.row <= this.cellBlock.start.row &&
       cell.col <= this.cellBlock.end.col &&
       cell.col >= this.cellBlock.start.col &&
-      cell.row !== 0 && cell.col !== 0) {
+      cell.row !== 0 &&
+      cell.col !== 0
+    ) {
       if (!classes.includes('selected-cell')) {
         classes.push('selected-block');
       }
@@ -214,14 +246,22 @@ export class SheetTableComponent implements OnInit {
     this.store.dispatch(SheetActions.setIsSelectAll({ isSelectAll: false }));
   }
 
-
   cellMouseDown(cell: Cell) {
-    let newCellBlock: CellBlock = { start: { row: cell.row, col: cell.col }, end: { row: cell.row, col: cell.col } };
-    if (newCellBlock.end.col != this.cellBlock.end.col || newCellBlock.end.row != this.cellBlock.end.row
-      || newCellBlock.start.col != this.cellBlock.start.col || newCellBlock.start.row != this.cellBlock.start.row) {
+    let newCellBlock: CellBlock = {
+      start: { row: cell.row, col: cell.col },
+      end: { row: cell.row, col: cell.col },
+    };
+    if (
+      newCellBlock.end.col != this.cellBlock.end.col ||
+      newCellBlock.end.row != this.cellBlock.end.row ||
+      newCellBlock.start.col != this.cellBlock.start.col ||
+      newCellBlock.start.row != this.cellBlock.start.row
+    ) {
       console.log('cellMouseDown');
       this.store.dispatch(SheetActions.setIsSelectAll({ isSelectAll: false }));
-      this.store.dispatch(SheetActions.setCellBlock({ cellBlock: newCellBlock }));
+      this.store.dispatch(
+        SheetActions.setCellBlock({ cellBlock: newCellBlock })
+      );
       this.store.dispatch(SheetActions.setCurrentCell({ currentCell: cell }));
       this.store.dispatch(SheetActions.setIsSelecting({ isSelecting: true }));
     }
@@ -231,11 +271,19 @@ export class SheetTableComponent implements OnInit {
     if (!this.isSelecting) {
       return;
     }
-    let newCellBlock: CellBlock = { start: { row: this.cellBlock.start.row, col: this.cellBlock.start.col }, end: { row: cell.row, col: cell.col } };
-    if (newCellBlock.end.row != this.cellBlock.end.row || newCellBlock.end.col != this.cellBlock.end.col) {
+    let newCellBlock: CellBlock = {
+      start: { row: this.cellBlock.start.row, col: this.cellBlock.start.col },
+      end: { row: cell.row, col: cell.col },
+    };
+    if (
+      newCellBlock.end.row != this.cellBlock.end.row ||
+      newCellBlock.end.col != this.cellBlock.end.col
+    ) {
       console.log('cellMouseMove');
       this.store.dispatch(SheetActions.setIsSelectAll({ isSelectAll: false }));
-      this.store.dispatch(SheetActions.setCellBlock({ cellBlock: newCellBlock }));
+      this.store.dispatch(
+        SheetActions.setCellBlock({ cellBlock: newCellBlock })
+      );
     }
   }
 
@@ -248,242 +296,389 @@ export class SheetTableComponent implements OnInit {
   selectRowHeader(row: number) {
     console.log('selectRowHeader');
     this.store.dispatch(SheetActions.setIsSelectAll({ isSelectAll: false }));
-    let newCellBlock: CellBlock = { start: { row: row, col: 0 }, end: { row: row, col: this.baseCol - 1 } };
+    let newCellBlock: CellBlock = {
+      start: { row: row, col: 0 },
+      end: { row: row, col: this.baseCol - 1 },
+    };
     this.store.dispatch(SheetActions.setCellBlock({ cellBlock: newCellBlock }));
     let newCurrentCell: Cell = { ...this.currentCell, row: row, col: 1 };
-    this.store.dispatch(SheetActions.setCurrentCell({ currentCell: newCurrentCell }));
-    this.el.nativeElement.querySelector(`#cell-${this.currentCell.row}-${this.currentCell.col}`).focus();
+    this.store.dispatch(
+      SheetActions.setCurrentCell({ currentCell: newCurrentCell })
+    );
+    this.el.nativeElement
+      .querySelector(`#cell-${this.currentCell.row}-${this.currentCell.col}`)
+      .focus();
   }
 
   selectColHeader(col: number) {
     console.log('selectColHeader');
     this.store.dispatch(SheetActions.setIsSelectAll({ isSelectAll: false }));
-    let newCellBlock: CellBlock = { start: { row: 0, col: col }, end: { row: this.baseRow - 1, col: col } };
+    let newCellBlock: CellBlock = {
+      start: { row: 0, col: col },
+      end: { row: this.baseRow - 1, col: col },
+    };
     this.store.dispatch(SheetActions.setCellBlock({ cellBlock: newCellBlock }));
     let newCurrentCell: Cell = { ...this.currentCell, row: 1, col: col };
-    this.store.dispatch(SheetActions.setCurrentCell({ currentCell: newCurrentCell }));
-    this.el.nativeElement.querySelector(`#cell-${this.currentCell.row}-${this.currentCell.col}`).focus();
+    this.store.dispatch(
+      SheetActions.setCurrentCell({ currentCell: newCurrentCell })
+    );
+    this.el.nativeElement
+      .querySelector(`#cell-${this.currentCell.row}-${this.currentCell.col}`)
+      .focus();
   }
 
   selectAllBlock() {
     console.log('selectAllBlock');
     this.store.dispatch(SheetActions.setIsSelectAll({ isSelectAll: true }));
     let newCurrentCell: Cell = { ...this.currentCell, row: 1, col: 1 };
-    this.store.dispatch(SheetActions.setCurrentCell({ currentCell: newCurrentCell }));
-    let newCellBlock: CellBlock = { start: { row: 0, col: 0 }, end: { row: this.baseRow - 1, col: this.baseCol - 1 } };
+    this.store.dispatch(
+      SheetActions.setCurrentCell({ currentCell: newCurrentCell })
+    );
+    let newCellBlock: CellBlock = {
+      start: { row: 0, col: 0 },
+      end: { row: this.baseRow - 1, col: this.baseCol - 1 },
+    };
     this.store.dispatch(SheetActions.setCellBlock({ cellBlock: newCellBlock }));
-    this.el.nativeElement.querySelector(`#cell-${this.currentCell.row}-${this.currentCell.col}`).focus();
+    this.el.nativeElement
+      .querySelector(`#cell-${this.currentCell.row}-${this.currentCell.col}`)
+      .focus();
   }
   changeCellByTab(cell: Cell, event: any) {
-    if (cell.row >= this.cellBlock.start.row &&
+    if (
+      cell.row >= this.cellBlock.start.row &&
       cell.row <= this.cellBlock.end.row &&
       cell.col >= this.cellBlock.start.col &&
-      cell.col <= this.cellBlock.end.col) {
+      cell.col <= this.cellBlock.end.col
+    ) {
       //check if cell is last cell in sheet table
       if (cell.row == this.baseRow - 1 && cell.col == this.baseCol - 1) {
         event.preventDefault();
         let newCurrentCell = this.rows[1][1];
-        this.store.dispatch(SheetActions.setCurrentCell({ currentCell: newCurrentCell }));
-        this.store.dispatch(SheetActions.setCellBlock({ cellBlock: { start: newCurrentCell, end: newCurrentCell } }));
-        this.el.nativeElement.querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`).focus();
+        this.store.dispatch(
+          SheetActions.setCurrentCell({ currentCell: newCurrentCell })
+        );
+        this.store.dispatch(
+          SheetActions.setCellBlock({
+            cellBlock: { start: newCurrentCell, end: newCurrentCell },
+          })
+        );
+        this.el.nativeElement
+          .querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`)
+          .focus();
       }
       //check if cell is last cell in row
       else if (cell.col == this.baseCol - 1) {
         event.preventDefault();
         let newCurrentCell = this.rows[cell.row + 1][1];
-        this.store.dispatch(SheetActions.setCurrentCell({ currentCell: newCurrentCell }));
-        this.store.dispatch(SheetActions.setCellBlock({ cellBlock: { start: newCurrentCell, end: newCurrentCell } }));
-        this.el.nativeElement.querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`).focus();
-      }
-      else {
+        this.store.dispatch(
+          SheetActions.setCurrentCell({ currentCell: newCurrentCell })
+        );
+        this.store.dispatch(
+          SheetActions.setCellBlock({
+            cellBlock: { start: newCurrentCell, end: newCurrentCell },
+          })
+        );
+        this.el.nativeElement
+          .querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`)
+          .focus();
+      } else {
         let newCurrentCell: Cell = this.rows[cell.row][cell.col + 1];
         event.preventDefault();
-        this.store.dispatch(SheetActions.setCurrentCell({ currentCell: newCurrentCell }));
-        this.store.dispatch(SheetActions.setCellBlock({ cellBlock: { start: newCurrentCell, end: newCurrentCell } }));
-        this.el.nativeElement.querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`).focus();
+        this.store.dispatch(
+          SheetActions.setCurrentCell({ currentCell: newCurrentCell })
+        );
+        this.store.dispatch(
+          SheetActions.setCellBlock({
+            cellBlock: { start: newCurrentCell, end: newCurrentCell },
+          })
+        );
+        this.el.nativeElement
+          .querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`)
+          .focus();
       }
     }
   }
 
   changeCellByTabInCellBlock(cell: Cell, event: any) {
     //check if cell is in top-left cellblock
-    if (cell.row >= this.cellBlock.start.row &&
+    if (
+      cell.row >= this.cellBlock.start.row &&
       cell.row <= this.cellBlock.end.row &&
       cell.col >= this.cellBlock.start.col &&
-      cell.col <= this.cellBlock.end.col) {
+      cell.col <= this.cellBlock.end.col
+    ) {
       // console.log('changeCell by Tab in  top-left cellblock', cell);
-      //check if cell is last cell in cellblock 
-      if (cell.row == this.cellBlock.end.row && cell.col == this.cellBlock.end.col) {
-        let newCurrentCell: Cell = this.rows[this.cellBlock.start.row][this.cellBlock.start.col];
-        this.store.dispatch(SheetActions.setCurrentCell({ currentCell: newCurrentCell }));
+      //check if cell is last cell in cellblock
+      if (
+        cell.row == this.cellBlock.end.row &&
+        cell.col == this.cellBlock.end.col
+      ) {
+        let newCurrentCell: Cell =
+          this.rows[this.cellBlock.start.row][this.cellBlock.start.col];
+        this.store.dispatch(
+          SheetActions.setCurrentCell({ currentCell: newCurrentCell })
+        );
         event.preventDefault();
-        this.el.nativeElement.querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`).focus();
+        this.el.nativeElement
+          .querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`)
+          .focus();
       }
       //check if cell is last cell in row
       else if (cell.col == this.cellBlock.end.col) {
-        let newCurrentCell: Cell = this.rows[cell.row + 1][this.cellBlock.start.col];
-        this.store.dispatch(SheetActions.setCurrentCell({ currentCell: newCurrentCell }));
+        let newCurrentCell: Cell =
+          this.rows[cell.row + 1][this.cellBlock.start.col];
+        this.store.dispatch(
+          SheetActions.setCurrentCell({ currentCell: newCurrentCell })
+        );
         event.preventDefault();
-        this.el.nativeElement.querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`).focus();
-
+        this.el.nativeElement
+          .querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`)
+          .focus();
       } else {
         let newCurrentCell: Cell = this.rows[cell.row][cell.col + 1];
-        this.store.dispatch(SheetActions.setCurrentCell({ currentCell: newCurrentCell }));
+        this.store.dispatch(
+          SheetActions.setCurrentCell({ currentCell: newCurrentCell })
+        );
         event.preventDefault();
-        this.el.nativeElement.querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`).focus();
+        this.el.nativeElement
+          .querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`)
+          .focus();
       }
     }
     //check if cell is in bot-right cellblock
-    else if (cell.row <= this.cellBlock.start.row &&
+    else if (
+      cell.row <= this.cellBlock.start.row &&
       cell.row >= this.cellBlock.end.row &&
       cell.col <= this.cellBlock.start.col &&
-      cell.col >= this.cellBlock.end.col) {
-      //check if cell is last cell in cellblock 
-      if (cell.row == this.cellBlock.start.row && cell.col == this.cellBlock.start.col) {
-        let newCurrentCell: Cell = this.rows[this.cellBlock.end.row][this.cellBlock.end.col];
-        this.store.dispatch(SheetActions.setCurrentCell({ currentCell: newCurrentCell }));
+      cell.col >= this.cellBlock.end.col
+    ) {
+      //check if cell is last cell in cellblock
+      if (
+        cell.row == this.cellBlock.start.row &&
+        cell.col == this.cellBlock.start.col
+      ) {
+        let newCurrentCell: Cell =
+          this.rows[this.cellBlock.end.row][this.cellBlock.end.col];
+        this.store.dispatch(
+          SheetActions.setCurrentCell({ currentCell: newCurrentCell })
+        );
         event.preventDefault();
-        this.el.nativeElement.querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`).focus();
+        this.el.nativeElement
+          .querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`)
+          .focus();
       }
       //check if cell is last cell in row
       else if (cell.col == this.cellBlock.start.col) {
-        let newCurrentCell: Cell = this.rows[cell.row + 1][this.cellBlock.end.col];
-        this.store.dispatch(SheetActions.setCurrentCell({ currentCell: newCurrentCell }));
+        let newCurrentCell: Cell =
+          this.rows[cell.row + 1][this.cellBlock.end.col];
+        this.store.dispatch(
+          SheetActions.setCurrentCell({ currentCell: newCurrentCell })
+        );
         event.preventDefault();
-        this.el.nativeElement.querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`).focus();
+        this.el.nativeElement
+          .querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`)
+          .focus();
       } else {
         let newCurrentCell: Cell = this.rows[cell.row][cell.col + 1];
-        this.store.dispatch(SheetActions.setCurrentCell({ currentCell: newCurrentCell }));
+        this.store.dispatch(
+          SheetActions.setCurrentCell({ currentCell: newCurrentCell })
+        );
         event.preventDefault();
-        this.el.nativeElement.querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`).focus();
+        this.el.nativeElement
+          .querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`)
+          .focus();
       }
     }
     //check if cell is in bottom-left cellblock
-    else if (cell.row <= this.cellBlock.start.row &&
+    else if (
+      cell.row <= this.cellBlock.start.row &&
       cell.row >= this.cellBlock.end.row &&
       cell.col >= this.cellBlock.start.col &&
-      cell.col <= this.cellBlock.end.col) {
-      //check if cell is last cell in cellblock 
-      if (cell.row == this.cellBlock.start.row && cell.col == this.cellBlock.end.col) {
-        let newCurrentCell: Cell = this.rows[this.cellBlock.end.row][this.cellBlock.start.col];
-        this.store.dispatch(SheetActions.setCurrentCell({ currentCell: newCurrentCell }));
+      cell.col <= this.cellBlock.end.col
+    ) {
+      //check if cell is last cell in cellblock
+      if (
+        cell.row == this.cellBlock.start.row &&
+        cell.col == this.cellBlock.end.col
+      ) {
+        let newCurrentCell: Cell =
+          this.rows[this.cellBlock.end.row][this.cellBlock.start.col];
+        this.store.dispatch(
+          SheetActions.setCurrentCell({ currentCell: newCurrentCell })
+        );
         event.preventDefault();
-        this.el.nativeElement.querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`).focus();
+        this.el.nativeElement
+          .querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`)
+          .focus();
       }
       //check if cell is last cell in row
       else if (cell.col == this.cellBlock.end.col) {
-        let newCurrentCell: Cell = this.rows[cell.row + 1][this.cellBlock.start.col];
-        this.store.dispatch(SheetActions.setCurrentCell({ currentCell: newCurrentCell }));
+        let newCurrentCell: Cell =
+          this.rows[cell.row + 1][this.cellBlock.start.col];
+        this.store.dispatch(
+          SheetActions.setCurrentCell({ currentCell: newCurrentCell })
+        );
         event.preventDefault();
-        this.el.nativeElement.querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`).focus();
-      }
-      else {
+        this.el.nativeElement
+          .querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`)
+          .focus();
+      } else {
         let newCurrentCell: Cell = this.rows[cell.row][cell.col + 1];
-        this.store.dispatch(SheetActions.setCurrentCell({ currentCell: newCurrentCell }));
+        this.store.dispatch(
+          SheetActions.setCurrentCell({ currentCell: newCurrentCell })
+        );
         event.preventDefault();
-        this.el.nativeElement.querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`).focus();
+        this.el.nativeElement
+          .querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`)
+          .focus();
       }
     }
     //check if cell is in top-right cellblock
-    else if (cell.row >= this.cellBlock.start.row &&
+    else if (
+      cell.row >= this.cellBlock.start.row &&
       cell.row <= this.cellBlock.end.row &&
       cell.col <= this.cellBlock.start.col &&
-      cell.col >= this.cellBlock.end.col) {
-      //check if cell is last cell in cellblock 
-      if (cell.row == this.cellBlock.end.row && cell.col == this.cellBlock.start.col) {
-        let newCurrentCell: Cell = this.rows[this.cellBlock.start.row][this.cellBlock.end.col];
-        this.store.dispatch(SheetActions.setCurrentCell({ currentCell: newCurrentCell }));
+      cell.col >= this.cellBlock.end.col
+    ) {
+      //check if cell is last cell in cellblock
+      if (
+        cell.row == this.cellBlock.end.row &&
+        cell.col == this.cellBlock.start.col
+      ) {
+        let newCurrentCell: Cell =
+          this.rows[this.cellBlock.start.row][this.cellBlock.end.col];
+        this.store.dispatch(
+          SheetActions.setCurrentCell({ currentCell: newCurrentCell })
+        );
         event.preventDefault();
-        this.el.nativeElement.querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`).focus();
+        this.el.nativeElement
+          .querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`)
+          .focus();
       }
       //check if cell is last cell in row
       else if (cell.col == this.cellBlock.start.col) {
-        let newCurrentCell: Cell = this.rows[cell.row + 1][this.cellBlock.end.col];
-        this.store.dispatch(SheetActions.setCurrentCell({ currentCell: newCurrentCell }));
+        let newCurrentCell: Cell =
+          this.rows[cell.row + 1][this.cellBlock.end.col];
+        this.store.dispatch(
+          SheetActions.setCurrentCell({ currentCell: newCurrentCell })
+        );
         event.preventDefault();
-        this.el.nativeElement.querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`).focus();
-      }
-      else {
+        this.el.nativeElement
+          .querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`)
+          .focus();
+      } else {
         let newCurrentCell: Cell = this.rows[cell.row][cell.col + 1];
-        this.store.dispatch(SheetActions.setCurrentCell({ currentCell: newCurrentCell }));
+        this.store.dispatch(
+          SheetActions.setCurrentCell({ currentCell: newCurrentCell })
+        );
         event.preventDefault();
-        this.el.nativeElement.querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`).focus();
+        this.el.nativeElement
+          .querySelector(`#cell-${newCurrentCell.row}-${newCurrentCell.col}`)
+          .focus();
       }
     }
   }
 
-
   enterCellKey(cell: Cell, event: any) {
     console.log(event.code);
-    if (event.code == "Enter") {
+    if (event.code == 'Enter') {
       console.log('changeCell by Enter');
       let newRow = this.rows[cell.row].map((c, index) => {
         if (index == cell.col && c.row == cell.row) {
           return {
             ...cell,
             value: event.target.value,
-            computedValue: event.target.value
+            computedValue: event.target.value,
           };
         }
         return c;
-      })
+      });
       let newRows = this.rows.map((r, index) => {
         if (index == cell.row) {
           return newRow;
         }
         return r;
-      })
-      console.log(event)
+      });
+      console.log(event);
       event.preventDefault();
-      this.store.dispatch(SheetActions.setCurrentCell({ currentCell: newRows[cell.row][cell.col] }));
+      this.store.dispatch(
+        SheetActions.setCurrentCell({
+          currentCell: newRows[cell.row][cell.col],
+        })
+      );
     }
 
-    if (event.code == "Tab") {
-      if (this.cellBlock.start.row == -1 && this.cellBlock.start.col == -1 && this.cellBlock.end.row == -1 && this.cellBlock.end.col == -1) {
+    if (event.code == 'Tab') {
+      if (
+        this.cellBlock.start.row == -1 &&
+        this.cellBlock.start.col == -1 &&
+        this.cellBlock.end.row == -1 &&
+        this.cellBlock.end.col == -1
+      ) {
         return;
-      }
-      else if (this.cellBlock.start.row == this.cellBlock.end.row && this.cellBlock.start.col == this.cellBlock.end.col) {
+      } else if (
+        this.cellBlock.start.row == this.cellBlock.end.row &&
+        this.cellBlock.start.col == this.cellBlock.end.col
+      ) {
         this.changeCellByTab(cell, event);
-      }
-      else {
+      } else {
         this.changeCellByTabInCellBlock(cell, event);
       }
     }
 
-    if (event.code == "Backspace") {
-      if (this.cellBlock.start.row == -1 && this.cellBlock.start.col == -1 && this.cellBlock.end.row == -1 && this.cellBlock.end.col == -1) {
+    if (event.code == 'Backspace') {
+      if (
+        this.cellBlock.start.row == -1 &&
+        this.cellBlock.start.col == -1 &&
+        this.cellBlock.end.row == -1 &&
+        this.cellBlock.end.col == -1
+      ) {
         return;
       } else {
-        if (this.cellBlock.start.row == this.cellBlock.end.row && this.cellBlock.start.col == this.cellBlock.end.col) {
-          return
+        if (
+          this.cellBlock.start.row == this.cellBlock.end.row &&
+          this.cellBlock.start.col == this.cellBlock.end.col
+        ) {
+          return;
         } else {
           event.preventDefault();
           console.log('changeCell by Delete');
           let newRows = this.rows;
           newRows = newRows.map((r, index) => {
-            if (index >= this.cellBlock.start.row && index <= this.cellBlock.end.row) {
+            if (
+              index >= this.cellBlock.start.row &&
+              index <= this.cellBlock.end.row
+            ) {
               return r.map((c, index) => {
-                if (index >= this.cellBlock.start.col && index <= this.cellBlock.end.col) {
+                if (
+                  index >= this.cellBlock.start.col &&
+                  index <= this.cellBlock.end.col
+                ) {
                   return {
                     ...c,
                     value: '',
-                    computedValue: ''
-                  }
+                    computedValue: '',
+                  };
                 }
                 return c;
-              })
-            }
-            else if (index >= this.cellBlock.end.row && index <= this.cellBlock.start.row) {
+              });
+            } else if (
+              index >= this.cellBlock.end.row &&
+              index <= this.cellBlock.start.row
+            ) {
               return r.map((c, index) => {
-                if (index >= this.cellBlock.start.col && index <= this.cellBlock.end.col) {
+                if (
+                  index >= this.cellBlock.start.col &&
+                  index <= this.cellBlock.end.col
+                ) {
                   return {
                     ...c,
                     value: '',
-                    computedValue: ''
-                  }
+                    computedValue: '',
+                  };
                 }
                 return c;
-              })
+              });
             }
             // else if(index >= this.cellBlock.start.row && index <= this.cellBlock.end.row){
             //   return r.map((c, index) => {
@@ -511,7 +706,7 @@ export class SheetTableComponent implements OnInit {
             // }
 
             return r;
-          })
+          });
           console.log(newRows);
           this.store.dispatch(SheetActions.setRows({ rows: newRows }));
         }
@@ -522,26 +717,34 @@ export class SheetTableComponent implements OnInit {
     if (event.target.value == cell.value) {
       console.log('blur', event);
       return;
-    }
-    else {
+    } else {
       console.log('update rows');
       let newRow = this.rows[cell.row].map((c, index) => {
         if (index == cell.col && c.row == cell.row) {
           return {
             ...cell,
             value: event.target.value,
-            computedValue: event.target.value
+            computedValue: event.target.value,
           };
         }
         return c;
-      })
+      });
       let newRows = this.rows.map((r, index) => {
         if (index == cell.row) {
           return newRow;
         }
         return r;
-      })
+      });
       this.store.dispatch(SheetActions.setRows({ rows: newRows }));
+    }
+  }
+
+  calculate(col: string, row: string, value: string) {
+    try {
+      this.fxService.setFormula(row, col, value);
+      this.fxService.execute();
+    } catch (e) {
+      console.log(e);
     }
   }
 }

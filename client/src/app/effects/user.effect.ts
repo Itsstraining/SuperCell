@@ -7,7 +7,7 @@ import { User } from 'src/app/models/user.model';
 
 @Injectable()
 export class UserEffects {
-  constructor(private actions$: Actions, private userService: UserService) { }
+  constructor(private actions$: Actions, private userService: UserService) {}
 
   getUserInfo$ = createEffect(() =>
     this.actions$.pipe(
@@ -40,10 +40,8 @@ export class UserEffects {
         }
       }),
       catchError((error: string) => {
-        return from([UserActions.getUserInfoByEmailFailure({ error })])
-
-      }
-      )
+        return from([UserActions.getUserInfoByEmailFailure({ error })]);
+      })
     )
   );
 }

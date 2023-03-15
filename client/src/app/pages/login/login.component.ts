@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import {User,} from '@angular/fire/auth';
+import { User } from '@angular/fire/auth';
 import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/services/auth.service';
-import { AuthState } from 'src/states/auth.state';
-import * as AuthActions from 'src/actions/auth.action';
+import { AuthState } from '../../states/auth.state';
+import * as AuthActions from 'src/app/actions/auth.action';
 
 @Component({
   selector: 'app-login',
@@ -11,14 +11,14 @@ import * as AuthActions from 'src/actions/auth.action';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  constructor(public authService: AuthService, private store: Store<{auth:AuthState}>) { }
+  constructor(
+    public authService: AuthService,
+    private store: Store<{ auth: AuthState }>
+  ) {}
 
   user: User | undefined;
 
-  login(){
+  login() {
     this.store.dispatch(AuthActions.login());
   }
-
-
-
 }

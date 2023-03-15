@@ -11,21 +11,19 @@ import { ShareModule } from './share/share/share.module';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { authReducer } from 'src/reducers/auth.reducer';
-import { AuthEffects } from 'src/effects/auth.effect';
-import { userReducer } from 'src/reducers/user.reducer';
-import { UserEffects } from 'src/effects/user.effect';
+import { authReducer } from '../app/reducers/auth.reducer';
+import { AuthEffects } from 'src/app/effects/auth.effect';
+import { userReducer } from '../app/reducers/user.reducer';
+import { UserEffects } from 'src/app/effects/user.effect';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import { SheetFileEffects } from 'src/effects/sheetFile.effect';
-import { sheetFileReducer } from 'src/reducers/sheetFile.reducer';
-import { sheetReducer } from 'src/reducers/sheet.reducer';
+import { SheetFileEffects } from '../app/effects/sheetFile.effect';
+import { sheetFileReducer } from '../app/reducers/sheetFile.reducer';
+import { sheetReducer } from '../app/reducers/sheet.reducer';
 
 const config: SocketIoConfig = { url: 'http://localhost:6969', options: {} };
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -33,20 +31,19 @@ const config: SocketIoConfig = { url: 'http://localhost:6969', options: {} };
     provideAuth(() => getAuth()),
     BrowserAnimationsModule,
     ShareModule,
-    StoreModule.forRoot({
-      auth: authReducer,
-      user: userReducer,
-      sheetFile: sheetFileReducer,
-      sheet: sheetReducer
-    }, {}),
-    EffectsModule.forRoot([
-      AuthEffects,
-      UserEffects,
-      SheetFileEffects
-    ]),
+    StoreModule.forRoot(
+      {
+        auth: authReducer,
+        user: userReducer,
+        sheetFile: sheetFileReducer,
+        sheet: sheetReducer,
+      },
+      {}
+    ),
+    EffectsModule.forRoot([AuthEffects, UserEffects, SheetFileEffects]),
     SocketIoModule.forRoot(config),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

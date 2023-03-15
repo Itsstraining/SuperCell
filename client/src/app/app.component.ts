@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { Auth, getAuth, onAuthStateChanged } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AuthState } from 'src/states/auth.state';
-import { UserState } from 'src/states/user.state';
-import * as UserActions from '../actions/user.action';
-import * as AuthActions from '../actions/auth.action';
-import * as SheetFileActions from '../actions/sheetFile.action';
+import { AuthState } from '../app/states/auth.state';
+import { UserState } from '../app/states/user.state';
+import * as UserActions from './actions/user.action';
+import * as AuthActions from './actions/auth.action';
+import * as SheetFileActions from './actions/sheetFile.action';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,8 +16,8 @@ export class AppComponent {
   title = 'client';
   constructor(
     private auth: Auth,
-    private store: Store<{ user: UserState, auth: AuthState }>,
-    private route: Router,
+    private store: Store<{ user: UserState; auth: AuthState }>,
+    private route: Router
   ) {
     onAuthStateChanged(this.auth, async (user) => {
       if (user) {
@@ -33,5 +33,4 @@ export class AppComponent {
       }
     });
   }
-
 }

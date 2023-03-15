@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { SheetFile } from 'src/app/models/sheetFile.model';
-import { SheetFileState } from 'src/states/sheetFile.state';
+import { SheetFileState } from '../states/sheetFile.state';
 import * as SheetFileActions from '../actions/sheetFile.action';
 
 const initialState: SheetFileState = {

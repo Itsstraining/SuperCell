@@ -9,11 +9,11 @@ import {
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user.model';
-import { AuthState } from 'src/states/auth.state';
-import { SheetState } from 'src/states/sheet.state';
-import { SheetFileState } from 'src/states/sheetFile.state';
-import { UserState } from 'src/states/user.state';
-import * as UserActions from '../../../../../actions/user.action';
+import { AuthState } from '../../../../states/auth.state';
+import { SheetState } from '../../../../states/sheet.state';
+import { SheetFileState } from '../../../../states/sheetFile.state';
+import { UserState } from '../../../../states/user.state';
+import * as UserActions from '../../../../actions/user.action';
 
 @Component({
   selector: 'app-invite-dialog',
@@ -21,7 +21,6 @@ import * as UserActions from '../../../../../actions/user.action';
   styleUrls: ['./invite-dialog.component.scss'],
 })
 export class InviteDialogComponent implements OnInit, OnDestroy {
-
   userError$ = this.store.select((state) => state.user.error);
   inviteUser$ = this.store.select((state) => state.user.inviteUser);
 
@@ -37,8 +36,12 @@ export class InviteDialogComponent implements OnInit, OnDestroy {
     private _snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<InviteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: User,
-    private store: Store<{ user: UserState; auth: AuthState, sheetFile: SheetFileState }>
-  ) { }
+    private store: Store<{
+      user: UserState;
+      auth: AuthState;
+      sheetFile: SheetFileState;
+    }>
+  ) {}
 
   ngOnDestroy(): void {
     this.inviteUserSubscription.unsubscribe();
@@ -67,7 +70,6 @@ export class InviteDialogComponent implements OnInit, OnDestroy {
         this.openSnackBar('User not found!!');
       }
     });
-
   }
 
   onNoClick(): void {
@@ -109,6 +111,4 @@ export class InviteDialogComponent implements OnInit, OnDestroy {
       this.dialogRef.close(this.tempInviteList);
     }
   }
-
-
 }

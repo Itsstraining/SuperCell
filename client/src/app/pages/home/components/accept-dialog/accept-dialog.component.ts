@@ -1,14 +1,18 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import * as SheetFileActions from '../../../../../actions/sheetFile.action';
-import { SheetFileState } from 'src/states/sheetFile.state';
-import { UserState } from 'src/states/user.state';
+import * as SheetFileActions from '../../../../actions/sheetFile.action';
+import { SheetFileState } from '../../../../states/sheetFile.state';
+import { UserState } from '../../../../states/user.state';
 import { Observable, Subscription } from 'rxjs';
 import { SheetFile } from 'src/app/models/sheetFile.model';
-import { AuthState } from 'src/states/auth.state';
+import { AuthState } from '../../../../states/auth.state';
 import { User } from 'src/app/models/user.model';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-accept-dialog',
@@ -16,8 +20,8 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
   styleUrls: ['./accept-dialog.component.scss'],
 })
 export class AcceptDialogComponent implements OnInit, OnDestroy {
-  idTokenSubscription !: Subscription;
-  userSubscription !: Subscription;
+  idTokenSubscription!: Subscription;
+  userSubscription!: Subscription;
   idToken$ = this.store.select('auth', 'idToken');
   idToken: string = '';
   user$ = this.store.select('user', 'user');
@@ -26,13 +30,13 @@ export class AcceptDialogComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<{
       sheetFile: SheetFileState;
-      user: UserState,
-      auth: AuthState
+      user: UserState;
+      auth: AuthState;
     }>,
     public dialogRef: MatDialogRef<AcceptDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Observable<SheetFile[]>,
-    private _snackBar: MatSnackBar,
-  ) { }
+    private _snackBar: MatSnackBar
+  ) {}
   ngOnDestroy(): void {
     this.idTokenSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
@@ -50,13 +54,17 @@ export class AcceptDialogComponent implements OnInit, OnDestroy {
     if (this.idToken == '' || this.user._id == '') {
       this.openSnackBar('Request failed');
       return;
-    }
-    else {
-      this.store.dispatch(SheetFileActions.acceptRequest({ sheetFile: request, idToken: this.idToken, uid: this.user._id }));
+    } else {
+      this.store.dispatch(
+        SheetFileActions.acceptRequest({
+          sheetFile: request,
+          idToken: this.idToken,
+          uid: this.user._id,
+        })
+      );
       this.openSnackBar('Request accepted');
     }
   }
-
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'left';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
@@ -65,7 +73,7 @@ export class AcceptDialogComponent implements OnInit, OnDestroy {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
       duration: 2000,
-      panelClass: ['snackbar']
+      panelClass: ['snackbar'],
     });
   }
 }
