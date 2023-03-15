@@ -11,7 +11,7 @@ export class SheetFileService {
     @InjectModel(SheetFile.name)
     private sheetFileModel: Model<SheetFileDocument>,
     @InjectModel(User.name) private userModel: Model<UserDocument>,
-  ) { }
+  ) {}
 
   async create(createSheetFileDto: SheetFile) {
     try {
@@ -33,18 +33,18 @@ export class SheetFileService {
     }
   }
 
-  // async update(sheetFile: SheetFileDocument): Promise<SheetFile> {
-  //   try {
-  //     return this.sheetFileModel.findOneAndUpdate(
-  //       { id: sheetFile.id },
-  //       sheetFile,
-  //       { new: true },
-  //     );
-  //   } catch (err) {
-  //     console.log(err);
-  //     return null;
-  //   }
-  // }
+  async update(sheetFile: SheetFileDocument): Promise<SheetFile> {
+    try {
+      return this.sheetFileModel.findOneAndUpdate(
+        { id: sheetFile.id },
+        { content: sheetFile.content },
+        { new: true },
+      );
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
 
   async rename(sheetFile: SheetFileDocument): Promise<SheetFile> {
     try {
@@ -79,12 +79,11 @@ export class SheetFileService {
         .exec();
       console.log('sharedProject length: ' + sharedProject.length);
       let result: any = [...myProject, ...sharedProject];
-      result.sort((a: { updatedAt: number; }, b: { updatedAt: number; }) => {
+      result.sort((a: { updatedAt: number }, b: { updatedAt: number }) => {
         return b.updatedAt - a.updatedAt;
       });
 
       return [...myProject, ...sharedProject];
-
     } catch (err) {
       console.log(err);
       return null;
@@ -128,21 +127,21 @@ export class SheetFileService {
         );
         //check if user is already in shared list
         let isExist: UserDocument;
-        newInviteList.forEach(user => {
+        newInviteList.forEach((user) => {
           isExist = sheetFile.shared.find((item) => {
             if (item._id == user._id) {
-              return user
+              return user;
             }
           });
           if (isExist) {
-            return
+            return;
           }
         });
         if (isExist) {
           // console.log(isExist)
           return {
-            error: `User ${isExist.name} is already in shared list`
-          }
+            error: `User ${isExist.name} is already in shared list`,
+          };
         }
 
         let newSheetFile: SheetFile = {
@@ -176,7 +175,7 @@ export class SheetFileService {
           console.log(item._id);
           item._id != Object(uid);
         });
-        console.log(newInviteList)
+        console.log(newInviteList);
         let newSheetFile: SheetFile = {
           canCollab: sheetFile.canCollab,
           content: sheetFile.content,
