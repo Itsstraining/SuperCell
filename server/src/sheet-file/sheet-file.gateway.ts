@@ -20,13 +20,15 @@ export class SheetFileGateway {
   handleMessage(client: any, payload: any): any {
     console.log('msg receivced:', payload._id);
     const _id = payload._id;
-    if (payload.user) {
-      console.log(`${payload.user.email} is joined room : ${_id}`);
-      this.server.emit('sheetfile-' + _id, payload);
-    }
-    if (payload.change) {
-      console.log('file has been changed');
-      this.server.emit('sheetfile-' + _id, payload);
+    if (payload._id) {
+      if (payload.user) {
+        console.log(`${payload.user.email} is joined room : ${_id}`);
+        this.server.emit('sheetfile-' + _id, payload);
+      }
+      if (payload.change) {
+        console.log('file has been changed');
+        this.server.emit('sheetfile-' + _id, payload);
+      }
     }
   }
 }
