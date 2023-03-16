@@ -14,6 +14,6 @@
         <button mat-button class="btn-exit" color="accent" (click)="turnBackHome()">Exit</button>
     </div>
     <div id="avatar">
-        <img src="{{this.user.picture}}" title="ava" />
+        <img src="{{this.user.picture}}" title="ava" (error)="handleError($event)"/>
     </div>
 </mat-toolbar>

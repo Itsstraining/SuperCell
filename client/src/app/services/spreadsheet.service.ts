@@ -4,24 +4,34 @@ import { Socket } from 'ngx-socket-io';
 import { map } from 'rxjs';
 import { SheetFile } from '../models/sheetFile.model';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SpreadsheetService {
+  constructor(private socket: Socket) {}
 
-  constructor(private socket: Socket) { }
-
-  sendMessage(file: SheetFile) {
-    console.log('send message', file._id);
-    this.socket.emit('sheetfile', file);
+  sendMessage(msg: any) {
+    if (msg.user) {
+      console.log(`send message from ${msg.user.email} to fileId: `, msg._id);
+      this.socket.emit('sheetfile', msg);
+    }
+    if (msg.change) {
+      // console.log('change', msg);
+      this.socket.emit('sheetfile', msg);
+    }
+    // else {
+    //   console.log(msg.memory);
+    //   this.socket.emit('sheetfile', msg);
+    // }
   }
 
   getMessage(_id: string) {
-    console.log('join room', _id);
-    return this.socket.fromEvent(`sheetfile-${_id}`).pipe(map((data: any) => {
-      // console.log(data);
-      return data;
-    }));
+    // console.log('join room', _id);
+    return this.socket.fromEvent(`sheetfile-${_id}`).pipe(
+      map((data: any) => {
+        // console.log(data);
+        return data;
+      })
+    );
   }
 }

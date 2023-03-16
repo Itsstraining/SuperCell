@@ -37,8 +37,14 @@ export class SheetFileEffects {
         this.sheetFileService.getEdittingSheetFile(action.idToken, action._id)
       ),
       map((sheetFile) => {
-        console.log('sheetFile', sheetFile);
-        return SheetFileActions.getEdittingFileSuccess({ sheetFile });
+        if (sheetFile._id != null) {
+          // console.log('sheetFile', sheetFile);
+          return SheetFileActions.getEdittingFileSuccess({ sheetFile });
+        } else {
+          return SheetFileActions.getEdittingFileFailure({
+            error: 'Editting Sheet file not found',
+          });
+        }
       }),
       catchError((error: string) =>
         from([SheetFileActions.getEdittingFileFailure({ error })])
@@ -65,9 +71,10 @@ export class SheetFileEffects {
   updateSheetFile$ = createEffect(() =>
     this.actions$.pipe(
       ofType(SheetFileActions.updateSheetFile),
-      switchMap((action) =>
-        this.sheetFileService.update(action.sheetFile, action.idToken)
-      ),
+      switchMap((action) => {
+        console.log('action', action.sheetFile);
+        return this.sheetFileService.update(action.sheetFile, action.idToken);
+      }),
       map((sheetFile) => {
         console.log('sheetFile', sheetFile);
         return SheetFileActions.updateSheetFileSuccess({ sheetFile });

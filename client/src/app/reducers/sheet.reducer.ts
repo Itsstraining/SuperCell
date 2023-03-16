@@ -4,7 +4,6 @@ import * as SheetActions from '../actions/sheet.action';
 
 export const initialState: SheetState = {
   rows: [],
-
   currentCell: {
     value: '',
     row: -1,
@@ -21,8 +20,8 @@ export const initialState: SheetState = {
       col: -1,
     },
   },
-  baseRow: 50,
-  baseCol: 20,
+  baseRow: 27,
+  baseCol: 27,
   isSelecting: false,
   isSelectAll: false,
 };

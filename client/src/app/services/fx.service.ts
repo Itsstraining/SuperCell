@@ -49,4 +49,16 @@ export class FxService {
   public getValue(row: string, col: string) {
     return this.memoryZone.getCell(row, col).value;
   }
+
+  public getFormula(row: string, col: string) {
+    return this.memoryZone.getCell(row, col).formula;
+  }
+
+  public getDependencies(row: string, col: string) {
+    return this.memoryZone.getCell(row, col).dependencies;
+  }
+
+  public getPrerequisites() {
+    return this.memoryZone.prerequisites;
+  }
 }

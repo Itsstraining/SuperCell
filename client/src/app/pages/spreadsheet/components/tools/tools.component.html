@@ -62,15 +62,15 @@
   
     <mat-toolbar-row class="operation">
         <div class="square">
-            <input id="square" type="text" placeholder="" [value]="this.col+this.row" title="cellpos" disabled>
+            <div id="square" title="cellpos" disabled>{{this.col+this.row}}</div>
     
-            <button mat-icon-button class="icon-square" aria-label="Example icon-button with arrow_drop_down icon">
+            <!-- <button mat-icon-button class="icon-square" aria-label="Example icon-button with arrow_drop_down icon">
                 <mat-icon color="accent">arrow_drop_down</mat-icon>
             </button>
-    
+     -->
             <img class="logo" src="../../../assets/fx.jpg" title="fx">
     
-            <input id="operation-selection" type="text" placeholder="" title="computedValue">        
+            <input id="operation-selection" type="text" placeholder="" title="computedValue" [value]="(this.currentCell$ | async)?.value">        
         </div>  
     </mat-toolbar-row>
   

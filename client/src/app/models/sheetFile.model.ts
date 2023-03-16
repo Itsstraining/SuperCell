@@ -1,4 +1,5 @@
-import { User } from "./user.model";
+import { Cell } from './cell.model';
+import { User } from './user.model';
 
 export interface SheetFile {
   _id: string;
@@ -7,7 +8,7 @@ export interface SheetFile {
   updatedAt: number;
   owner: User;
   shared: User[];
-  content: [];
+  content: Cell[][];
   color: string;
   canCollab: boolean;
   inviteList: User[];

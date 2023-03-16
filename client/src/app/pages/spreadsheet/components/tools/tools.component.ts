@@ -16,8 +16,11 @@ export class ToolsComponent implements OnInit {
   constructor(private store: Store<{ sheet: SheetState }>) {}
   ngOnInit(): void {
     this.currentCell$.subscribe((currentCell) => {
-      if (currentCell != this.currentCell) {
-        console.log('currentCell', currentCell);
+      if (
+        currentCell.col != this.currentCell.col ||
+        currentCell.row != this.currentCell.row
+      ) {
+        // console.log('currentCell', currentCell);
         this.col = this.getColName(currentCell.col - 1);
         this.row = currentCell.row.toString();
       }

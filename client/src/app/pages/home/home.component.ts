@@ -103,8 +103,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.route.navigateByUrl('/spreadsheet/' + state.edittingFile._id);
       }
       if (state.sheetFiles != this.sheetFiles) {
-        console.log('sheetFiles: ', state.sheetFiles);
         this.sheetFiles = state.sheetFiles;
+        console.log('sheetFiles: ', this.sheetFiles);
       }
       if (state.error.includes('is already in shared list')) {
         this.openSnackBar(state.error);

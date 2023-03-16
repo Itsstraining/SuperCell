@@ -44,8 +44,9 @@
         <span matListItemMeta>
           <div class="overlap-ava-box">
             <ul>
-              <li *ngFor="let user of file.shared">
-                <img class="overlap-ava" [src]="user.picture" title="ava" />
+              <li *ngFor="let user of file.shared;let i=index;">
+                <!-- <img class="overlap-ava" src="../../../assets/avatar.jpeg" title="ava"/> -->
+                <img class="overlap-ava" [src]="user.picture" title="ava"/>
               </li>
               <li>
                 <img class="overlap-ava" [src]="file.owner.picture" title="ava" (error)="handleError($event)" />

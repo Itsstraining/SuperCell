@@ -35,11 +35,16 @@ export class SheetFileService {
 
   async update(sheetFile: SheetFileDocument): Promise<SheetFile> {
     try {
-      return this.sheetFileModel.findOneAndUpdate(
-        { id: sheetFile.id },
-        { content: sheetFile.content },
-        { new: true },
-      );
+      console.log(sheetFile._id);
+      let newSheetFIle = await this.sheetFileModel
+        .findOneAndUpdate(
+          { _id: sheetFile._id },
+          { content: sheetFile.content },
+          { new: true },
+        )
+        .exec();
+      console.log(newSheetFIle.content.length);
+      return newSheetFIle;
     } catch (err) {
       console.log(err);
       return null;
@@ -49,7 +54,7 @@ export class SheetFileService {
   async rename(sheetFile: SheetFileDocument): Promise<SheetFile> {
     try {
       console.log(sheetFile.title);
-      return this.sheetFileModel.findOneAndUpdate(
+      return await this.sheetFileModel.findOneAndUpdate(
         { _id: sheetFile._id },
         { title: sheetFile.title },
         { new: true },
@@ -92,10 +97,11 @@ export class SheetFileService {
 
   async findEdittingById(id: string) {
     try {
-      console.log(id);
-      return await this.sheetFileModel
-        .findOne({ id: id, canCollab: true })
+      // console.log(id);
+      let edittingFile = await this.sheetFileModel
+        .findOne({ _id: Object(id), canCollab: true })
         .exec();
+      return edittingFile;
     } catch (err) {
       console.log(err);
       return null;

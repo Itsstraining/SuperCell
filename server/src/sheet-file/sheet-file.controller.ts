@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Headers, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Headers,
+  HttpException,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { SheetFile, SheetFileDocument } from 'src/schemas/sheet-file.schema';
 import { UserService } from 'src/user/user.service';
 import { SheetFileService } from './sheet-file.service';
@@ -7,10 +17,14 @@ import { SheetFileService } from './sheet-file.service';
 export class SheetFileController {
   constructor(
     private readonly sheetFileService: SheetFileService,
-    private readonly userService: UserService) { }
+    private readonly userService: UserService,
+  ) {}
 
   @Post()
-  async create(@Body() sheetFile: SheetFileDocument, @Headers('') headers: any) {
+  async create(
+    @Body() sheetFile: SheetFileDocument,
+    @Headers('') headers: any,
+  ) {
     try {
       let authHeader = headers.authorization;
       authHeader = authHeader.replace('Bearer ', '');
@@ -30,7 +44,7 @@ export class SheetFileController {
       let authHeader = headers.authorization;
       authHeader = authHeader.replace('Bearer ', '');
       let data = await this.userService.verifyIdToken(authHeader);
-      if (data.uid) {
+      if (!data.uid) {
         throw new HttpException('Invalid User', HttpStatus.FORBIDDEN);
       } else {
         return this.sheetFileService.findAll();
@@ -40,33 +54,40 @@ export class SheetFileController {
     }
   }
 
-  // @Put('update')
-  // async update(@Body() sheetFile: SheetFileDocument, @Headers('') headers: any) {
-  //   try {
-  //     let authHeader = headers.authorization;
-  //     authHeader = authHeader.replace('Bearer ', '');
-  //     let data = await this.userService.verifyIdToken(authHeader);
-  //     console.log(`update sheetfile name for user: ${data.email}}`);
-  //     if (data.uid != sheetFile.owner.uid) {
-  //       throw new HttpException('Invalid User', HttpStatus.FORBIDDEN);
-  //     } else {
-  //       return this.sheetFileService.update(sheetFile);
-  //     }
-  //   } catch (error) {
-  //     throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
-  //   }
-  // }
-
+  @Put('update')
+  async update(
+    @Body() sheetFile: SheetFileDocument,
+    @Headers('') headers: any,
+  ) {
+    try {
+      let authHeader = headers.authorization;
+      authHeader = authHeader.replace('Bearer ', '');
+      let data = await this.userService.verifyIdToken(authHeader);
+      console.log(`update sheetfile name for user: ${data.email}`);
+      if (!data.uid) {
+        throw new HttpException('Invalid User', HttpStatus.FORBIDDEN);
+      } else {
+        console.log(sheetFile._id);
+        return await this.sheetFileService.update(sheetFile);
+      }
+    } catch (error) {
+      console.log(error);
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+    }
+  }
 
   @Put('rename')
-  async rename(@Headers('') headers: any, @Body() sheetFile: SheetFileDocument) {
+  async rename(
+    @Headers('') headers: any,
+    @Body() sheetFile: SheetFileDocument,
+  ) {
     try {
       let authHeader = headers.authorization;
       authHeader = authHeader.replace('Bearer ', '');
       let data = await this.userService.verifyIdToken(authHeader);
       console.log(`rename sheetfile for user: ${data.email}`);
       if (!data.uid) {
-        console.log('Invalid User')
+        console.log('Invalid User');
         throw new HttpException('Invalid User', HttpStatus.FORBIDDEN);
       } else {
         return this.sheetFileService.rename(sheetFile);
@@ -99,7 +120,9 @@ export class SheetFileController {
       let authHeader = headers.authorization;
       authHeader = authHeader.replace('Bearer ', '');
       let data = await this.userService.verifyIdToken(authHeader);
-      console.log(`find editting sheetfile for user: ${data.email}, id: ${_id}`);
+      console.log(
+        `find editting sheetfile for user: ${data.email}, id: ${_id}`,
+      );
       if (!data.uid) {
         throw new HttpException('Invalid User', HttpStatus.FORBIDDEN);
       } else {
@@ -128,7 +151,10 @@ export class SheetFileController {
   }
 
   @Put('invite')
-  async inviteUser(@Headers('') headers: any, @Body() sheetFile: SheetFileDocument) {
+  async inviteUser(
+    @Headers('') headers: any,
+    @Body() sheetFile: SheetFileDocument,
+  ) {
     try {
       let authHeader = headers.authorization;
       authHeader = authHeader.replace('Bearer ', '');
@@ -145,7 +171,11 @@ export class SheetFileController {
   }
 
   @Put('accept/:id')
-  async acceptRequest(@Headers('') headers: any, @Body() sheetFile: SheetFileDocument, @Param('id') uid: string) {
+  async acceptRequest(
+    @Headers('') headers: any,
+    @Body() sheetFile: SheetFileDocument,
+    @Param('id') uid: string,
+  ) {
     try {
       let authHeader = headers.authorization;
       authHeader = authHeader.replace('Bearer ', '');
@@ -160,6 +190,4 @@ export class SheetFileController {
       throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
   }
-
-
 }

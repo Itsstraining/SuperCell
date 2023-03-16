@@ -2,6 +2,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  Input,
   OnInit,
   Output,
 } from '@angular/core';
@@ -11,7 +12,10 @@ import { CellBlock } from 'src/app/models/cell-block.model';
 import { Cell } from 'src/app/models/cell.model';
 import { SheetState } from '../../../../states/sheet.state';
 import * as SheetActions from '../../../../actions/sheet.action';
+import * as SheetFileActions from '../../../../actions/sheetFile.action';
 import { FxService } from 'src/app/services/fx.service';
+import { SheetFileState } from 'src/app/states/sheetFile.state';
+import { SheetFile } from 'src/app/models/sheetFile.model';
 
 @Component({
   selector: 'app-sheet-table',
@@ -19,7 +23,15 @@ import { FxService } from 'src/app/services/fx.service';
   styleUrls: ['./sheet-table.component.scss'],
 })
 export class SheetTableComponent implements OnInit {
-  @Output() newCurrentCellEvent = new EventEmitter<Cell>();
+  @Output() memoryZoneChange = new EventEmitter<any>();
+  @Input('idToken') set _idToken(idToken: string) {
+    if (idToken) {
+      // console.log('idToken', idToken);
+      this.idToken = idToken;
+    }
+  }
+
+  idToken: string = '';
   rows: Array<Array<Cell>> = [];
   currentCell: Cell = <Cell>{};
   cellBlock: CellBlock = <CellBlock>{};
@@ -28,8 +40,19 @@ export class SheetTableComponent implements OnInit {
   baseRow: number = 0;
   baseCol: number = 0;
   sheet$: Observable<SheetState>;
+
+  edittingFile$ = this.store.select('sheetFile', 'edittingFile');
+  edittingFile: SheetFile = <SheetFile>{};
+  realTimeSheetFile: SheetFile;
+  // @Input('edittingFile') set _edittingFile(file: SheetFile) {
+  //   if (file) {
+  //     this.realTimeSheetFile = file;
+  //     console.log('realTimeSheetFile', this.realTimeSheetFile);
+  //   }
+  // }
+
   constructor(
-    private store: Store<{ sheet: SheetState }>,
+    private store: Store<{ sheet: SheetState; sheetFile: SheetFileState }>,
     private el: ElementRef,
     private fxService: FxService
   ) {
@@ -37,12 +60,26 @@ export class SheetTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.edittingFile$.subscribe((file) => {
+      if (file) {
+        this.edittingFile = file;
+        //check if edittingFile is change and not undefined
+        if (this.edittingFile.content) {
+          if (this.edittingFile.content.length > 0) {
+            console.log('edittingFile', this.edittingFile);
+            this.store.dispatch(
+              SheetActions.setRows({ rows: this.edittingFile.content })
+            );
+          }
+        }
+        // this.store.dispatch(SheetActions.setRows({ rows: file.content }));
+      }
+    });
+
     this.sheet$.subscribe((sheet) => {
       if (sheet.rows != this.rows) {
         this.rows = sheet.rows;
-        // console.log('rows is change', this.rows);
       }
-
       if (sheet.baseCol != this.baseCol) {
         this.baseCol = sheet.baseCol;
         // console.log('baseCol is change', this.baseCol);
@@ -50,7 +87,6 @@ export class SheetTableComponent implements OnInit {
           this.drawTable();
         }
       }
-
       if (sheet.baseRow != this.baseRow) {
         this.baseRow = sheet.baseRow;
         // console.log('baseRow is change', this.baseRow);
@@ -58,26 +94,21 @@ export class SheetTableComponent implements OnInit {
           this.drawTable();
         }
       }
-
       if (sheet.isSelectAll != this.isSelectAll) {
         this.isSelectAll = sheet.isSelectAll;
         // console.log('isSelectAll is change', this.isSelectAll);
       }
-
       if (sheet.isSelecting != this.isSelecting) {
         this.isSelecting = sheet.isSelecting;
         // console.log('isSelecting is change', this.isSelecting);
       }
-
       if (sheet.cellBlock != this.cellBlock) {
         this.cellBlock = sheet.cellBlock;
         // console.log('cellBlock is change', this.cellBlock);
       }
-
       if (sheet.currentCell != this.currentCell) {
         this.currentCell = sheet.currentCell;
         // console.log('currentCell is change', this.currentCell);
-        this.newCurrentCellEvent.emit(this.currentCell);
       }
     });
   }
@@ -257,7 +288,7 @@ export class SheetTableComponent implements OnInit {
       newCellBlock.start.col != this.cellBlock.start.col ||
       newCellBlock.start.row != this.cellBlock.start.row
     ) {
-      console.log('cellMouseDown');
+      // console.log('cellMouseDown');
       this.store.dispatch(SheetActions.setIsSelectAll({ isSelectAll: false }));
       this.store.dispatch(
         SheetActions.setCellBlock({ cellBlock: newCellBlock })
@@ -279,7 +310,7 @@ export class SheetTableComponent implements OnInit {
       newCellBlock.end.row != this.cellBlock.end.row ||
       newCellBlock.end.col != this.cellBlock.end.col
     ) {
-      console.log('cellMouseMove');
+      // console.log('cellMouseMove');
       this.store.dispatch(SheetActions.setIsSelectAll({ isSelectAll: false }));
       this.store.dispatch(
         SheetActions.setCellBlock({ cellBlock: newCellBlock })
@@ -288,7 +319,7 @@ export class SheetTableComponent implements OnInit {
   }
 
   cellMouseUp(cell: Cell) {
-    console.log('cellMouseUp');
+    // console.log('cellMouseUp');
     this.cellMouseMove(cell);
     this.store.dispatch(SheetActions.setIsSelecting({ isSelecting: false }));
   }
@@ -580,32 +611,91 @@ export class SheetTableComponent implements OnInit {
   }
 
   enterCellKey(cell: Cell, event: any) {
-    console.log(event.code);
+    // console.log(event.code);
     if (event.code == 'Enter') {
-      console.log('changeCell by Enter');
-      let newRow = this.rows[cell.row].map((c, index) => {
-        if (index == cell.col && c.row == cell.row) {
-          return {
-            ...cell,
-            value: event.target.value,
-            computedValue: event.target.value,
-          };
-        }
-        return c;
-      });
-      let newRows = this.rows.map((r, index) => {
-        if (index == cell.row) {
-          return newRow;
-        }
-        return r;
-      });
-      console.log(event);
-      event.preventDefault();
-      this.store.dispatch(
-        SheetActions.setCurrentCell({
-          currentCell: newRows[cell.row][cell.col],
-        })
-      );
+      if (event.target.value[0] == '=') {
+        event.preventDefault();
+        this.calculate(
+          this.getColName(cell.col - 1),
+          cell.row.toString(),
+          event.target.value
+        );
+        console.log('changeCell by Enter with =');
+        console.log(this.fxService.memoryZone);
+        this.memoryZoneChange.emit({ change: 'file has been changed' });
+        let newRow = this.rows[cell.row].map((c, index) => {
+          if (index == cell.col && c.row == cell.row) {
+            return {
+              ...cell,
+              value: event.target.value,
+              computedValue: this.fxService.getValue(
+                cell.row.toString(),
+                this.getColName(cell.col - 1)
+              ),
+            };
+          }
+          return c;
+        });
+        let newRows = this.rows.map((r, index) => {
+          if (index == cell.row) {
+            return newRow;
+          }
+          return r;
+        });
+        // console.log(event);
+        this.store.dispatch(
+          SheetActions.setCurrentCell({
+            currentCell: newRows[cell.row][cell.col],
+          })
+        );
+        this.store.dispatch(SheetActions.setRows({ rows: newRows }));
+        let temp = {
+          ...this.edittingFile,
+          content: newRows,
+        };
+        this.store.dispatch(
+          SheetFileActions.updateSheetFile({
+            sheetFile: temp,
+            idToken: this.idToken,
+          })
+        );
+      } else {
+        console.log('changeCell by Enter without =');
+        event.preventDefault();
+        let newRow = this.rows[cell.row].map((c, index) => {
+          if (index == cell.col && c.row == cell.row) {
+            return {
+              ...cell,
+              value: event.target.value,
+              computedValue: event.target.value,
+            };
+          }
+          return c;
+        });
+        let newRows = this.rows.map((r, index) => {
+          if (index == cell.row) {
+            return newRow;
+          }
+          return r;
+        });
+        // console.log(event);
+        this.store.dispatch(
+          SheetActions.setCurrentCell({
+            currentCell: newRows[cell.row][cell.col],
+          })
+        );
+        this.store.dispatch(SheetActions.setRows({ rows: newRows }));
+        let temp = {
+          ...this.edittingFile,
+          content: newRows,
+        };
+        this.store.dispatch(
+          SheetFileActions.updateSheetFile({
+            sheetFile: temp,
+            idToken: this.idToken,
+          })
+        );
+      }
     }
 
     if (event.code == 'Tab') {

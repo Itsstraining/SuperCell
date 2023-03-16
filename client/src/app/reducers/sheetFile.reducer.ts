@@ -26,7 +26,7 @@ export const sheetFileReducer = createReducer(
     console.log(action.type);
     let newState = {
       ...state,
-      editingFile: action.sheetFile,
+      edittingFile: action.sheetFile,
     };
     return newState;
   }),
@@ -72,7 +72,7 @@ export const sheetFileReducer = createReducer(
     console.log(action.type);
     let newState = {
       ...state,
-      edittingFile: action.sheetFile,
+      // edittingFile: action.sheetFile,
     };
     return newState;
   }),

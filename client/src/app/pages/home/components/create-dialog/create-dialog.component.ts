@@ -38,6 +38,7 @@ export class CreateDialogComponent {
       owner: this.data,
       color: this.color,
       canCollab: this.isChecked,
+      content: [],
     };
     this.dialogRef.close(newFile);
   }

@@ -76,4 +76,9 @@ export class AcceptDialogComponent implements OnInit, OnDestroy {
       panelClass: ['snackbar'],
     });
   }
+
+  handleError(event: any) {
+    console.log(event);
+    event.target.src = '../../../assets/avatar.jpeg';
+  }
 }

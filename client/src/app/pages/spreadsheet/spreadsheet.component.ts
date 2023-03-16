@@ -69,21 +69,27 @@ export class SpreadsheetComponent {
           );
 
           this.spreadsheetService.getMessage(id).subscribe((data) => {
-            if (data) {
-              console.log(data);
+            if (data._id) {
+              if (data.user) {
+                console.log(
+                  `${data.user.email} is joining to fileId: ${data._id}`
+                );
+                console.log('data', data);
+              }
+              if (data.change) {
+                console.log('change', data);
+                this.store.dispatch(
+                  SheetFileActions.getEdittingFile({
+                    _id: id,
+                    idToken: this.idToken,
+                  })
+                );
+              }
             }
           });
           this.spreadsheetService.sendMessage({
             _id: id,
-            title: '',
-            createdAt: 0,
-            updatedAt: 0,
-            owner: <User>{},
-            shared: [],
-            content: [],
-            color: '',
-            canCollab: true,
-            inviteList: [],
+            user: this.user,
           });
         }
       }
@@ -95,5 +101,21 @@ export class SpreadsheetComponent {
     this.routeSubscription.unsubscribe();
     this.idTokenSubscription.unsubscribe();
     // this.spreadSheetSubscription.unsubscribe();
+  }
+
+  sendMessage(event: any): void {
+    console.log('event', event);
+    if (event.change) {
+      console.log('send message: ', event.change);
+      this.spreadsheetService.sendMessage({
+        _id: this.id,
+        change: event.change,
+      });
+    } else {
+      console.log('id', this.id);
+      this.spreadsheetService.sendMessage({
+        _id: this.id,
+      });
+    }
   }
 }

@@ -17,7 +17,7 @@ export class MemoryCell {
 }
 
 export class MemoryZone {
-  constructor(private memory: any, private prerequisites: Set<MemoryCell>) {
+  constructor(public memory: any, public prerequisites: Set<MemoryCell>) {
     this.memory = {};
     this.prerequisites = new Set<MemoryCell>();
   }
@@ -100,7 +100,7 @@ export class MemoryZone {
       cell.isComputed = true;
     }
     let queue = [];
-    console.log(this.memory);
+    console.log('memory:', this.memory);
     for (let col of Object.keys(this.memory)) {
       for (let row of Object.keys(this.memory[col])) {
         let cell = this.memory[col][row];
@@ -110,7 +110,7 @@ export class MemoryZone {
       }
     }
 
-    console.log(queue);
+    console.log('queue:', queue);
     while (queue.length > 0) {
       let cellPos = queue.shift();
       let cell = this.getCell(cellPos.row, cellPos.col);
