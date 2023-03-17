@@ -60,7 +60,7 @@ export class SheetTableComponent implements OnInit {
         //check if edittingFile is change and not undefined
         if (this.edittingFile.content) {
           if (this.edittingFile.content.length > 0) {
-            this.fxService.loadMemory(this.edittingFile.memoryZone);
+            // this.fxService.loadMemory(this.edittingFile.memoryZone);
             this.store.dispatch(
               SheetActions.setRows({ rows: this.edittingFile.content })
             );
@@ -617,7 +617,7 @@ export class SheetTableComponent implements OnInit {
         console.log(this.fxService.memoryZone);
         let stringMemo = this.fxService.getMemory();
         console.log(stringMemo);
-        this.fxService.loadMemory(stringMemo);
+        // this.fxService.loadMemory(stringMemo);
         this.memoryZoneChange.emit({
           change: 'file has been changed',
         });

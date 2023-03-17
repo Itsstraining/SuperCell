@@ -68,7 +68,7 @@ export class FxService {
 
   public loadMemory(memory: string) {
     this.memoryZone.loadFromString(memory);
-    this.memoryZone.execute();
+    // this.memoryZone.execute();
     // console.log(this.memoryZone);
   }
 }
