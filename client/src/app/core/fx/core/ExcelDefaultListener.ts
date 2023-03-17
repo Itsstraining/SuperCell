@@ -91,11 +91,11 @@ export class ExcelDefaultListener extends ExcelListener {
   private _exitFormula(ctx: MyFormulaContext) {
     ctx.value = (ctx.children[1] as MyExprContext).value;
     this.finalResult = ctx.value;
-    console.log('exitFormula', ctx);
+    // console.log('exitFormula', ctx);
   }
 
   private _enterOperand(ctx: MyOperandContext) {
-    console.log('enterOperand', ctx.getText());
+    // console.log('enterOperand', ctx.getText());
   }
 
   private _exitOperand(ctx: MyOperandContext) {
@@ -119,7 +119,7 @@ export class ExcelDefaultListener extends ExcelListener {
     let varName = ctx.VAR_NAME();
     if (varName) {
       let [row, col] = this.splitVarName(varName.getText());
-      console.log('varName', row, col);
+      // console.log('varName', row, col);
       let varValue = this.memory.getValue(row, col);
       if (varValue) {
         ctx.value = varValue;
@@ -227,7 +227,7 @@ export class ExcelDefaultListener extends ExcelListener {
         ctx.value = (ctx.children[1] as MyExprContext).value;
       }
     }
-    console.log('exitExpr', ctx);
+    // console.log('exitExpr', ctx);
   }
 
   private _exitFunction_call(ctx: MyFunctionCallContext) {
@@ -240,6 +240,42 @@ export class ExcelDefaultListener extends ExcelListener {
       }
       ctx.value = sum;
     }
-    console.log(ctx);
+    if (ctx.children[0].getText().toLocaleLowerCase() == 'average') {
+      let sum = 0;
+      let count = 0;
+      for (let i = 2; i < ctx.children.length - 1; i++) {
+        if (ctx.children[i] instanceof ExprContext) {
+          sum += (ctx.children[i] as MyExprContext).value;
+          count++;
+        }
+      }
+      ctx.value = sum / count;
+    }
+    if (ctx.children[0].getText().toLocaleLowerCase() == 'max') {
+      let max = 0;
+      for (let i = 2; i < ctx.children.length - 1; i++) {
+        if (ctx.children[i] instanceof ExprContext) {
+          let value = (ctx.children[i] as MyExprContext).value;
+          if (value > max) {
+            max = value;
+          }
+        }
+      }
+      ctx.value = max;
+    }
+    if (ctx.children[0].getText().toLocaleLowerCase() == 'min') {
+      let min = 0;
+      for (let i = 2; i < ctx.children.length - 1; i++) {
+        if (ctx.children[i] instanceof ExprContext) {
+          let value = (ctx.children[i] as MyExprContext).value;
+          if (value < min) {
+            min = value;
+          }
+        }
+      }
+      ctx.value = min;
+    }
+
+    // console.log(ctx);
   }
 }

@@ -31,7 +31,7 @@ export const sheetFeatureKey = 'sheet';
 export const sheetReducer = createReducer(
   initialState,
   on(SheetActions.setBaseCol, (state, action) => {
-    console.log('set base col', action.baseCol);
+    // console.log('set base col', action.baseCol);
     let newState = {
       ...state,
       baseCol: action.baseCol,
@@ -39,7 +39,7 @@ export const sheetReducer = createReducer(
     return newState;
   }),
   on(SheetActions.setBaseRow, (state, action) => {
-    console.log('set base row', action.baseRow);
+    // console.log('set base row', action.baseRow);
     let newState = {
       ...state,
       baseRow: action.baseRow,

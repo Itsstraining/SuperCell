@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -59,7 +60,7 @@ export class SheetTableComponent implements OnInit {
         //check if edittingFile is change and not undefined
         if (this.edittingFile.content) {
           if (this.edittingFile.content.length > 0) {
-            console.log('edittingFile is change', this.edittingFile.memoryZone);
+            // console.log('edittingFile is change', this.edittingFile.memoryZone);
             // this.fxService.reset();
             this.fxService.loadMemory(this.edittingFile.memoryZone);
             this.store.dispatch(
@@ -615,10 +616,10 @@ export class SheetTableComponent implements OnInit {
           cell.row.toString(),
           event.target.value
         );
-        console.log(this.fxService.memoryZone);
+
+        // console.log(this.fxService.memoryZone);
         let stringMemo = this.fxService.getMemory();
-        console.log(stringMemo);
-        // this.fxService.loadMemory(stringMemo);
+        // console.log(stringMemo);
         this.memoryZoneChange.emit({
           change: 'file has been changed',
         });
@@ -668,7 +669,7 @@ export class SheetTableComponent implements OnInit {
         } else {
           val = Number(val);
         }
-        console.log(val);
+        // console.log(val);
         event.preventDefault();
         this.calculate(
           this.getColName(cell.col - 1),
@@ -677,12 +678,12 @@ export class SheetTableComponent implements OnInit {
         );
         console.log(this.fxService.memoryZone);
         let stringMemo = this.fxService.getMemory();
-        console.log(stringMemo);
+        // console.log(stringMemo);
         let newRow = this.rows[cell.row].map((c, index) => {
           if (index == cell.col && c.row == cell.row) {
             return {
               ...cell,
-              value: '=' + event.target.value,
+              value: '=' + val,
               computedValue: event.target.value,
             };
           }
@@ -734,110 +735,110 @@ export class SheetTableComponent implements OnInit {
     }
 
     if (event.code == 'Backspace') {
-      if (
-        this.cellBlock.start.row == -1 &&
-        this.cellBlock.start.col == -1 &&
-        this.cellBlock.end.row == -1 &&
-        this.cellBlock.end.col == -1
-      ) {
-        return;
-      } else {
-        if (
-          this.cellBlock.start.row == this.cellBlock.end.row &&
-          this.cellBlock.start.col == this.cellBlock.end.col
-        ) {
-          return;
-        } else {
-          event.preventDefault();
-          // console.log('changeCell by Delete');
-          let newRows = this.rows;
-          newRows = newRows.map((r, index) => {
-            if (
-              index >= this.cellBlock.start.row &&
-              index <= this.cellBlock.end.row
-            ) {
-              return r.map((c, index) => {
-                if (
-                  index >= this.cellBlock.start.col &&
-                  index <= this.cellBlock.end.col
-                ) {
-                  return {
-                    ...c,
-                    value: '',
-                    computedValue: '',
-                  };
-                }
-                return c;
-              });
-            } else if (
-              index >= this.cellBlock.end.row &&
-              index <= this.cellBlock.start.row
-            ) {
-              return r.map((c, index) => {
-                if (
-                  index >= this.cellBlock.end.col &&
-                  index <= this.cellBlock.start.col
-                ) {
-                  return {
-                    ...c,
-                    value: '',
-                    computedValue: '',
-                  };
-                }
-                return c;
-              });
-            } else if (
-              index >= this.cellBlock.start.row &&
-              index <= this.cellBlock.end.row
-            ) {
-              return r.map((c, index) => {
-                if (
-                  index <= this.cellBlock.start.col &&
-                  index >= this.cellBlock.start.col
-                ) {
-                  return {
-                    ...c,
-                    value: '',
-                    computedValue: '',
-                  };
-                }
-                return c;
-              });
-            } else if (
-              index <= this.cellBlock.start.row &&
-              index >= this.cellBlock.end.row
-            ) {
-              return r.map((c, index) => {
-                if (
-                  index <= this.cellBlock.start.col &&
-                  index >= this.cellBlock.end.col
-                ) {
-                  return {
-                    ...c,
-                    value: '',
-                    computedValue: '',
-                  };
-                }
-                return c;
-              });
-            }
-
-            return r;
-          });
-          // console.log(newRows);
-          this.store.dispatch(SheetActions.setRows({ rows: newRows }));
-          let temp: SheetFile = {
-            ...this.edittingFile,
-            content: newRows,
-          };
-          this.store.dispatch(
-            SheetFileActions.updateSheetFile({
-              sheetFile: temp,
-              idToken: this.idToken,
-            })
-          );
-        }
-      }
+      // event.preventDefault();
+      // if (
+      //   this.cellBlock.start.row == -1 &&
+      //   this.cellBlock.start.col == -1 &&
+      //   this.cellBlock.end.row == -1 &&
+      //   this.cellBlock.end.col == -1
+      // ) {
+      //   return;
+      // } else {
+      //   if (
+      //     this.cellBlock.start.row == this.cellBlock.end.row &&
+      //     this.cellBlock.start.col == this.cellBlock.end.col
+      //   ) {
+      //     return;
+      //   } else {
+      //     event.preventDefault();
+      //     // console.log('changeCell by Delete');
+      //     let newRows = this.rows;
+      //     newRows = newRows.map((r, index) => {
+      //       if (
+      //         index >= this.cellBlock.start.row &&
+      //         index <= this.cellBlock.end.row
+      //       ) {
+      //         return r.map((c, index) => {
+      //           if (
+      //             index >= this.cellBlock.start.col &&
+      //             index <= this.cellBlock.end.col
+      //           ) {
+      //             return {
+      //               ...c,
+      //               value: '',
+      //               computedValue: '',
+      //             };
+      //           }
+      //           return c;
+      //         });
+      //       } else if (
+      //         index >= this.cellBlock.end.row &&
+      //         index <= this.cellBlock.start.row
+      //       ) {
+      //         return r.map((c, index) => {
+      //           if (
+      //             index >= this.cellBlock.end.col &&
+      //             index <= this.cellBlock.start.col
+      //           ) {
+      //             return {
+      //               ...c,
+      //               value: '',
+      //               computedValue: '',
+      //             };
+      //           }
+      //           return c;
+      //         });
+      //       } else if (
+      //         index >= this.cellBlock.start.row &&
+      //         index <= this.cellBlock.end.row
+      //       ) {
+      //         return r.map((c, index) => {
+      //           if (
+      //             index <= this.cellBlock.start.col &&
+      //             index >= this.cellBlock.start.col
+      //           ) {
+      //             return {
+      //               ...c,
+      //               value: '',
+      //               computedValue: '',
+      //             };
+      //           }
+      //           return c;
+      //         });
+      //       } else if (
+      //         index <= this.cellBlock.start.row &&
+      //         index >= this.cellBlock.end.row
+      //       ) {
+      //         return r.map((c, index) => {
+      //           if (
+      //             index <= this.cellBlock.start.col &&
+      //             index >= this.cellBlock.end.col
+      //           ) {
+      //             return {
+      //               ...c,
+      //               value: '',
+      //               computedValue: '',
+      //             };
+      //           }
+      //           return c;
+      //         });
+      //       }
+      //       return r;
+      //     });
+      //     // console.log(newRows);
+      //     this.store.dispatch(SheetActions.setRows({ rows: newRows }));
+      //     let temp: SheetFile = {
+      //       ...this.edittingFile,
+      //       content: newRows,
+      //     };
+      //     this.store.dispatch(
+      //       SheetFileActions.updateSheetFile({
+      //         sheetFile: temp,
+      //         idToken: this.idToken,
+      //       })
+      //     );
+      //   }
+      // }
     }
   }
   onBlur(cell: Cell, event: any) {

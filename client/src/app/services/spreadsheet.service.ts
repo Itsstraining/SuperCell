@@ -12,7 +12,7 @@ export class SpreadsheetService {
 
   sendMessage(msg: any) {
     if (msg.user) {
-      console.log(`send message from ${msg.user.email} to fileId: `, msg._id);
+      // console.log(`send message from ${msg.user.email} to fileId: `, msg._id);
       this.socket.emit('sheetfile', msg);
     }
     if (msg.change) {

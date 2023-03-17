@@ -72,6 +72,16 @@ export class ToolsComponent implements OnInit {
     // console.log(event.code);
     if (event.code == 'Enter') {
       if (event.target.value[0] == '=') {
+        // console.log(event.target.value);
+        // let val = event.target.value;
+        // val = val.slice(1);
+        // // console.log(val);
+        // if (Number.isNaN(Number(val))) {
+        //   val = '=' + '"' + val + '"';
+        // } else {
+        //   val = Number(val);
+        // }
+        // console.log(val);
         event.preventDefault();
         this.calculate(this.col, this.row, event.target.value);
         console.log(this.fxService.memoryZone);
@@ -120,11 +130,18 @@ export class ToolsComponent implements OnInit {
         );
       } else {
         // console.log('changeCell by Enter without =');
+        let val = event.target.value;
+        // console.log(val);
+        if (Number.isNaN(Number(val))) {
+          val = '"' + event.target.value + '"';
+        } else {
+          val = Number(val);
+        }
         event.preventDefault();
         this.calculate(
           this.getColName(this.currentCell.col - 1),
           this.currentCell.row.toString(),
-          '=' + event.target.value
+          '=' + val
         );
         console.log(this.fxService.memoryZone);
         let stringMemo = this.fxService.getMemory();
@@ -133,7 +150,7 @@ export class ToolsComponent implements OnInit {
           if (index == this.currentCell.col && c.row == this.currentCell.row) {
             return {
               ...this.currentCell,
-              value: event.target.value,
+              value: '=' + val,
               computedValue: event.target.value,
             };
           }

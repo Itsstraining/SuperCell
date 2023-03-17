@@ -20,7 +20,7 @@ import { SheetFileEffects } from '../app/effects/sheetFile.effect';
 import { sheetFileReducer } from '../app/reducers/sheetFile.reducer';
 import { sheetReducer } from '../app/reducers/sheet.reducer';
 
-const config: SocketIoConfig = { url: 'http://localhost:6969', options: {} };
+const config: SocketIoConfig = { url: environment.socketEndpoint, options: {} };
 
 @NgModule({
   declarations: [AppComponent],

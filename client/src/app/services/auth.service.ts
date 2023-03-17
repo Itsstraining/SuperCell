@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Auth, FacebookAuthProvider, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
+import {
+  Auth,
+  FacebookAuthProvider,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from '@angular/fire/auth';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
-  constructor(private auth: Auth) { }
+  constructor(private auth: Auth) {}
 
   loginWithFacebook() {
     signInWithPopup(this.auth, new FacebookAuthProvider())
@@ -17,7 +21,7 @@ export class AuthService {
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential!.accessToken;
-        console.log(accessToken);
+        // console.log(accessToken);
         // IdP data available using getAdditionalUserInfo(result)
         // ...
       })
@@ -35,7 +39,6 @@ export class AuthService {
       });
   }
 
-
   async loginWithGoogle() {
     let provider = new GoogleAuthProvider();
     return await signInWithPopup(this.auth, provider);
@@ -45,9 +48,8 @@ export class AuthService {
     this.auth.signOut();
   }
 
-  async login(){
+  async login() {
     let cred = await signInWithPopup(this.auth, new GoogleAuthProvider());
     return cred.user.getIdToken();
   }
-
 }

@@ -12,14 +12,14 @@ const initialState: UserState = {
 export const userReducer = createReducer(
   initialState,
   on(UserActions.getUserInfo, (state, action) => {
-    console.log(action.type);
+    // console.log(action.type);
     let newState = {
       ...state,
     };
     return newState;
   }),
   on(UserActions.getUserInfoSuccess, (state, action) => {
-    console.log(action.type);
+    // console.log(action.type);
     let newState = {
       ...state,
       user: action.user,
@@ -27,7 +27,7 @@ export const userReducer = createReducer(
     return newState;
   }),
   on(UserActions.getUserInfoFailure, (state, action) => {
-    console.log(action.type);
+    // console.log(action.type);
     let newState = {
       ...state,
       error: action.error,
@@ -35,7 +35,7 @@ export const userReducer = createReducer(
     return newState;
   }),
   on(UserActions.clearUserInfo, (state, action) => {
-    console.log(action.type);
+    // console.log(action.type);
     let newState = {
       ...state,
       user: <User>{},
@@ -43,14 +43,14 @@ export const userReducer = createReducer(
     return newState;
   }),
   on(UserActions.getUserInfoByEmail, (state, action) => {
-    console.log(action.type);
+    // console.log(action.type);
     let newState = {
       ...state,
     };
     return newState;
   }),
   on(UserActions.getUserInfoByEmailSuccess, (state, action) => {
-    console.log(action.type);
+    // console.log(action.type);
     let newState = {
       ...state,
       inviteUser: action.user,
@@ -58,7 +58,7 @@ export const userReducer = createReducer(
     return newState;
   }),
   on(UserActions.getUserInfoByEmailFailure, (state, action) => {
-    console.log(action.type);
+    // console.log(action.type);
     let newState = {
       ...state,
       error: action.error,

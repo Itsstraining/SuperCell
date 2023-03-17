@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (userState.user._id != this.user._id) {
         this.user = userState.user;
         if (this.idToken) {
-          console.log('userId: ', userState.user._id);
+          // console.log('userId: ', userState.user._id);
           // console.log('idToken: ', this.idToken);
           this.store.dispatch(
             SheetFileActions.getSheetFilesByUserId({
@@ -104,7 +104,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
       if (state.sheetFiles != this.sheetFiles) {
         this.sheetFiles = state.sheetFiles;
-        console.log('sheetFiles: ', this.sheetFiles);
+        // console.log('sheetFiles: ', this.sheetFiles);
       }
       if (state.error.includes('is already in shared list')) {
         this.openSnackBar(state.error);
@@ -157,7 +157,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result);
+        // console.log(result);
         this.store.dispatch(
           SheetFileActions.renameSheetFile({
             sheetFile: result,

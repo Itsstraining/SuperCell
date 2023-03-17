@@ -9,6 +9,7 @@ export const environment = {
     measurementId: 'G-NN7EC52CX3',
   },
   apiUrl: 'http://localhost:6969',
-  httpsUrl: 'https://supercell.web23s.itss.edu.vn',
+  apiEndpoint: 'https://supercell-xgup3fwrga-as.a.run.app',
+  socketEndpoint: 'wss://supercell-xgup3fwrga-as.a.run.app',
   production: true,
 };

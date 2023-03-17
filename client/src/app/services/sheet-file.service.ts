@@ -5,11 +5,11 @@ import { SheetFile } from '../models/sheetFile.model';
 
 @Injectable({ providedIn: 'root' })
 export class SheetFileService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   create(sheetFile: SheetFile, idToken: string) {
     return this.http.post<SheetFile>(
-      environment.apiUrl + '/sheetfile',
+      environment.apiEndpoint + '/sheetfile',
       sheetFile,
       { headers: new HttpHeaders({ Authorization: `${idToken}` }) }
     );
@@ -17,21 +17,21 @@ export class SheetFileService {
 
   getSheetFiles(idToken: string, _id: string) {
     return this.http.get<SheetFile[]>(
-      environment.apiUrl + '/sheetfile/user/' + _id,
+      environment.apiEndpoint + '/sheetfile/user/' + _id,
       { headers: new HttpHeaders({ Authorization: `${idToken}` }) }
     );
   }
 
   getEdittingSheetFile(idToken: string, _id: string) {
     return this.http.get<SheetFile>(
-      environment.apiUrl + '/sheetfile/editting/' + _id,
+      environment.apiEndpoint + '/sheetfile/editting/' + _id,
       { headers: new HttpHeaders({ Authorization: `${idToken}` }) }
     );
   }
 
   update(sheetFile: SheetFile, idToken: string) {
     return this.http.put<SheetFile>(
-      environment.apiUrl + '/sheetfile/update',
+      environment.apiEndpoint + '/sheetfile/update',
       sheetFile,
       { headers: new HttpHeaders({ Authorization: `${idToken}` }) }
     );
@@ -39,7 +39,7 @@ export class SheetFileService {
 
   rename(sheetFile: SheetFile, idToken: string) {
     return this.http.put<SheetFile>(
-      environment.apiUrl + '/sheetfile/rename',
+      environment.apiEndpoint + '/sheetfile/rename',
       sheetFile,
       { headers: new HttpHeaders({ Authorization: `${idToken}` }) }
     );
@@ -47,7 +47,7 @@ export class SheetFileService {
 
   invite(sheetFile: SheetFile, idToken: string) {
     return this.http.put(
-      environment.apiUrl + '/sheetfile/invite',
+      environment.apiEndpoint + '/sheetfile/invite',
       sheetFile,
       { headers: new HttpHeaders({ Authorization: `${idToken}` }) }
     );
@@ -55,13 +55,13 @@ export class SheetFileService {
 
   findRequestList(idToken: string, _id: string) {
     return this.http.get<SheetFile[]>(
-      environment.apiUrl + '/sheetfile/request/' + _id,
+      environment.apiEndpoint + '/sheetfile/request/' + _id,
       { headers: new HttpHeaders({ Authorization: `${idToken}` }) }
     );
   }
   acceptRequest(sheetFile: SheetFile, idToken: string, uid: string) {
     return this.http.put(
-      environment.apiUrl + `/sheetfile/accept/${uid}`,
+      environment.apiEndpoint + `/sheetfile/accept/${uid}`,
       sheetFile,
       { headers: new HttpHeaders({ Authorization: `${idToken}` }) }
     );

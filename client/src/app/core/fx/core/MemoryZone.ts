@@ -136,47 +136,34 @@ export class MemoryZone {
   }
 
   saveToString() {
-    let result = '';
+    let data = {};
     for (let col of Object.keys(this.memory)) {
+      data[col] = {};
       for (let row of Object.keys(this.memory[col])) {
         let cell = this.memory[col][row];
         if (cell.formula != null) {
-          result += `${cell.row}${cell.col}=${cell.formula};`;
+          if (cell.value == 'Circular dependency') {
+            continue;
+          }
+          data[col][row] = {
+            formula: cell.formula,
+            value: cell.value,
+          };
         }
       }
     }
-    return result;
+    return JSON.stringify(data);
   }
 
   loadFromString(str: string) {
-    let lines = str.split(';');
-    lines = lines.filter((line) => line.length > 0);
-    console.log(lines);
-    // let lines = str.split(';');
-    // for (let line of lines) {
-    //   let parts = line.split('=');
-    //   console.log(parts);
-    //   if (parts.length == 2) {
-    //     let cell = parts[0];
-    //     let formula = parts[1];
-    //     this.setCellFormula(cell.substring(1), cell.substring(0, 1), formula);
-    //   }
-    //   if (parts.length == 1) {
-    //     let cell = parts[0];
-    //     this.setCellFormula(cell.substring(1), cell.substring(0, 1), '');
-    //   }
-    //   if (parts.length == 0) {
-    //     continue;
-    //   }
-    // if (parts.length > 2) {
-    //   let cell = parts[0];
-    //   let formula = parts[2];
-    //   console.log('=' + formula);
-    //   this.setCellFormula(
-    //     cell.substring(1),
-    //     cell.substring(0, 1),
-    //     '=' + formula
-    //   );
-    // }
+    let data = JSON.parse(str);
+    for (let col of Object.keys(data)) {
+      for (let row of Object.keys(data[col])) {
+        let cell = data[col][row];
+        this.setCellFormula(row, col, cell.formula);
+        this.setValue(row, col, cell.value);
+      }
+    }
+    // console.log(this.memory);
   }
 }

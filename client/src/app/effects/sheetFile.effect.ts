@@ -76,7 +76,7 @@ export class SheetFileEffects {
         return this.sheetFileService.update(action.sheetFile, action.idToken);
       }),
       map((sheetFile) => {
-        console.log('sheetFile', sheetFile);
+        // console.log('sheetFile', sheetFile);
         return SheetFileActions.updateSheetFileSuccess({ sheetFile });
       }),
       catchError((error: string) =>
@@ -125,7 +125,7 @@ export class SheetFileEffects {
         }
       }),
       catchError((error: string) => {
-        console.log('error', error);
+        // console.log('error', error);
         return from([SheetFileActions.inviteSheetFileFailure({ error })]);
       })
     )
