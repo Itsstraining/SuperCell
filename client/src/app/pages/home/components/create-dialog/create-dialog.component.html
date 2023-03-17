@@ -1,20 +1,25 @@
 <div mat-dialog-title>
-  <button id="closeBut" mat-dialog-close mat-icon-button
-    aria-label="Example icon button with a vertical three dot icon">
+  <button
+    id="closeBut"
+    mat-dialog-close
+    mat-icon-button
+    aria-label="Example icon button with a vertical three dot icon"
+  >
     <mat-icon>close</mat-icon>
   </button>
-  <h1 id="dialog-title">
-    Create File
-  </h1>
-  <div id="sub-title">
-    Use Files to keep similar spreadsheets together.
-  </div>
+  <h1 id="dialog-title">Create File</h1>
+  <div id="sub-title">Use Files to keep similar spreadsheets together.</div>
 </div>
 <div mat-dialog-content>
   <form class="example-form">
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>File name</mat-label>
-      <input type="text" matInput [formControl]="fileNameFormControl" title="fileName" />
+      <input
+        type="text"
+        matInput
+        [formControl]="fileNameFormControl"
+        title="fileName"
+      />
       <mat-error *ngIf="fileNameFormControl.hasError('required')">
         Missing required <strong>field</strong>
       </mat-error>
@@ -22,10 +27,20 @@
     <mat-list id="themeList">
       <div mat-subheader>Theme</div>
       <mat-list-item>
-        <mat-button-toggle-group [(ngModel)]="color" aria-label="File Color" name="color">
-          <div class="example-button-container" *ngFor="let fcolor of fileColor; let i = index">
-            <mat-button-toggle aria-label="Example icon button with a folder icon" [ngClass]="'mat-but-tog-'+i"
-              [value]="fcolor">
+        <mat-button-toggle-group
+          [(ngModel)]="color"
+          aria-label="File Color"
+          name="color"
+        >
+          <div
+            class="example-button-container"
+            *ngFor="let fcolor of fileColor; let i = index"
+          >
+            <mat-button-toggle
+              aria-label="Example icon button with a folder icon"
+              [ngClass]="'mat-but-tog-' + i"
+              [value]="fcolor"
+            >
               <mat-icon>folder</mat-icon>
             </mat-button-toggle>
           </div>
@@ -34,26 +49,42 @@
       <mat-divider></mat-divider>
       <div mat-subheader>Visibility</div>
       <mat-list-item>
-        <img matListItemAvatar src="../../../../../assets/Top secret-amico.png" alt="..." id="workspace-img">
-        <span matListItemLine class="itemName">Morningstar</span>
+        <img
+          matListItemAvatar
+          src="../../../../../assets/Top secret-amico.png"
+          alt="..."
+          id="workspace-img"
+        />
+        <span matListItemLine class="itemName">Your workspace</span>
         <span matListItemLine>
           <span>
             1 can access
-            <mat-icon #tooltip="matTooltip" matTooltip="Eneble to share with all users in your organization"
-              [matTooltipPosition]="'below'" id="warning-icon">error</mat-icon>
+            <mat-icon
+              #tooltip="matTooltip"
+              matTooltip="Eneble to share with all users in your organization"
+              [matTooltipPosition]="'below'"
+              id="warning-icon"
+              >error</mat-icon
+            >
           </span>
         </span>
         <span matListItemMeta>
           <mat-action-list>
-            <mat-slide-toggle class="example-margin" [checked]="isChecked" [disabled]="disabled" disableRipple="true"
-              [(ngModel)]="isChecked" name="canCollab">
+            <mat-slide-toggle
+              class="example-margin"
+              [checked]="isChecked"
+              [disabled]="disabled"
+              disableRipple="true"
+              [(ngModel)]="isChecked"
+              name="canCollab"
+            >
             </mat-slide-toggle>
           </mat-action-list>
         </span>
       </mat-list-item>
       <mat-list-item>
-        <img matListItemAvatar src="{{data.picture}}" alt="...">
-        <span matListItemLine class="itemName">{{data.name}} </span>
+        <img matListItemAvatar src="{{ data.picture }}" alt="..." />
+        <span matListItemLine class="itemName">{{ data.name }} </span>
         <span matListItemLine>
           <span> Owner </span>
         </span>
@@ -62,15 +93,27 @@
             <span id="editable">Can edit</span>
           </mat-action-list>
         </span>
-
       </mat-list-item>
     </mat-list>
   </form>
 
   <div mat-dialog-actions>
-    <div mat-button mat-dialog-close matRipple [matRippleDisabled]='true' style="margin:10px;cursor: pointer;">
-      Cancel</div>
-    <button mat-flat-button [disabled]="!fileNameFormControl.value" id="createBut"
-      (click)="createNewFile()">Create</button>
+    <div
+      mat-button
+      mat-dialog-close
+      matRipple
+      [matRippleDisabled]="true"
+      style="margin: 10px; cursor: pointer"
+    >
+      Cancel
+    </div>
+    <button
+      mat-flat-button
+      [disabled]="!fileNameFormControl.value"
+      id="createBut"
+      (click)="createNewFile()"
+    >
+      Create
+    </button>
   </div>
 </div>

@@ -661,11 +661,19 @@ export class SheetTableComponent implements OnInit {
         );
       } else {
         // console.log('changeCell by Enter without =');
+        // console.log(typeof event.target.value);
+        let val = event.target.value;
+        if (Number.isNaN(Number(val))) {
+          val = '"' + event.target.value + '"';
+        } else {
+          val = Number(val);
+        }
+        console.log(val);
         event.preventDefault();
         this.calculate(
           this.getColName(cell.col - 1),
           cell.row.toString(),
-          '=' + event.target.value
+          '=' + val
         );
         console.log(this.fxService.memoryZone);
         let stringMemo = this.fxService.getMemory();
@@ -674,7 +682,7 @@ export class SheetTableComponent implements OnInit {
           if (index == cell.col && c.row == cell.row) {
             return {
               ...cell,
-              value: event.target.value,
+              value: '=' + event.target.value,
               computedValue: event.target.value,
             };
           }
@@ -767,8 +775,42 @@ export class SheetTableComponent implements OnInit {
             ) {
               return r.map((c, index) => {
                 if (
-                  index >= this.cellBlock.start.col &&
-                  index <= this.cellBlock.end.col
+                  index >= this.cellBlock.end.col &&
+                  index <= this.cellBlock.start.col
+                ) {
+                  return {
+                    ...c,
+                    value: '',
+                    computedValue: '',
+                  };
+                }
+                return c;
+              });
+            } else if (
+              index >= this.cellBlock.start.row &&
+              index <= this.cellBlock.end.row
+            ) {
+              return r.map((c, index) => {
+                if (
+                  index <= this.cellBlock.start.col &&
+                  index >= this.cellBlock.start.col
+                ) {
+                  return {
+                    ...c,
+                    value: '',
+                    computedValue: '',
+                  };
+                }
+                return c;
+              });
+            } else if (
+              index <= this.cellBlock.start.row &&
+              index >= this.cellBlock.end.row
+            ) {
+              return r.map((c, index) => {
+                if (
+                  index <= this.cellBlock.start.col &&
+                  index >= this.cellBlock.end.col
                 ) {
                   return {
                     ...c,
@@ -779,6 +821,7 @@ export class SheetTableComponent implements OnInit {
                 return c;
               });
             }
+
             return r;
           });
           // console.log(newRows);
