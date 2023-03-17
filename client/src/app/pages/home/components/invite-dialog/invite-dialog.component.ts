@@ -52,7 +52,7 @@ export class InviteDialogComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.inviteUserSubscription = this.inviteUser$.subscribe((user) => {
       if (user._id) {
-        console.log('user: ', user.email);
+        // console.log('user: ', user.email);
         if (!this.tempInviteList.find((u) => u._id === user._id)) {
           this.tempInviteList.push(user);
         } else {
@@ -104,7 +104,7 @@ export class InviteDialogComponent implements OnInit, OnDestroy {
   }
 
   invite() {
-    console.log('tempInviteList: ', this.tempInviteList);
+    // console.log('tempInviteList: ', this.tempInviteList);
     if (this.tempInviteList.length === 0) {
       this.dialogRef.close([]);
     } else {

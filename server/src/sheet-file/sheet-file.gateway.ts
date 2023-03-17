@@ -8,12 +8,13 @@ import {
 export class SheetFileGateway {
   @WebSocketServer() server;
 
-  handleConnection(client: any, ...args: any[]) {
+  handleConnection(client: any) {
     console.log('client connected', client.id);
   }
 
   handleDisconnect(client: any) {
     console.log('client disconnected', client.id);
+    this.server.emit('clients', { client: client.id });
   }
 
   @SubscribeMessage('sheetfile')
@@ -23,11 +24,19 @@ export class SheetFileGateway {
     if (payload._id) {
       if (payload.user) {
         console.log(`${payload.user.email} is joined room : ${_id}`);
-        this.server.emit('sheetfile-' + _id, payload);
+        let newPayload = {
+          ...payload,
+          client: client.id,
+        };
+        this.server.emit('sheetfile-' + _id, newPayload);
       }
       if (payload.change) {
         console.log('file has been changed');
-        this.server.emit('sheetfile-' + _id, payload);
+        let newPayload = {
+          ...payload,
+          client: client.id,
+        };
+        this.server.emit('sheetfile-' + _id, newPayload);
       }
     }
   }

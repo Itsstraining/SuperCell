@@ -39,6 +39,9 @@ export class CreateDialogComponent {
       color: this.color,
       canCollab: this.isChecked,
       content: [],
+      shared: [],
+      inviteList: [],
+      memoryZone: '',
     };
     this.dialogRef.close(newFile);
   }

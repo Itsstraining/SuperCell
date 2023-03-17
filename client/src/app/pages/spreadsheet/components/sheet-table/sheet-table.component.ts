@@ -16,6 +16,7 @@ import * as SheetFileActions from '../../../../actions/sheetFile.action';
 import { FxService } from 'src/app/services/fx.service';
 import { SheetFileState } from 'src/app/states/sheetFile.state';
 import { SheetFile } from 'src/app/models/sheetFile.model';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-sheet-table',
@@ -30,7 +31,6 @@ export class SheetTableComponent implements OnInit {
       this.idToken = idToken;
     }
   }
-
   idToken: string = '';
   rows: Array<Array<Cell>> = [];
   currentCell: Cell = <Cell>{};
@@ -44,12 +44,6 @@ export class SheetTableComponent implements OnInit {
   edittingFile$ = this.store.select('sheetFile', 'edittingFile');
   edittingFile: SheetFile = <SheetFile>{};
   realTimeSheetFile: SheetFile;
-  // @Input('edittingFile') set _edittingFile(file: SheetFile) {
-  //   if (file) {
-  //     this.realTimeSheetFile = file;
-  //     console.log('realTimeSheetFile', this.realTimeSheetFile);
-  //   }
-  // }
 
   constructor(
     private store: Store<{ sheet: SheetState; sheetFile: SheetFileState }>,
@@ -66,7 +60,7 @@ export class SheetTableComponent implements OnInit {
         //check if edittingFile is change and not undefined
         if (this.edittingFile.content) {
           if (this.edittingFile.content.length > 0) {
-            console.log('edittingFile', this.edittingFile);
+            this.fxService.loadMemory(this.edittingFile.memoryZone);
             this.store.dispatch(
               SheetActions.setRows({ rows: this.edittingFile.content })
             );
@@ -114,7 +108,7 @@ export class SheetTableComponent implements OnInit {
   }
 
   addNewRow() {
-    console.log('add new row');
+    // console.log('add new row');
     this.store.dispatch(SheetActions.setBaseRow({ baseRow: this.baseRow + 1 }));
     if (this.isSelectAll) {
       this.selectAllBlock();
@@ -122,7 +116,7 @@ export class SheetTableComponent implements OnInit {
   }
 
   addNewColumn() {
-    console.log('add new column');
+    // console.log('add new column');
     this.store.dispatch(SheetActions.setBaseCol({ baseCol: this.baseCol + 1 }));
     if (this.isSelectAll) {
       this.selectAllBlock();
@@ -272,7 +266,7 @@ export class SheetTableComponent implements OnInit {
   }
 
   selectCell(cell: Cell) {
-    console.log('selectCell');
+    // console.log('selectCell');
     this.store.dispatch(SheetActions.setCurrentCell({ currentCell: cell }));
     this.store.dispatch(SheetActions.setIsSelectAll({ isSelectAll: false }));
   }
@@ -325,7 +319,7 @@ export class SheetTableComponent implements OnInit {
   }
 
   selectRowHeader(row: number) {
-    console.log('selectRowHeader');
+    // console.log('selectRowHeader');
     this.store.dispatch(SheetActions.setIsSelectAll({ isSelectAll: false }));
     let newCellBlock: CellBlock = {
       start: { row: row, col: 0 },
@@ -342,7 +336,7 @@ export class SheetTableComponent implements OnInit {
   }
 
   selectColHeader(col: number) {
-    console.log('selectColHeader');
+    // console.log('selectColHeader');
     this.store.dispatch(SheetActions.setIsSelectAll({ isSelectAll: false }));
     let newCellBlock: CellBlock = {
       start: { row: 0, col: col },
@@ -359,7 +353,7 @@ export class SheetTableComponent implements OnInit {
   }
 
   selectAllBlock() {
-    console.log('selectAllBlock');
+    // console.log('selectAllBlock');
     this.store.dispatch(SheetActions.setIsSelectAll({ isSelectAll: true }));
     let newCurrentCell: Cell = { ...this.currentCell, row: 1, col: 1 };
     this.store.dispatch(
@@ -620,9 +614,13 @@ export class SheetTableComponent implements OnInit {
           cell.row.toString(),
           event.target.value
         );
-        console.log('changeCell by Enter with =');
         console.log(this.fxService.memoryZone);
-        this.memoryZoneChange.emit({ change: 'file has been changed' });
+        let stringMemo = this.fxService.getMemory();
+        console.log(stringMemo);
+        this.fxService.loadMemory(stringMemo);
+        this.memoryZoneChange.emit({
+          change: 'file has been changed',
+        });
         let newRow = this.rows[cell.row].map((c, index) => {
           if (index == cell.col && c.row == cell.row) {
             return {
@@ -649,9 +647,10 @@ export class SheetTableComponent implements OnInit {
           })
         );
         this.store.dispatch(SheetActions.setRows({ rows: newRows }));
-        let temp = {
+        let temp: SheetFile = {
           ...this.edittingFile,
           content: newRows,
+          memoryZone: stringMemo,
         };
         this.store.dispatch(
           SheetFileActions.updateSheetFile({
@@ -660,7 +659,7 @@ export class SheetTableComponent implements OnInit {
           })
         );
       } else {
-        console.log('changeCell by Enter without =');
+        // console.log('changeCell by Enter without =');
         event.preventDefault();
         let newRow = this.rows[cell.row].map((c, index) => {
           if (index == cell.col && c.row == cell.row) {
@@ -732,7 +731,7 @@ export class SheetTableComponent implements OnInit {
           return;
         } else {
           event.preventDefault();
-          console.log('changeCell by Delete');
+          // console.log('changeCell by Delete');
           let newRows = this.rows;
           newRows = newRows.map((r, index) => {
             if (
@@ -797,7 +796,7 @@ export class SheetTableComponent implements OnInit {
 
             return r;
           });
-          console.log(newRows);
+          // console.log(newRows);
           this.store.dispatch(SheetActions.setRows({ rows: newRows }));
         }
       }
@@ -805,10 +804,10 @@ export class SheetTableComponent implements OnInit {
   }
   onBlur(cell: Cell, event: any) {
     if (event.target.value == cell.value) {
-      console.log('blur', event);
+      // console.log('blur', event);
       return;
     } else {
-      console.log('update rows');
+      // console.log('update rows');
       let newRow = this.rows[cell.row].map((c, index) => {
         if (index == cell.col && c.row == cell.row) {
           return {

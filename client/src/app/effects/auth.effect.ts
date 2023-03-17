@@ -22,9 +22,9 @@ export class AuthEffects {
         let user = this.userService.createUser(idToken);
         user.subscribe((data) => {
           if (data != null) {
-            console.log('data', data);
+            // console.log('data', data);
           } else {
-            console.log('user is existed');
+            // console.log('user is existed');
           }
         });
         return AuthActions.loginSuccess();

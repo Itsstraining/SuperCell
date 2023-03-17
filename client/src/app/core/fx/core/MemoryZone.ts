@@ -36,7 +36,7 @@ export class MemoryZone {
     if (this.memory[col] == undefined) {
       this.memory[col] = {};
     }
-    console.log(this.memory);
+    // console.log(this.memory);
     this.memory[col][row] = new MemoryCell(formula, null, null, [], row, col);
     let lexer = new ExcelLexer(new CharStream(formula));
     let parser = new ExcelParser(new CommonTokenStream(lexer));
@@ -100,7 +100,7 @@ export class MemoryZone {
       cell.isComputed = true;
     }
     let queue = [];
-    console.log('memory:', this.memory);
+    // console.log('memory:', this.memory);
     for (let col of Object.keys(this.memory)) {
       for (let row of Object.keys(this.memory[col])) {
         let cell = this.memory[col][row];
@@ -110,7 +110,7 @@ export class MemoryZone {
       }
     }
 
-    console.log('queue:', queue);
+    // console.log('queue:', queue);
     while (queue.length > 0) {
       let cellPos = queue.shift();
       let cell = this.getCell(cellPos.row, cellPos.col);
@@ -133,5 +133,50 @@ export class MemoryZone {
       cell.value = listener.finalResult;
       cell.isComputed = true;
     }
+  }
+
+  saveToString() {
+    let result = '';
+    for (let col of Object.keys(this.memory)) {
+      for (let row of Object.keys(this.memory[col])) {
+        let cell = this.memory[col][row];
+        if (cell.formula != null) {
+          result += `${cell.row}${cell.col}=${cell.formula};`;
+        }
+      }
+    }
+    return result;
+  }
+
+  loadFromString(str: string) {
+    let lines = str.split(';');
+    for (let line of lines) {
+      let parts = line.split('=');
+      console.log(parts);
+      if (parts.length == 2) {
+        let cell = parts[0];
+        let formula = parts[1];
+        this.setCellFormula(cell.substring(1), cell.substring(0, 1), formula);
+      }
+      if (parts.length == 1) {
+        let cell = parts[0];
+        this.setCellFormula(cell.substring(1), cell.substring(0, 1), '');
+      }
+      if (parts.length == 0) {
+        continue;
+      }
+      if (parts.length > 2) {
+        let cell = parts[0];
+        let formula = parts[2];
+        console.log('=' + formula);
+        this.setCellFormula(
+          cell.substring(1),
+          cell.substring(0, 1),
+          '=' + formula
+        );
+      }
+    }
+
+    // console.log(this.memory);
   }
 }

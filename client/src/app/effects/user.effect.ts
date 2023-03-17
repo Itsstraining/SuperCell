@@ -30,7 +30,7 @@ export class UserEffects {
         this.userService.getUserInfoByEmail(action.email, action.idToken)
       ),
       map((user: User) => {
-        console.log('user invited: ', user.email);
+        // console.log('user invited: ', user.email);
         if (user == null) {
           return UserActions.getUserInfoByEmailFailure({
             error: 'User not found',

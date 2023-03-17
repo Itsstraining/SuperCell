@@ -1,4 +1,7 @@
 <lib-navbar [user]="user"></lib-navbar>
 <lib-tools></lib-tools>
-<app-sheet-table (memoryZoneChange)="sendMessage($event)" [idToken]="this.idToken"></app-sheet-table>
+<app-sheet-table
+  (memoryZoneChange)="sendMessage($event)"
+  [idToken]="this.idToken"
+></app-sheet-table>
 <!--<lib-sheet></lib-sheet> -->

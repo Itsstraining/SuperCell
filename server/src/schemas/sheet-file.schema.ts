@@ -7,7 +7,6 @@ export type SheetFileDocument = HydratedDocument<SheetFile>;
 
 @Schema({ timestamps: true })
 export class SheetFile {
-
   @IsNotEmpty()
   @Prop()
   title: string;
@@ -31,6 +30,8 @@ export class SheetFile {
   @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }])
   inviteList: UserDocument[];
 
+  @Prop({ default: '' })
+  memoryZone: string;
 }
 
 export const SheetFileSchema = SchemaFactory.createForClass(SheetFile);

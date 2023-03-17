@@ -12,4 +12,5 @@ export interface SheetFile {
   color: string;
   canCollab: boolean;
   inviteList: User[];
+  memoryZone: string;
 }

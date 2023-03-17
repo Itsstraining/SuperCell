@@ -164,7 +164,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             idToken: this.idToken,
           })
         );
-        console.log('The dialog was closed');
+        // console.log('The dialog was closed');
       }
     });
   }
@@ -186,7 +186,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             idToken: this.idToken,
           })
         );
-        console.log('Create dialog was closed');
+        // console.log('Create dialog was closed');
       }
     });
   }
@@ -210,7 +210,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             ...sheetFile,
             inviteList: result,
           };
-          console.log('sheetFile Invite: ', updatedSheetFile._id);
+          // console.log('sheetFile Invite: ', updatedSheetFile._id);
           this.store.dispatch(
             SheetFileActions.inviteSheetFile({
               idToken: this.idToken,
@@ -236,7 +236,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   handleError(event: any) {
-    console.log(event);
+    // console.log(event);
     event.target.src = '../../assets/avatar.jpeg';
   }
 }

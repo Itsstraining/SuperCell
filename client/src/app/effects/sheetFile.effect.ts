@@ -59,7 +59,7 @@ export class SheetFileEffects {
         this.sheetFileService.create(action.sheetFile, action.idToken)
       ),
       map((sheetFile) => {
-        console.log('sheetFile', sheetFile);
+        // console.log('sheetFile', sheetFile);
         return SheetFileActions.createSheetFileSuccess({ sheetFile });
       }),
       catchError((error: string) =>
@@ -72,7 +72,7 @@ export class SheetFileEffects {
     this.actions$.pipe(
       ofType(SheetFileActions.updateSheetFile),
       switchMap((action) => {
-        console.log('action', action.sheetFile);
+        // console.log('action', action.sheetFile);
         return this.sheetFileService.update(action.sheetFile, action.idToken);
       }),
       map((sheetFile) => {
@@ -93,7 +93,7 @@ export class SheetFileEffects {
       ),
       map((sheetFile) => {
         if (sheetFile._id) {
-          console.log('sheetFile', sheetFile);
+          // console.log('sheetFile', sheetFile);
           return SheetFileActions.renameSheetFileSuccess({ isRename: true });
         } else {
           return SheetFileActions.renameSheetFileFailure({
@@ -115,10 +115,10 @@ export class SheetFileEffects {
       ),
       map((sheetFile: any) => {
         if (sheetFile._id) {
-          console.log('sheetFile', sheetFile);
+          // console.log('sheetFile', sheetFile);
           return SheetFileActions.inviteSheetFileSuccess({ isInvite: true });
         } else {
-          console.log('sheetFile', sheetFile);
+          // console.log('sheetFile', sheetFile);
           return SheetFileActions.inviteSheetFileFailure({
             error: sheetFile.error,
           });
@@ -143,7 +143,7 @@ export class SheetFileEffects {
       ),
       map((sheetFile) => {
         if (sheetFile) {
-          console.log('sheetFile', sheetFile);
+          // console.log('sheetFile', sheetFile);
           return SheetFileActions.acceptRequestSuccess({ isAccept: true });
         } else {
           return SheetFileActions.acceptRequestFailure({

@@ -34,4 +34,13 @@ export class SpreadsheetService {
       })
     );
   }
+
+  listenClient(_id: string) {
+    return this.socket.fromEvent(`clients`).pipe(
+      map((data: any) => {
+        // console.log(data);
+        return data;
+      })
+    );
+  }
 }

@@ -11,6 +11,7 @@ const initialState: SheetFileState = {
   isInvite: false,
   isAccept: false,
   requestList: [],
+  isUpdate: false,
 };
 
 export const sheetFileReducer = createReducer(
@@ -65,6 +66,7 @@ export const sheetFileReducer = createReducer(
     console.log(action.type);
     let newState = {
       ...state,
+      isUpdate: false,
     };
     return newState;
   }),
@@ -72,6 +74,7 @@ export const sheetFileReducer = createReducer(
     console.log(action.type);
     let newState = {
       ...state,
+      isUpdate: true,
       // edittingFile: action.sheetFile,
     };
     return newState;
@@ -80,6 +83,7 @@ export const sheetFileReducer = createReducer(
     console.log(action.type);
     let newState = {
       ...state,
+      isUpdate: false,
       error: action.error,
     };
     return newState;

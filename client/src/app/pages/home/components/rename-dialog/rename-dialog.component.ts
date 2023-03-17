@@ -27,12 +27,12 @@ export class RenameDialogComponent {
   ngOnInit(): void {}
 
   renameNewFile() {
-    console.log(this.newFileName,'ddsa');
+    // console.log(this.newFileName,'ddsa');
     let newName = this.newFileName?.trim();
-    console.log(newName);
+    // console.log(newName);
     if (newName == this.data.title || newName == '' || newName == null) {
       this.openSnackBar();
-    }else{
+    } else {
       let newFile = {
         _id: this.data._id,
         owner: this.data.owner,

@@ -39,7 +39,7 @@ export class SheetFileService {
       let newSheetFIle = await this.sheetFileModel
         .findOneAndUpdate(
           { _id: sheetFile._id },
-          { content: sheetFile.content },
+          { content: sheetFile.content, memoryZone: sheetFile.memoryZone },
           { new: true },
         )
         .exec();
@@ -158,6 +158,7 @@ export class SheetFileService {
           color: sheetFile.color,
           shared: sheetFile.shared,
           inviteList: newInviteList,
+          memoryZone: sheetFile.memoryZone,
         };
         console.log(`${sheetFile._id} was updated`);
         return await this.sheetFileModel.findOneAndUpdate(
@@ -190,6 +191,7 @@ export class SheetFileService {
           color: sheetFile.color,
           shared: [...sheetFile.shared, Object(uid)],
           inviteList: newInviteList,
+          memoryZone: sheetFile.memoryZone,
         };
         return await this.sheetFileModel.findOneAndUpdate(
           { _id: sheetFile._id },

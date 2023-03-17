@@ -61,4 +61,14 @@ export class FxService {
   public getPrerequisites() {
     return this.memoryZone.prerequisites;
   }
+
+  public getMemory() {
+    return this.memoryZone.saveToString();
+  }
+
+  public loadMemory(memory: string) {
+    this.memoryZone.loadFromString(memory);
+    this.memoryZone.execute();
+    // console.log(this.memoryZone);
+  }
 }
