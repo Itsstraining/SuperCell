@@ -663,6 +663,14 @@ export class SheetTableComponent implements OnInit {
       } else {
         // console.log('changeCell by Enter without =');
         event.preventDefault();
+        this.calculate(
+          this.getColName(cell.col - 1),
+          cell.row.toString(),
+          '=' + event.target.value
+        );
+        console.log(this.fxService.memoryZone);
+        let stringMemo = this.fxService.getMemory();
+        console.log(stringMemo);
         let newRow = this.rows[cell.row].map((c, index) => {
           if (index == cell.col && c.row == cell.row) {
             return {
@@ -689,6 +697,7 @@ export class SheetTableComponent implements OnInit {
         let temp = {
           ...this.edittingFile,
           content: newRows,
+          memoryZone: stringMemo,
         };
         this.store.dispatch(
           SheetFileActions.updateSheetFile({
