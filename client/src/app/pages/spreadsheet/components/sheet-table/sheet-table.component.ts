@@ -43,7 +43,6 @@ export class SheetTableComponent implements OnInit {
 
   edittingFile$ = this.store.select('sheetFile', 'edittingFile');
   edittingFile: SheetFile = <SheetFile>{};
-  realTimeSheetFile: SheetFile;
 
   constructor(
     private store: Store<{ sheet: SheetState; sheetFile: SheetFileState }>,

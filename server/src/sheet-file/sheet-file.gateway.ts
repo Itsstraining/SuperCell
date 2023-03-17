@@ -31,7 +31,7 @@ export class SheetFileGateway {
         this.server.emit('sheetfile-' + _id, newPayload);
       }
       if (payload.change) {
-        console.log('file has been changed');
+        console.log('file has been changed1');
         let newPayload = {
           ...payload,
           client: client.id,
