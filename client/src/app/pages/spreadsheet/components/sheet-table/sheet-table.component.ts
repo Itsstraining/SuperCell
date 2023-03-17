@@ -60,7 +60,9 @@ export class SheetTableComponent implements OnInit {
         //check if edittingFile is change and not undefined
         if (this.edittingFile.content) {
           if (this.edittingFile.content.length > 0) {
-            // this.fxService.loadMemory(this.edittingFile.memoryZone);
+            console.log('edittingFile is change', this.edittingFile.memoryZone);
+            // this.fxService.reset();
+            this.fxService.loadMemory(this.edittingFile.memoryZone);
             this.store.dispatch(
               SheetActions.setRows({ rows: this.edittingFile.content })
             );
@@ -769,35 +771,20 @@ export class SheetTableComponent implements OnInit {
                 return c;
               });
             }
-            // else if(index >= this.cellBlock.start.row && index <= this.cellBlock.end.row){
-            //   return r.map((c, index) => {
-            //     if (index <= this.cellBlock.start.col && index >= this.cellBlock.end.col) {
-            //       return {
-            //         ...c,
-            //         value: '',
-            //         computedValue: ''
-            //       }
-            //     }
-            //     return c;
-            //   })
-            // }
-            // else if(index <= this.cellBlock.start.row && index >= this.cellBlock.end.row){
-            //   return r.map((c, index) => {
-            //     if (index <= this.cellBlock.start.col && index >= this.cellBlock.end.col) {
-            //       return {
-            //         ...c,
-            //         value: '',
-            //         computedValue: ''
-            //       }
-            //     }
-            //     return c;
-            //   })
-            // }
-
             return r;
           });
           // console.log(newRows);
           this.store.dispatch(SheetActions.setRows({ rows: newRows }));
+          let temp: SheetFile = {
+            ...this.edittingFile,
+            content: newRows,
+          };
+          this.store.dispatch(
+            SheetFileActions.updateSheetFile({
+              sheetFile: temp,
+              idToken: this.idToken,
+            })
+          );
         }
       }
     }

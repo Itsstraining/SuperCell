@@ -150,33 +150,33 @@ export class MemoryZone {
 
   loadFromString(str: string) {
     let lines = str.split(';');
-    for (let line of lines) {
-      let parts = line.split('=');
-      console.log(parts);
-      if (parts.length == 2) {
-        let cell = parts[0];
-        let formula = parts[1];
-        this.setCellFormula(cell.substring(1), cell.substring(0, 1), formula);
-      }
-      if (parts.length == 1) {
-        let cell = parts[0];
-        this.setCellFormula(cell.substring(1), cell.substring(0, 1), '');
-      }
-      if (parts.length == 0) {
-        continue;
-      }
-      if (parts.length > 2) {
-        let cell = parts[0];
-        let formula = parts[2];
-        console.log('=' + formula);
-        this.setCellFormula(
-          cell.substring(1),
-          cell.substring(0, 1),
-          '=' + formula
-        );
-      }
-    }
-
-    // console.log(this.memory);
+    lines = lines.filter((line) => line.length > 0);
+    console.log(lines);
+    // let lines = str.split(';');
+    // for (let line of lines) {
+    //   let parts = line.split('=');
+    //   console.log(parts);
+    //   if (parts.length == 2) {
+    //     let cell = parts[0];
+    //     let formula = parts[1];
+    //     this.setCellFormula(cell.substring(1), cell.substring(0, 1), formula);
+    //   }
+    //   if (parts.length == 1) {
+    //     let cell = parts[0];
+    //     this.setCellFormula(cell.substring(1), cell.substring(0, 1), '');
+    //   }
+    //   if (parts.length == 0) {
+    //     continue;
+    //   }
+    // if (parts.length > 2) {
+    //   let cell = parts[0];
+    //   let formula = parts[2];
+    //   console.log('=' + formula);
+    //   this.setCellFormula(
+    //     cell.substring(1),
+    //     cell.substring(0, 1),
+    //     '=' + formula
+    //   );
+    // }
   }
 }
