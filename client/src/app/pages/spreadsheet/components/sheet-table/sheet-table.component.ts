@@ -676,7 +676,7 @@ export class SheetTableComponent implements OnInit {
           cell.row.toString(),
           '=' + val
         );
-        console.log(this.fxService.memoryZone);
+        // console.log(this.fxService.memoryZone);
         let stringMemo = this.fxService.getMemory();
         // console.log(stringMemo);
         let newRow = this.rows[cell.row].map((c, index) => {
@@ -872,7 +872,7 @@ export class SheetTableComponent implements OnInit {
       this.fxService.setFormula(row, col, value);
       this.fxService.execute();
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   }
 }

@@ -78,7 +78,7 @@ export class AcceptDialogComponent implements OnInit, OnDestroy {
   }
 
   handleError(event: any) {
-    console.log(event);
+    // console.log(event);
     event.target.src = '../../../assets/avatar.jpeg';
   }
 }

@@ -67,7 +67,7 @@ export class NavbarComponent implements OnInit {
     this.clientId$.subscribe((id) => {
       // console.log('clientId: ', id);
       this.spreadSheetService.listenClient(id).subscribe((data) => {
-        console.log(data);
+        // console.log(data);
         let index = this.joinedList.findIndex(
           (dat) => dat.clientId === data.client
         );

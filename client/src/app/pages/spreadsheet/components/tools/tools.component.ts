@@ -84,9 +84,9 @@ export class ToolsComponent implements OnInit {
         // console.log(val);
         event.preventDefault();
         this.calculate(this.col, this.row, event.target.value);
-        console.log(this.fxService.memoryZone);
+        // console.log(this.fxService.memoryZone);
         let stringMemo = this.fxService.getMemory();
-        console.log(stringMemo);
+        // console.log(stringMemo);
         // this.fxService.loadMemory(stringMemo);
         this.memoryZoneChange.emit({
           change: 'file has been changed',
@@ -143,9 +143,9 @@ export class ToolsComponent implements OnInit {
           this.currentCell.row.toString(),
           '=' + val
         );
-        console.log(this.fxService.memoryZone);
+        // console.log(this.fxService.memoryZone);
         let stringMemo = this.fxService.getMemory();
-        console.log(stringMemo);
+        // console.log(stringMemo);
         let newRow = this.rows[this.currentCell.row].map((c, index) => {
           if (index == this.currentCell.col && c.row == this.currentCell.row) {
             return {
@@ -188,7 +188,7 @@ export class ToolsComponent implements OnInit {
       this.fxService.setFormula(row, col, value);
       this.fxService.execute();
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   }
 }
